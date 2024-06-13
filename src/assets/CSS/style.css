@@ -1,0 +1,151 @@
+/* General Styles */
+*{
+    -fx-font-family: 'Arial';
+}
+
+.root {
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-background-color: #0f0d25;
+    -fx-text-fill: #ffffff;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #d9d1f7;
+    -fx-text-fill: #0f0d25;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 30;
+}
+
+.whitePane{
+    -fx-background-color: #505050;
+}
+
+.button:hover {
+    -fx-background-color: #c0b3f0;
+}
+
+.button:pressed {
+    -fx-background-color: #b0a3e0;
+}
+
+/* TextField and PasswordField Styles */
+.text-field, .password-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0f0d25;
+    -fx-padding: 10px;
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #d9d1f7;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5;
+}
+
+/* Label Styles */
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    -fx-background-color: #1a172f;
+    -fx-padding: 20px;
+}
+
+.sidebar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d9d1f7;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #d9d1f7;
+    -fx-text-fill: #0f0d25;
+}
+
+/* TableView Styles */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0f0d25;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #d9d1f7;
+}
+
+.table-view .filler {
+    -fx-background-color: #ffffff;
+}
+
+.table-view .column-header, .table-view .column-header-background {
+    -fx-border-color: transparent;
+}
+
+.table-view .table-row-cell {
+    -fx-border-color: #f2f2f2;
+}
+
+.table-view:focused .table-row-cell:focused {
+    -fx-background-color: #d9d1f7;
+}
+
+/* Filter Button Styles */
+.filter-button {
+    -fx-background-color: #d9d1f7;
+    -fx-text-fill: #0f0d25;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 5;
+}
+
+.filter-button:hover {
+    -fx-background-color: #c0b3f0;
+}
+
+.filter-button:pressed {
+    -fx-background-color: #b0a3e0;
+}
+
+/* ScrollPane Styles */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Search Bar Styles */
+.text-field.search-bar {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0f0d25;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 20;
+}
+
+.text-field.search-bar:focused {
+    -fx-border-color: #d9d1f7;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 20;
+}
+
+/* Title Styles */
+.title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* User Info Styles */
+.user-info {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}

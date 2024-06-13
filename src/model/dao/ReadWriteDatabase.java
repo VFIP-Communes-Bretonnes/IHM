@@ -1,0 +1,263 @@
+package model.dao;
+
+import java.io.Serializable;
+import java.sql.*;
+import model.data.*;
+
+/**
+ * Public class that represents the data access object (DAO) for the application.
+ * 
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @version 30/05/2024
+ */
+public class ReadWriteDatabase implements Serializable{
+
+    /**
+     * Private static attribute, the AllObjectsData object that contains all the data for the application.
+     */
+    private static AllObjectsData allObjectsData;
+    
+    /**
+     * Private static final attribute, the URL of the database.
+     */
+    final static String databaseUrl = "jdbc:mysql://localhost:3306/bdSAE";
+    
+    /**
+     * Private static final attribute, the default username for the database.
+     */
+    final static String defaultUserName = "application";
+    
+    /**
+     * Private static final attribute, the default password for the database.
+     */
+    final static String defaultUserPassword = "application";
+
+    /**
+     * Public default constructor, creates a new ReadWriteDatabase object and initializes the allObjectsData attribute.
+     */
+    public ReadWriteDatabase(){
+        allObjectsData = new AllObjectsData();
+    }
+
+    public void loadDepartement() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ///////// DEPARTEMENT
+
+        ResultSet res = DatabaseStatement.executeQuery("select * from departement");
+        while(res.next()){
+            int investissementCulturel2019 = res.getInt("investissementCulturel2019");
+            String nomDepartement = res.getString("nomDep").replace('-', '_').replace('\'', '_');
+            int idDepartement = res.getInt("idDep");
+            Departement departement = new Departement(idDepartement, Departement.NomDepartement.valueOf(nomDepartement) , investissementCulturel2019);
+            allObjectsData.addDepartement(departement);
+        }
+    }
+
+    public void loadCommune() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from commune");
+        
+        ///////// COMMUNE
+
+        while(res.next()){
+            int idCommune = res.getInt("idCommune");
+            String nomCommune = res.getString("nomCommune");
+            int idDepartement = res.getInt("leDepartement");
+            Commune commune = new Commune(idCommune, nomCommune , allObjectsData.getDepartementAvecID(idDepartement));
+            allObjectsData.addCommune(commune);
+        }
+    }
+
+    public void loadGare() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from gare");
+
+                ///////// GARE
+
+        while(res.next()){
+            int codeGare = res.getInt("codeGare");
+            String nomGare = res.getString("nomGare");
+            boolean estFret = res.getBoolean("estFret");
+            boolean estVoyageur = res.getBoolean("estVoyageur");
+            int laCommune = res.getInt("laCommune");
+            Gare gare = new Gare(codeGare, nomGare, estFret, estVoyageur, allObjectsData.getCommuneAvecID(laCommune));
+            allObjectsData.addGare(gare);
+        }
+        
+    }
+
+    public void loadVoisinage() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from Voisinage");
+        
+        ///////// VOISINAGE
+
+        while(res.next()){
+            int idCommune = res.getInt("commune");
+            int idCommuneVoisine = res.getInt("communeVoisine");
+
+            allObjectsData.getCommuneAvecID(idCommune).ajouterVoisin(allObjectsData.getCommuneAvecID(idCommuneVoisine));
+        }
+    }
+
+    public void loadAnnee() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from Annee");
+
+        ///////// ANNEE
+
+        while(res.next()){
+            int idAnnee = res.getInt("annee");
+            double tauxInflation = res.getFloat("tauxInflation");
+            Annee annee = new Annee(idAnnee, tauxInflation);
+            allObjectsData.addAnnee(annee);
+        }
+        
+    }
+
+    public void loadDonneesAnnuelles() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from DonneesAnnuelles");
+
+        ///////// DONNEESANNUELLES
+
+        while(res.next()){
+            int lAnnee = res.getInt("lAnnee");
+            int laCommune = res.getInt("laCommune");
+            int nbMaison = res.getInt("nbMaison");
+            int nbAppart = res.getInt("nbAppart");
+            double prixMoyen = res.getFloat("prixMoyen");
+            double prixM2Moyen = res.getFloat("prixM2Moyen");
+            double surfaceMoy = res.getFloat("SurfaceMoy");
+            double depensesCulturellesTotales = res.getFloat("depensesCulturellesTotales");
+            double budgetTotal = res.getFloat("budgetTotal");
+            int population = res.getInt("population");
+            DonneesAnnuelles donneesAnnuelles = new DonneesAnnuelles(allObjectsData.getLAnneeAvecID(lAnnee), allObjectsData.getCommuneAvecID(laCommune), nbMaison, nbAppart, prixMoyen, prixM2Moyen, surfaceMoy, depensesCulturellesTotales, budgetTotal, population);
+            allObjectsData.addDonneesAnnuelles(donneesAnnuelles);
+        }
+        
+    }
+
+    public void loadAeroport() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from Aeroport");
+
+        ///////// AEROPORT
+        
+        while(res.next()){
+            String nom = res.getString("nom");
+            String adresse = res.getString("adresse");
+            int leDepartement = res.getInt("leDepartement");
+            Aeroport aeroport = new Aeroport(nom, adresse, allObjectsData.getDepartementAvecID(leDepartement));
+            allObjectsData.addAeroport(aeroport);
+        }
+        
+    }
+
+    public void loadAllData() throws SQLException{
+        loadDepartement();
+        loadCommune();
+        loadGare();
+        loadVoisinage();
+        loadAnnee();
+        loadDonneesAnnuelles();
+        loadAeroport();
+    }
+
+    /**
+     * Public method that loads all the users from the database and stores them in the allObjectsData attribute.
+     *
+     * @throws SQLException if an error occurs while accessing the database.
+     */
+    public void loadAllUsers() throws SQLException{
+        Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        Statement DatabaseStatement = DatabaseConnection.createStatement();
+        ResultSet res = DatabaseStatement.executeQuery("select * from utilisateurs");
+        while(res.next()){
+            String nom = res.getString("nom");
+            String role = res.getString("roles");
+            User user = new User(nom,role,this);
+            allObjectsData.addUser(user);
+        }
+    }
+
+     /**
+     * Public method that returns the AllObjectsData object that contains all the data for the application.
+     *
+     * @return The AllObjectsData object that contains all the data for the application, an AllObjectsData object.
+     */
+    public AllObjectsData getAllObjectsData(){
+        return allObjectsData;
+    }
+
+    /**
+     * Public method that finds a user in the database with the specified username and password and returns the user's role.
+     *
+     * @param utilisateur The username of the user. It cannot be null or empty, a String object.
+     * @param motDePasse The password of the user. It cannot be null or empty, a String object.
+     * @return The user's role if the user is found in the database with the specified username and password, "err" otherwise, a String object.
+     * @throws RuntimeException if utilisateur or motDePasse are null or empty.
+     */
+    public String findUserAndGetRole(String utilisateur, String motDePasse){
+        String ret = "err";
+        if(utilisateur == null){
+            throw new RuntimeException("[ERREUR:ReadWriteDatabase:setCurrentUser] : le parametre 'utilisateur' est 'null' ");
+        }
+        if(motDePasse == null){
+            throw new RuntimeException("[ERREUR:ReadWriteDatabase:setCurrentUser] : le parametre 'motDePasse' est 'null' ");
+        }
+        try{
+            Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+            Statement DatabaseStatement = DatabaseConnection.createStatement();
+            ResultSet res = DatabaseStatement.executeQuery("select * from utilisateurs");
+            while(res.next() && ret.equals("err")){
+                String nom = res.getString("nom");
+                String pswrd = res.getString("pswrd");
+                String roles = res.getString("roles");
+
+                if(nom.equals(utilisateur) && pswrd.equals(motDePasse)){
+                    ret = roles;
+                }
+            }
+        }
+        catch(SQLException e){
+            System.err.println(e.getStackTrace());
+        }
+        return ret;
+    }
+
+    /**
+     * Public static method that adds a new user to the database with the specified username, password, and role.
+     *
+     * @param userName The username of the new user. It cannot be null or empty, a String object.
+     * @param password The password of the new user. It cannot be null or empty, a String object.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
+    public static void addNewUser(String userName, String password) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO utilisateurs (nom, pswrd, roles) VALUES (?, ?, ?)")) {
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, "user");
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void deleteUserByUsername(String userName) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM utilisateurs WHERE nom = ?;")) {
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.executeUpdate();
+        }
+    }
+}

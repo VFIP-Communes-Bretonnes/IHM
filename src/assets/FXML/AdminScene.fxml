@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Scene stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+    <AnchorPane prefHeight="509.0" prefWidth="741.0">
+      <children>
+         <ImageView fitHeight="45.0" fitWidth="58.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Images/logo.png" />
+            </image></ImageView>
+
+         <Label layoutX="55.0" layoutY="12.0" prefWidth="84.0" text="Statumun">
+            <font>
+               <Font name="Arial Black" size="20.0" />
+            </font>
+         </Label>
+         <FlowPane layoutX="159.0" layoutY="71.0" prefHeight="420.0" prefWidth="565.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+            <children>
+               <GridPane alignment="CENTER" prefHeight="423.0" prefWidth="567.0">
+                 <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                  <children>
+                     <Label prefHeight="133.0" prefWidth="218.0" style="-fx-text-fill: black;" text="Home" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  </children>
+               </GridPane>
+            </children>
+         </FlowPane>
+         <GridPane layoutY="69.0" prefHeight="424.0" prefWidth="161.0">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <Button fx:id="button_home_adminpage" mnemonicParsing="false" onAction="#openHomePageAdmin" text="Tableau de bord" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+               <Button fx:id="button_bdd_adminpage" mnemonicParsing="false" onAction="#openBDDPageAdmin" style="-fx-background-color: #61A2FF;" text="Gestion BDD" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+               <Button fx:id="button_user_register" mnemonicParsing="false" onAction="#openUserPageAdmin" style="-fx-background-color: #61A2FF;" text="Utilisateurs" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+               <Button fx:id="button_stat_register" mnemonicParsing="false" onAction="#openStatPageAdmin" style="-fx-background-color: #61A2FF;" text="Statistiques" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+               <Button fx:id="button_settings_register" mnemonicParsing="false" onAction="#openSettingsPageAdmin" style="-fx-background-color: #61A2FF;" text="Paramètres" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+               <Button fx:id="button_deco_register" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #FFB561;" text="Déconnexion" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            </children>
+         </GridPane>
+      </children></AnchorPane>
+</Scene>
