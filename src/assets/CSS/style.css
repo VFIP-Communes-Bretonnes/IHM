@@ -115,6 +115,17 @@
     -fx-background-color: -fx-primary-color;
 }
 
+#back_button {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+#back_button:hover {
+    -fx-background-color: -fx-light-grey-color;
+     -fx-text-fill: white;
+}
+
+
 /* TextField */
 
 .text-field, password-field {
