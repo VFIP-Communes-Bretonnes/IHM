@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import javafx.util.converter.DefaultStringConverter;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import model.dao.ReadWriteDatabase;
@@ -151,10 +152,20 @@ public class MainController {
     @FXML private Button button_exportcsv_bdd_pageadmin;
     @FXML private Button button_savetobdd_bdd_pageadmin;
 
+    // user admin
+    @FXML private Button button_saveusers_adminpage;
+
     // pour les TableView
 
     private HashMap<ComboBox<String>, Integer> comboBoxList;
     private VBox neighborListContainer;
+
+    public void saveUserToBDD(ActionEvent event){
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        ReadWriteDatabase database = new ReadWriteDatabase();
+
+        
+    }
 
     public void exportDataToCSV(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -175,7 +186,7 @@ public class MainController {
         MainController mainControllerCopy = this;
         ArrayList<User> usersList = User.loadAllDatabaseUsers();
         ObservableList<User> data = FXCollections.observableArrayList(usersList);
-        
+
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setMinWidth(100);
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -184,15 +195,25 @@ public class MainController {
         roleColumn.setMinWidth(100);
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
+        // Make the role column editable
+        roleColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+        roleColumn.setOnEditCommit(event -> {
+            User user = event.getRowValue();
+
+            
+            user.setRole(event.getNewValue());
+            // Save the updated role to the database or perform any other necessary actions
+            User.saveUser(user); // assuming you have a method to save the user
+        });
+
         TableColumn<User, String> mailColumn = new TableColumn<>("Mail");
-        roleColumn.setMinWidth(100);
-        roleColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
+        mailColumn.setMinWidth(100);
+        mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
 
         TableColumn<User, String> phoneColumn = new TableColumn<>("Phone");
-        roleColumn.setMinWidth(100);
-        roleColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        phoneColumn.setMinWidth(100);
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        roleColumn.setEditable(true);
         tableView_user_adminpage.setEditable(true);
 
         TableColumn<User, Void> buttonCol = new TableColumn<>("Action");
