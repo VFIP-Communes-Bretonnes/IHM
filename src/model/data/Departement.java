@@ -139,7 +139,7 @@ public class Departement implements Serializable {
      */
     public String toString() {
         String toRet = "";
-        toRet += "Departement{idDep=" + idDep + ", nomDep='" + nomDep + "', investissementCulturel2019=" + investissementCulturel2019 + "}";
+        toRet += nomDep + " (" + idDep + ")";
         return toRet;
     }
 }

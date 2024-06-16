@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import model.data.Departement.NomDepartement;
 
 /**
  * Public class that represents a collection of all the objects in the app.
  *
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
  * @version 30/05/2024
  */
 public class AllObjectsData implements Serializable {
@@ -84,6 +88,10 @@ public class AllObjectsData implements Serializable {
      */
     public ArrayList<User> getUsersList(){
         return this.usersList;
+    }
+
+    public ArrayList<Departement.NomDepartement> getNomDepartementsList(){
+        return new ArrayList<>(Arrays.asList(Departement.NomDepartement.values()));
     }
 
     /**
@@ -456,5 +464,33 @@ public class AllObjectsData implements Serializable {
         catch (FileNotFoundException e) {
             System.out.println(e.getStackTrace());
         }
+    }
+
+    public Object findObject(Object o){
+        Object retO = null;
+
+        if(departementsList.indexOf(o) != -1){
+            retO = departementsList.get(departementsList.indexOf(o));
+        }
+        else if(aeroportsList.indexOf(o) != -1){
+            retO = aeroportsList.get(aeroportsList.indexOf(o));
+        }
+        else if(anneesList.indexOf(o) != -1){
+            retO = anneesList.get(anneesList.indexOf(o));
+        }
+        else if(communesList.indexOf(o) != -1){
+            retO = communesList.get(communesList.indexOf(o));
+        }
+        else if(donneesAnnuellesList.indexOf(o) != -1){
+            retO = donneesAnnuellesList.get(donneesAnnuellesList.indexOf(o));
+        }
+        else if(donneesAnnuellesList.indexOf(o) != -1){
+            retO = donneesAnnuellesList.get(donneesAnnuellesList.indexOf(o));
+        }
+        else if(usersList.indexOf(o) != -1){
+            retO = usersList.get(usersList.indexOf(o));
+        }
+
+        return retO;
     }
 }

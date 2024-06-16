@@ -151,7 +151,7 @@ public class Aeroport implements Serializable{
      */
     public String toString() {
         String toRet = "";
-        toRet += "Aeroport{nom='" + nom + "', adresse='" + adresse + "', leDepartement=" + leDepartement + "}";
+        toRet += nom;
         return toRet;
     }
 }

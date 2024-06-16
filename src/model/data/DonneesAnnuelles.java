@@ -315,16 +315,8 @@ public class DonneesAnnuelles implements Serializable{
      */
     public String toString() {
         String toRet = "";
-        toRet += "DonneesAnnuelles{lAnnee=" + lAnnee;
-        toRet += ", laCommune=" + laCommune;
-        toRet += ", nbMaison=" + nbMaison;
-        toRet += ", nbAppart=" + nbAppart;
-        toRet += ", prixMoyen=" + prixMoyen;
-        toRet += ", prixM2Moyen=" + prixM2Moyen;
-        toRet += ", surfaceMoy=" + surfaceMoy;
-        toRet += ", depensesCulturellesTotales=" + depensesCulturellesTotales;
-        toRet += ", budgetTotal=" + budgetTotal;
-        toRet += ", population=" + population + "}";
+        toRet += "DonneesAnnuelles{" + lAnnee;
+        toRet += ", " + laCommune + "}";
         return toRet;
     }
 }
