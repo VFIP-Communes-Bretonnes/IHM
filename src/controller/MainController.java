@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
@@ -21,6 +23,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -28,6 +33,12 @@ import javafx.util.Callback;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import model.dao.ReadWriteDatabase;
+import model.data.Aeroport;
+import model.data.Annee;
+import model.data.Commune;
+import model.data.Departement;
+import model.data.DonneesAnnuelles;
+import model.data.Gare;
 import model.data.User;
 
 /**
@@ -131,6 +142,9 @@ public class MainController {
     @FXML private MenuItem itemchoice_donnann_bdd_adminpage;
     @FXML private MenuItem itemchoice_gare_bdd_adminpage;
     @FXML private Button button_exportcsv_bdd_pageadmin;
+    @FXML private Button button_savetobdd_bdd_pageadmin;
+    private HashMap<ComboBox<String>, Integer> comboBoxList;
+    private VBox neighborListContainer;
 
     public void exportDataToCSV(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -200,33 +214,278 @@ public class MainController {
         tableView_user_adminpage.getColumns().addAll(usernameColumn, roleColumn, buttonCol);
     }
 
-    public void loadDataIntoTable(ArrayList<?> list, TableView tableView) {
+    public void loadDataIntoTable(ArrayList<?> list, TableView<Object> tableView, ReadWriteDatabase database) {
         tableView.getColumns().clear();
-
+    
         if (list.isEmpty()) {
             return;
         }
-
+    
+        comboBoxList = new HashMap<>();
+    
         Class<?> clazz = list.get(0).getClass();
         Field[] fields = clazz.getDeclaredFields();
-
+        neighborListContainer = new VBox();
+    
         for (Field field : fields) {
-            TableColumn<Object, String> column = new TableColumn<>(field.getName());
-            column.setCellValueFactory(cellData -> {
-                try {
-                    field.setAccessible(true);
-                    return new SimpleStringProperty(field.get(cellData.getValue()).toString());
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    return new SimpleStringProperty("");
-                }
-            });
-            column.setEditable(true);
-            tableView_bdd_adminpage.setEditable(true);
-            tableView.getColumns().add(column);
+            Class<?> fieldType = field.getType();
+    
+            if (!fieldType.isPrimitive() && !fieldType.equals(String.class)) {
+                createComboBoxColumn(tableView, database, field, fieldType);
+            } else {
+                createEditableColumn(tableView, field);
+            }
         }
 
         tableView.getItems().setAll(list);
+    }
+    
+    private void createComboBoxColumn(TableView<Object> tableView, ReadWriteDatabase database, Field field, Class<?> fieldType) {
+        String className = fieldType.getSimpleName();
+        if (className.charAt(className.length() - 1) != 's') {
+            className += "s";
+        }
+        String getterName = "get" + className.substring(0, 1).toUpperCase() + className.substring(1) + "List";
+    
+        TableColumn<Object, String> column = new TableColumn<>(field.getName());
+        column.setCellValueFactory(param -> {
+            try {
+                Field fieldRef = param.getValue().getClass().getDeclaredField(field.getName());
+                fieldRef.setAccessible(true);
+                Object value = fieldRef.get(param.getValue());
+                return new SimpleStringProperty(value == null ? null : value.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new SimpleStringProperty("");
+            }
+        });
+    
+        column.setCellFactory(param -> new ComboBoxTableCell(field, database, getterName));
+    
+        tableView.getColumns().add(column);
+    }
+    
+    private void createEditableColumn(TableView<Object> tableView, Field field) {
+        TableColumn<Object, String> column = new TableColumn<>(field.getName());
+        column.setCellValueFactory(cellData -> {
+            try {
+                field.setAccessible(true);
+                return new SimpleStringProperty(field.get(cellData.getValue()).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return new SimpleStringProperty("");
+            }
+        });
+    
+        column.setCellFactory(TextFieldTableCell.forTableColumn());
+    
+        column.setOnEditCommit(event -> {
+            Object rowObject = event.getRowValue();
+            String newValue = event.getNewValue();
+            String attributeName = field.getName();
+    
+            try {
+                Class<?> rowClass = rowObject.getClass();
+                String setterName = "set" + attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
+                Method setter = rowClass.getMethod(setterName, field.getType());
+                Object newValueParsed = parseValue(newValue, field.getType());
+                setter.invoke(rowObject, newValueParsed);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    
+            event.getTableView().refresh();
+        });
+    
+        tableView.getColumns().add(column);
+    }
+    
+    private Object parseValue(String value, Class<?> targetType) {
+        try {
+            if (targetType == int.class || targetType == Integer.class) {
+                return Integer.parseInt(value);
+            } else if (targetType == double.class || targetType == Double.class) {
+                return Double.parseDouble(value);
+            } else if (targetType == boolean.class || targetType == Boolean.class) {
+                return Boolean.parseBoolean(value);
+            } else {
+                return value;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public class ComboBoxTableCell extends TableCell<Object, String> {
+        private final ComboBox<String> comboBox;
+        private final Field field;
+        private final ReadWriteDatabase database;
+        private final String getterName;
+        private ArrayList<Object> choice;
+        private ArrayList<Object> choiceVoisin;
+        private VBox neighborContainer;
+    
+        public ComboBoxTableCell(Field field, ReadWriteDatabase database, String getterName) {
+            this.field = field;
+            this.database = database;
+            this.getterName = getterName;
+            this.comboBox = new ComboBox<>();
+            this.choice = new ArrayList<>();
+            this.choiceVoisin = new ArrayList<>();
+            this.neighborContainer = new VBox();
+    
+            comboBox.setEditable(true);
+    
+            try {
+                Method getter = database.getAllObjectsData().getClass().getMethod(getterName);
+                Object listResult = getter.invoke(database.getAllObjectsData());
+                for (Object obj : (ArrayList<?>) listResult) {
+                    comboBox.getItems().add(obj.toString());
+                    this.choice.add(obj);
+                }
+            } catch (Exception e) {
+                try{
+                    Object listResult = database.getAllObjectsData().getCommunesList();
+                    for (Object obj : (ArrayList<?>) listResult) {
+                        comboBox.getItems().add(obj.toString());
+                        this.choice.add(obj);
+                    }
+                }
+                catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+    
+            comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    Object rowObject = getTableRow().getItem();
+                    if (rowObject != null) {
+                        try {
+                            field.setAccessible(true);
+                            updateMainObject(rowObject, newValue);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+    
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                comboBox.setValue(item);
+                if (getTableRow().getItem() instanceof Commune && isNeighborField()) {
+                    updateNeighborContainer((Commune) getTableRow().getItem());
+                    setGraphic(neighborContainer);
+                } else {
+                    setGraphic(comboBox);
+                }
+            }
+        }
+    
+        private boolean isNeighborField() {
+            return field.getName().equalsIgnoreCase("listeVoisins");
+        }
+    
+        private void updateMainObject(Object rowObject, String newValue) throws Exception {
+            if (rowObject instanceof Departement) {
+                ((Departement) rowObject).setNomDep(Departement.NomDepartement.valueOf(newValue));
+            } else if (rowObject instanceof Aeroport) {
+                Object dep = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
+                ((Aeroport) rowObject).setLeDepartement((Departement) dep);
+            } else if (rowObject instanceof Commune) {
+                // No need to update here, handled by UI changes
+                try{
+                    Object dep = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
+                    if(dep instanceof Departement){
+                        ((Commune) rowObject).setLeDepartement((Departement) dep);
+                    }
+                }
+                catch (Exception e){
+                    // mdr
+                }
+            } else if (rowObject instanceof DonneesAnnuelles) {
+                Object newO = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
+                if (newO instanceof Annee) {
+                    ((DonneesAnnuelles) rowObject).setAnnee((Annee) newO);
+                } else if (newO instanceof Commune) {
+                    ((DonneesAnnuelles) rowObject).setLaCommune((Commune) newO);
+                }
+            } else if (rowObject instanceof Gare) {
+                Object newO = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
+                ((Gare) rowObject).setLaCommune((Commune) newO);
+            }
+        }
+    
+        private void updateNeighborContainer(Commune commune) {
+            neighborContainer.getChildren().clear();
+            ArrayList<Commune> neighbors = commune.getListeVoisins();
+    
+            for (Commune neighbor : neighbors) {
+                HBox neighborBox = new HBox();
+                ComboBox<String> neighborComboBox = new ComboBox<>();
+                Button deleteButton = new Button("Delete");
+    
+                for (Object obj : choice) {
+                    if (obj instanceof Commune) {
+                        neighborComboBox.getItems().add(((Commune) obj).toString());
+                    }
+                }
+    
+                neighborComboBox.setValue(neighbor.toString());
+                neighborComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    Commune newNeighbor = (Commune) choice.get(neighborComboBox.getItems().indexOf(newValue));
+                    int index = neighbors.indexOf(neighbor);
+                    if (index >= 0) {
+                        neighbors.set(index, newNeighbor);
+                    }
+                });
+    
+                deleteButton.setOnAction(event -> {
+                    neighbors.remove(neighbor);
+                    neighborContainer.getChildren().remove(neighborBox);
+                });
+    
+                neighborBox.getChildren().addAll(neighborComboBox, deleteButton);
+                neighborContainer.getChildren().add(neighborBox);
+            }
+    
+            Button addButton = new Button("Add Neighbor");
+            addButton.setOnAction(event -> {
+                HBox newNeighborBox = new HBox();
+                ComboBox<String> newNeighborComboBox = new ComboBox<>();
+                Button newDeleteButton = new Button("Delete");
+    
+                for (Object obj : choice) {
+                    if (obj instanceof Commune) {
+                        newNeighborComboBox.getItems().add(((Commune) obj).toString());
+                    }
+                }
+    
+                newNeighborComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    Commune newNeighbor = (Commune) choice.get(newNeighborComboBox.getItems().indexOf(newValue));
+                    if (!neighbors.contains(newNeighbor)) {
+                        neighbors.add(newNeighbor);
+                    }
+                });
+    
+                newDeleteButton.setOnAction(e -> {
+                    neighbors.removeIf(c -> c.toString().equals(newNeighborComboBox.getValue()));
+                    neighborContainer.getChildren().remove(newNeighborBox);
+                });
+    
+                newNeighborBox.getChildren().addAll(newNeighborComboBox, newDeleteButton);
+                neighborContainer.getChildren().add(newNeighborBox);
+            });
+    
+            neighborContainer.getChildren().add(addButton);
+        }
     }
 
     /**
@@ -539,6 +798,20 @@ public class MainController {
         }
     }
 
+    public void saveEditedDataToBDD(ActionEvent event){
+        String choix = choix_table_bdd_adminpage.getText();
+
+        ObservableList<Object> items = tableView_bdd_adminpage.getItems();
+
+        for (Object item : items) {
+            System.out.println(item);
+            System.out.println(item.getClass());
+            if(item instanceof Commune){
+                System.out.println( ((Commune) item).getListeVoisins().toString() );
+            }
+        }
+    }
+
     public void changementChoixBddAdmin(ActionEvent event){
         MenuItem clickedItem = (MenuItem) event.getSource();
         choix_table_bdd_adminpage.setText(clickedItem.getText());
@@ -549,17 +822,17 @@ public class MainController {
             database.loadAllData();
 
             if (clickedItem == itemchoice_dep_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getDepartementsList(), tableView_bdd_adminpage);
+                loadDataIntoTable(database.getAllObjectsData().getDepartementsList(), tableView_bdd_adminpage, database);
             } else if (clickedItem == itemchoice_aero_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getAeroportsList(), tableView_bdd_adminpage);
+                loadDataIntoTable(database.getAllObjectsData().getAeroportsList(), tableView_bdd_adminpage, database);
             } else if (clickedItem == itemchoice_annee_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getAnneesList(), tableView_bdd_adminpage);
+                loadDataIntoTable(database.getAllObjectsData().getAnneesList(), tableView_bdd_adminpage, database);
             } else if (clickedItem == itemchoice_com_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getCommunesList(), tableView_bdd_adminpage);
+                loadDataIntoTable(database.getAllObjectsData().getCommunesList(), tableView_bdd_adminpage, database);
             } else if (clickedItem == itemchoice_donnann_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getDonneesAnnuellesList(), tableView_bdd_adminpage);
+                loadDataIntoTable(database.getAllObjectsData().getDonneesAnnuellesList(), tableView_bdd_adminpage, database);
             } else if (clickedItem == itemchoice_gare_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getGaresList(), tableView_bdd_adminpage);
+                loadDataIntoTable(database.getAllObjectsData().getGaresList(), tableView_bdd_adminpage, database);
             }
             System.out.println(clickedItem.getText());
             System.out.println(database.getAllObjectsData().getDepartementsList().toString());
