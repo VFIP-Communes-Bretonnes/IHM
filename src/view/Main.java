@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * Public class that represents the main entry point for the JavaFX application.
  *
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
  * @version 30/05/2024
  */
 public class Main extends Application {
