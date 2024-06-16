@@ -15,6 +15,9 @@
    	-fx-focus-color: -fx-secondary-color;
 }
 
+
+/* Date Picker Styles */
+
 .date-picker {
     -fx-background-color: transparent;
 }
@@ -63,6 +66,8 @@
 	-fx-background-color: white;
 }
 
+/* CheckBox Styles */
+
 .check-box .box {
 	-fx-background-color: white;
 	-fx-border-color: transparent;
@@ -103,11 +108,11 @@
 }
 
 .button:hover {
-    -fx-background-color: #-fx-secondary-color;
+    -fx-background-color: -fx-secondary-color;
 }
 
 .button:pressed {
-    -fx-background-color: #-fx-secondary-color;
+    -fx-background-color: -fx-secondary-color;
 }
 
 /* TextField */
