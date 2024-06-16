@@ -8,6 +8,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.management.relation.Role;
 
 import model.dao.ReadWriteDatabase;
 
@@ -41,6 +44,10 @@ public class User implements Serializable {
      * Private attribute, the database object for the user, a ReadWriteDatabase object.
      */
     private ReadWriteDatabase database;
+
+    public enum Roles {
+        user, admin;
+    }
 
     /**
      * Public default constructor, creates a new User object with default values.
@@ -134,6 +141,21 @@ public class User implements Serializable {
     }
 
     public void setRole(String role){
+        if(role == null){
+            throw new RuntimeException("[ERREUR:User:setRole] : le parametre 'role' est 'null' ");
+        }
+
+        boolean roleExiste = false;
+        for (Roles roles : Roles.values() ) {
+            if(roles.toString().equals(role)){
+                roleExiste = true;
+            }
+        }
+
+        if(roleExiste == false){
+            throw new IllegalArgumentException("[ERREUR:User:setRole] : le parametre 'role' est invalide (le rôle choisi n'existe pas) ");
+        }
+
         this.role = role;
     }
 

@@ -190,12 +190,15 @@ public class MainController {
         roleColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
         roleColumn.setOnEditCommit(event -> {
             User user = event.getRowValue();
-            user.setRole(event.getNewValue());
             try{
+                user.setRole(event.getNewValue());
                 user.getReadWriteDatabase().updateUserByObject(user);
             }
             catch(SQLException e){
-                showPopupInfo(null, null);
+                showPopupInfo((Stage) roleColumn.getTableView().getScene().getWindow(), "Echec de la modification du rôle dans la base de données !");
+            }
+            catch(IllegalArgumentException e){
+                showPopupInfo((Stage) roleColumn.getTableView().getScene().getWindow(), "Ce rôle n'existe pas !");
             }
         });
 
