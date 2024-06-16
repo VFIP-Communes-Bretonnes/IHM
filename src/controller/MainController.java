@@ -36,6 +36,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import model.dao.ReadWriteDatabase;
 import model.data.Aeroport;
+import model.data.AllObjectsData;
 import model.data.Annee;
 import model.data.Commune;
 import model.data.Departement;
@@ -152,20 +153,10 @@ public class MainController {
     @FXML private Button button_exportcsv_bdd_pageadmin;
     @FXML private Button button_savetobdd_bdd_pageadmin;
 
-    // user admin
-    @FXML private Button button_saveusers_adminpage;
-
     // pour les TableView
 
     private HashMap<ComboBox<String>, Integer> comboBoxList;
     private VBox neighborListContainer;
-
-    public void saveUserToBDD(ActionEvent event){
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        ReadWriteDatabase database = new ReadWriteDatabase();
-
-        
-    }
 
     public void exportDataToCSV(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -200,6 +191,12 @@ public class MainController {
         roleColumn.setOnEditCommit(event -> {
             User user = event.getRowValue();
             user.setRole(event.getNewValue());
+            try{
+                user.getReadWriteDatabase().updateUserByObject(user);
+            }
+            catch(SQLException e){
+                showPopupInfo(null, null);
+            }
         });
 
         TableColumn<User, String> mailColumn = new TableColumn<>("Mail");

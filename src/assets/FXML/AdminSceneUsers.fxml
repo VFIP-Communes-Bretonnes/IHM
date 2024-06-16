@@ -52,7 +52,6 @@
                         <children>
                            <Button fx:id="button_home_adminpage1" mnemonicParsing="false" onAction="#loadUserTableAdmin" style="-fx-background-color: #61A2FF;" text="Load Users" />
                            <Button mnemonicParsing="false" style="-fx-background-color: #61A2FF;" text="Export (CSV)" GridPane.columnIndex="2" />
-                           <Button fx:id="button_saveusers_adminpage" mnemonicParsing="false" onAction="#saveUserToBDD" style="-fx-background-color: #61A2FF;" text="Save to BDD" GridPane.columnIndex="1" />
                         </children>
                      </GridPane>
                   </children>
