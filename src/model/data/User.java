@@ -14,7 +14,7 @@ import model.dao.ReadWriteDatabase;
 /**
  * Public class that represents a user in the app.
  *
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
  * @version 30/05/2024
  */
 public class User implements Serializable {

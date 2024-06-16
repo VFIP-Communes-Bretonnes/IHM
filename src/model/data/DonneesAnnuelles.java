@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Public class that represents annual data.
  *
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
  * @version 23/05/2024
  */
 public class DonneesAnnuelles implements Serializable{

@@ -33,7 +33,7 @@ import model.data.User;
 /**
  * Public class that represents the main controller for the application.
  *
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
  * @version 30/05/2024
  */
 public class MainController {

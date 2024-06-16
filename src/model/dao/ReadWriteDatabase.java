@@ -7,7 +7,7 @@ import model.data.*;
 /**
  * Public class that represents the data access object (DAO) for the application.
  * 
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
  * @version 30/05/2024
  */
 public class ReadWriteDatabase implements Serializable{

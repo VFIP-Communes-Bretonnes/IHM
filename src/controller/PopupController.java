@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * Public class that represents the controller for the popup window.
  *
- * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprient - TREVIAN Benjamin
+ * @author DIONNE Clément - PONDAVEN Thibault - ARANDEL cyprien - TREVIAN Benjamin
  * @version 30/05/2024
  */
 public class PopupController {

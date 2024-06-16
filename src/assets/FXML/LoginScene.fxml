@@ -48,7 +48,7 @@
            </rowConstraints>
             <children>
                <Label id="title" text="Connexion" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-               <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="71.0" prefWidth="419.0" promptText="Mail" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <TextField id="textfield_username_connexion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="71.0" prefWidth="419.0" promptText="Mail" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                   <padding>
                      <Insets left="20.0" />
                   </padding>
@@ -56,25 +56,17 @@
                      <Insets top="30.0" />
                   </GridPane.margin>
                </TextField>
-               <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="419.0" style="-fx-background-color: #B8ACFF; -fx-background-radius: 43;" text="Se Connecter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <Button id="button_login_connexion" mnemonicParsing="false" prefHeight="60.0" prefWidth="419.0" text="Se Connecter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
                   <GridPane.margin>
                      <Insets top="5.0" />
                   </GridPane.margin>
                </Button>
-               <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="240.0" style="-fx-background-color: false; -fx-text-fill: #000000; -fx-opacity: 50%; -fx-font-size: 10;" text="Mot de passe oublié ?" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                  <GridPane.margin>
-                     <Insets top="65.0" />
-                  </GridPane.margin>
-                  <opaqueInsets>
-                     <Insets />
-                  </opaqueInsets>
-               </Button>
-               <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="419.0" style="-fx-background-color: #C8C8C8; -fx-background-radius: 43;" text="S'inscrire" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+               <Button id="button_register_connexion" mnemonicParsing="false" prefHeight="60.0" prefWidth="419.0" style="-fx-background-color: #C8C8C8;" text="S'inscrire" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
                   <GridPane.margin>
                      <Insets />
                   </GridPane.margin>
                </Button>
-               <PasswordField maxWidth="-Infinity" prefHeight="71.0" prefWidth="419.0" promptText="Mot de passe" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <PasswordField id="textfield_psswrd_connexion" maxWidth="-Infinity" prefHeight="71.0" prefWidth="419.0" promptText="Mot de passe" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                   <GridPane.margin>
                      <Insets bottom="30.0" />
                   </GridPane.margin>

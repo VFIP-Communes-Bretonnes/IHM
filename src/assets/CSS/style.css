@@ -108,11 +108,11 @@
 }
 
 .button:hover {
-    -fx-background-color: -fx-secondary-color;
+    -fx-opacity: 75%;
 }
 
 .button:pressed {
-    -fx-background-color: -fx-secondary-color;
+    -fx-background-color: -fx-primary-color;
 }
 
 /* TextField */
