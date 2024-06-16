@@ -33,6 +33,9 @@ public class User implements Serializable {
      * Private attribute, the role of the user, a String.
      */
     private String role;
+
+    private String mail;
+    private String phone;
     
     /**
      * Private attribute, the database object for the user, a ReadWriteDatabase object.
@@ -57,11 +60,13 @@ public class User implements Serializable {
      * @param database The database object for the user. It cannot be null, a ReadWriteDatabase object.
      * @throws RuntimeException if username, role, or database are null or empty.
      */
-    public User(String username, String role, ReadWriteDatabase database){
+    public User(String username, String role, String mail, String phone, ReadWriteDatabase database){
         this.database = database;
         this.username = username;
         this.role = role;
         this.password = "DEF";
+        this.mail = mail;
+        this.phone = phone;
     }
 
     /**
@@ -86,6 +91,28 @@ public class User implements Serializable {
      */
     public String getUsername() {
         return this.username;
+    }
+
+    public String getMail() {
+        return this.mail;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+    
+    public void setMail(String mail) {
+        if(mail == null){
+            throw new RuntimeException("[ERREUR:User:setMail] : le parametre 'mail' est 'null' ");
+        }
+        this.mail = mail;
+    }
+
+    public void setPhone(String phone) {
+        if(phone == null){
+            throw new RuntimeException("[ERREUR:User:setPhone] : le parametre 'phone' est 'null' ");
+        }
+        this.phone = phone;
     }
 
     /**
@@ -174,9 +201,9 @@ public class User implements Serializable {
      * @param password The password of the new user. It cannot be null or empty, a String object.
      * @return true if the user was added successfully, false otherwise, a boolean.
      */
-    public static boolean register(String username, String password) {
+    public static boolean register(String username, String password, String mail, String phone) {
         try{
-            ReadWriteDatabase.addNewUser(username, password);
+            ReadWriteDatabase.addNewUser(username, password, mail, phone);
             return true;
         }
         catch(SQLException e){
@@ -196,7 +223,7 @@ public class User implements Serializable {
     }
 
     public User copy(){
-        User user = new User(this.username, this.role, this.database);
+        User user = new User(this.username, this.role, this.mail, this.phone, this.database);
         user.setPassword(this.getPassword());
 
         return user;

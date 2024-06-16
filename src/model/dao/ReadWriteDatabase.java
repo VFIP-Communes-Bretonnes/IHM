@@ -183,7 +183,9 @@ public class ReadWriteDatabase implements Serializable{
         while(res.next()){
             String nom = res.getString("nom");
             String role = res.getString("roles");
-            User user = new User(nom,role,this);
+            String mail = res.getString("mail");
+            String phone = res.getString("phone");
+            User user = new User(nom,role, mail, phone ,this);
             allObjectsData.addUser(user);
         }
     }
@@ -221,8 +223,18 @@ public class ReadWriteDatabase implements Serializable{
                 String nom = res.getString("nom");
                 String pswrd = res.getString("pswrd");
                 String roles = res.getString("roles");
+                String mail = res.getString("mail");
+                String phone = res.getString("phone");
 
                 if(nom.equals(utilisateur) && pswrd.equals(motDePasse)){
+                    ret = roles;
+                }
+
+                if(mail.equals(utilisateur) && pswrd.equals(motDePasse)){
+                    ret = roles;
+                }
+
+                if(phone.equals(utilisateur) && pswrd.equals(motDePasse)){
                     ret = roles;
                 }
             }
@@ -240,13 +252,15 @@ public class ReadWriteDatabase implements Serializable{
      * @param password The password of the new user. It cannot be null or empty, a String object.
      * @throws SQLException if an error occurs while accessing the database.
      */
-    public static void addNewUser(String userName, String password) throws SQLException {
+    public static void addNewUser(String userName, String password, String mail, String phone) throws SQLException {
         try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO utilisateurs (nom, pswrd, roles) VALUES (?, ?, ?)")) {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO utilisateurs (nom, pswrd, roles, phone, mail) VALUES (?, ?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, "user");
+            preparedStatement.setString(4, phone);
+            preparedStatement.setString(5, mail);
 
             preparedStatement.executeUpdate();
         }

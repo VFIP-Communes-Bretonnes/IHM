@@ -55,7 +55,7 @@
                             <Insets left="20.0" />
                         </padding>
                     </TextField>
-                    <TextField id="tf_inscription" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="465.0" promptText="Mail" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                    <TextField id="tf_inscription" fx:id="textfield_mail_register" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="465.0" promptText="Mail" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                         <padding>
                             <Insets left="20.0" />
                         </padding>
@@ -69,14 +69,14 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
-                            <TextField maxWidth="-Infinity" prefHeight="60.0" prefWidth="228.0" promptText="Téléphone" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                            <TextField fx:id="textfield_phone_register" maxWidth="-Infinity" prefHeight="60.0" prefWidth="228.0" promptText="Téléphone" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                                 <GridPane.margin>
                                     <Insets right="4.5" />
                                 </GridPane.margin>
                                 <padding>
                                     <Insets left="20.0" />
                                 </padding></TextField>
-                            <DatePicker maxWidth="-Infinity" prefHeight="60.0" prefWidth="228.0" promptText="Date d'anniversaire" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                            <DatePicker fx:id="datepicker_datenaissance_register" maxWidth="-Infinity" prefHeight="60.0" prefWidth="228.0" promptText="Date d'anniversaire" GridPane.columnIndex="1" GridPane.valignment="TOP">
                                 <GridPane.margin>
                                     <Insets left="4.5" />
                                 </GridPane.margin></DatePicker>
@@ -102,7 +102,7 @@
                             <RowConstraints maxHeight="102.4" minHeight="10.0" prefHeight="97.60001220703126" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
-                            <CheckBox mnemonicParsing="false" text="Accepter les CGU" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                            <CheckBox fx:id="checkbox_cgu_register" mnemonicParsing="false" text="Accepter les CGU" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
                             <Button fx:id="button_register_register" mnemonicParsing="false" onAction="#tryRegister" prefHeight="60.0" prefWidth="307.0" text="S'inscrire" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                      <Button id="back_button" fx:id="button_back_register" mnemonicParsing="false" onAction="#openLoginPage" prefHeight="60.0" text="&lt; Retour" GridPane.rowIndex="1" GridPane.valignment="TOP">
                         <GridPane.margin>

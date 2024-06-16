@@ -14,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
@@ -97,6 +99,11 @@ public class MainController {
      */
     @FXML private TextField textfield_psswrd_confirm_register;
 
+    @FXML private CheckBox checkbox_cgu_register;
+    @FXML private DatePicker datepicker_datenaissance_register;
+    @FXML private TextField textfield_mail_register;
+    @FXML private TextField textfield_phone_register;
+
 
     // Button Admin Page
     
@@ -168,6 +175,7 @@ public class MainController {
         MainController mainControllerCopy = this;
         ArrayList<User> usersList = User.loadAllDatabaseUsers();
         ObservableList<User> data = FXCollections.observableArrayList(usersList);
+        
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setMinWidth(100);
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -175,6 +183,14 @@ public class MainController {
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
         roleColumn.setMinWidth(100);
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        TableColumn<User, String> mailColumn = new TableColumn<>("Mail");
+        roleColumn.setMinWidth(100);
+        roleColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
+
+        TableColumn<User, String> phoneColumn = new TableColumn<>("Phone");
+        roleColumn.setMinWidth(100);
+        roleColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
         roleColumn.setEditable(true);
         tableView_user_adminpage.setEditable(true);
@@ -214,7 +230,7 @@ public class MainController {
         buttonCol.setCellFactory(cellFactory);
 
         tableView_user_adminpage.setItems(data);
-        tableView_user_adminpage.getColumns().addAll(usernameColumn, roleColumn, buttonCol);
+        tableView_user_adminpage.getColumns().addAll(usernameColumn, mailColumn, phoneColumn, roleColumn, buttonCol);
     }
 
     public void loadDataIntoTable(ArrayList<?> list, TableView<Object> tableView, ReadWriteDatabase database) {
@@ -515,9 +531,6 @@ public class MainController {
         else if(username.length() < 3 || username.length() > 20){
             showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter entre 3 et 20 caractères.");
         }
-        else if (!username.matches("^[a-zA-Z0-9-]+$")){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter uniquement des lettres, des chiffres et des tirets.");
-        }
         else if(password.length() < 8 || password.length() > 32){
             showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
         }
@@ -574,6 +587,9 @@ public class MainController {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
         String username = textfield_username_register.getText();
+        String mail = textfield_mail_register.getText();
+        String phone = textfield_phone_register.getText();
+        Boolean cgu = checkbox_cgu_register.isSelected();
         String password = textfield_psswrd_register.getText();
         String password_confirm = textfield_psswrd_confirm_register.getText();
 
@@ -589,6 +605,15 @@ public class MainController {
         else if (!username.matches("^[a-zA-Z0-9-]+$")){
             showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter uniquement des lettres, des chiffres et des tirets.");
         }
+        else if(!mail.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+            showPopupInfo(stage, "L'email est invalide\nVeuillez entrer un email valide.");
+        }
+        else if(!phone.matches("^[0-9]{10}$")){
+            showPopupInfo(stage, "Le numéro de téléphone est invalide\nVeuillez entrer un numéro de téléphone valide de 10 chiffres.");
+        }
+        else if(!cgu){
+            showPopupInfo(stage, "Vous devez accepter les conditions générales d'utilisation.");
+        }
         else if(password.length() < 8 || password.length() > 32){
             showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
         }
@@ -600,15 +625,15 @@ public class MainController {
         }
         else{
             boolean wantToContinue = showPopupYoN(stage, "Vous êtes sur le point de créer l'utilisateur '" + username + "'.\nVouslez vous continuer cette action ?");
-            
+        
             if (wantToContinue) {
-                if(User.register(username, password)){
+                if(User.register(username, password, mail, phone)){
                     showPopupInfo(stage, "compte utilisateur '" + username + "' bien créer !");
                 }
                 else{
                     showPopupInfo(stage, "Erreur de création de compte\nLa création de l'utilisateur '" + username + "' à échouer !");
                 }
-            } 
+            }
             else {
                 System.out.println("Création annulé !");
             }
