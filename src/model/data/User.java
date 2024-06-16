@@ -133,6 +133,10 @@ public class User implements Serializable {
         return this.role;
     }
 
+    public void setRole(String role){
+        this.role = role;
+    }
+
     public ReadWriteDatabase getReadWriteDatabase(){
         return this.database;
     }

@@ -199,11 +199,7 @@ public class MainController {
         roleColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
         roleColumn.setOnEditCommit(event -> {
             User user = event.getRowValue();
-
-            
             user.setRole(event.getNewValue());
-            // Save the updated role to the database or perform any other necessary actions
-            User.saveUser(user); // assuming you have a method to save the user
         });
 
         TableColumn<User, String> mailColumn = new TableColumn<>("Mail");
