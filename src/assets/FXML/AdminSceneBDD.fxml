@@ -53,7 +53,7 @@
                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
-                           <Button mnemonicParsing="false" style="-fx-background-color: #61A2FF;" text="Save to BDD" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           <Button fx:id="button_savetobdd_bdd_pageadmin" mnemonicParsing="false" onAction="#saveEditedDataToBDD" style="-fx-background-color: #61A2FF;" text="Save to BDD" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                            <MenuButton fx:id="choix_table_bdd_adminpage" mnemonicParsing="false" prefWidth="168.0" style="-fx-padding: 2px 10px; -fx-font-size: 14px; -fx-background-color: #61A2FF; -fx-text-fill: black; -fx-background-radius: 30px;" text="Choix Table" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                              <items>
                                <MenuItem fx:id="itemchoice_dep_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" text="Departement" />

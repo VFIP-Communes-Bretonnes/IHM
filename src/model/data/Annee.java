@@ -94,7 +94,7 @@ public class Annee implements Serializable{
      */
     public String toString() {
         String toRet = "";
-        toRet += "Annee{annee=" + annee + ", tauxInflation=" + tauxInflation + "}";
+        toRet += annee;
         return toRet;
     }
 }

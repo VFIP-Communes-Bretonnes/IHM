@@ -203,7 +203,7 @@ public class Commune implements Serializable{
      */
     public String toString() {
         String toRet = "";
-        toRet += "Commune{idCommune=" + idCommune + ", nomCommune='" + nomCommune + "', leDepartement=" + leDepartement + "}";
+        toRet +=  nomCommune + " (" + idCommune + ")";
         return toRet;
     }
 }

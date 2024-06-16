@@ -5,7 +5,6 @@ import java.lang.reflect.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -143,6 +142,9 @@ public class MainController {
     @FXML private MenuItem itemchoice_gare_bdd_adminpage;
     @FXML private Button button_exportcsv_bdd_pageadmin;
     @FXML private Button button_savetobdd_bdd_pageadmin;
+
+    // pour les TableView
+
     private HashMap<ComboBox<String>, Integer> comboBoxList;
     private VBox neighborListContainer;
 

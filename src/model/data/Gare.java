@@ -194,7 +194,7 @@ public class Gare implements Serializable{
      */
     public String toString() {
         String toRet = "";
-        toRet += "Gare{codeGare=" + codeGare + ", nomGare='" + nomGare + "', estFret=" + estFret + ", estVoyageur=" + estVoyageur + ", laCommune=" + laCommune + "}";
+        toRet += nomGare;
         return toRet;
     }
 }
