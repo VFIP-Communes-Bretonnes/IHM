@@ -26,7 +26,9 @@ public class Main extends Application {
 
             stage.setTitle("Statumun");
             stage.setScene(root);
-            stage.setResizable(false);
+            stage.setResizable(true);
+            stage.setMinWidth(744.0);
+            stage.setMinHeight(455.0);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
