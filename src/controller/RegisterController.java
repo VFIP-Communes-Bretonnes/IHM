@@ -1,8 +1,13 @@
 package controller;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -38,7 +43,6 @@ public class RegisterController {
     @FXML private TextField textfield_psswrd_confirm_register;
 
     @FXML private CheckBox checkbox_cgu_register;
-    @FXML private DatePicker datepicker_datenaissance_register;
     @FXML private TextField textfield_mail_register;
     @FXML private TextField textfield_phone_register;
 
@@ -108,4 +112,26 @@ public class RegisterController {
             }
         }
     }   
+
+    /**
+     * Public method that opens the login page.
+     *
+     * @param event The ActionEvent that triggered the method. It cannot be null, an ActionEvent object.
+     * @throws RuntimeException if event is null.
+     */
+    public void openLoginPage(ActionEvent event){
+        try{
+            System.out.println("LoginPage Back");
+
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(registerPage);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'Krona One';
+    src: url(../assets/fonts/KronaOne-Regular.ttf);
+}
+
+*{
+    -krona-one: 'Krona One';
+    -primary-color: #B8ACFF;
+    -secondary-color: #D0C9FF;
+    -tertiary-color: #000119;
+    -light-grey-color: #C8C8C8;
+    -light-grey-secondary:#dbdbdb;
+    -focus-color: -secondary-color;
+
+
+    -white-smoke :  #F4F4F4;
+    -modifier-smoke: #b8b8b8;
+    -white : #ffffff;
+    -text-fill: -tertiary-color;
+    -text-fill-smoke: #8f8d8d;
+    -border: #7A7A7A;
+    -border-focus: -primary-color;
+}
+
+/**
+==================================== ADMINPAGE ==============================================================================
+ */
+
+.anchorpane {
+    -fx-background-color: -tertiary-color;
+}
+
+.adminpage-base {
+   -fx-background-color: -tertiary-color;
+}
+
+.statumun-title{
+    -fx-font-family: 'Krona One';
+    -fx-text-fill: -white-smoke;
+    -fx-font-size: 16;
+}
+
+.dashboard {
+    -fx-background-color: -tertiary-color;
+}
+
+.working {
+    -fx-background-color: -white-smoke;
+    -fx-background-radius: 43;
+}
+
+.dashboard-button {
+    -fx-background-color: -tertiary-color;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-text-fill: -white;
+    -fx-min-height: 71;
+    -fx-max-width: 255;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.dashboard-button:hover {
+    -fx-background-color: -secondary-color;
+}
+
+.dashboard-button:armed {
+    -fx-background-color: -primary-color;
+}
+
+.dashboard-button-main {
+    -fx-background-color: -primary-color;
+}
+
+.setting-box {
+    -fx-background-radius: 43;
+    -fx-background-color: -white;
+}
+
+.setting-box-title {
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 40;
+    -fx-text-fill: -text-fill;
+}
+
+.setting-box-role {
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 24;
+    -fx-text-fill: -text-fill;
+}
+
+.setting-modifier {
+    -fx-font-family: 'Krona One';
+    -fx-min-height: 60;
+    -fx-max-width: 465;
+    -fx-background-color: -modifier-smoke;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-font-size: 14;
+    -fx-text-fill: -text-fill;
+    -fx-prompt-text-fill: -text-fill-smoke;
+    -fx-cursor: hand;
+}
+
+.setting-modifier:focused {
+    -fx-background-color: -white-smoke;
+}
+
+.grid-focused:hover {
+    -fx-background-color: -white-smoke;
+    -fx-border-color: -border-focus;
+    -fx-border-radius: 20;
+}
+
+.setting-modifier-button {
+    -fx-background-color: transparency;
+    -fx-content-display: graphic-only;
+}
+
+.apply-button {
+    -fx-pref-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.apply-button:hover{
+    -fx-background-color: -secondary-color;
+}
+
+.apply-button:armed{
+    -fx-background-color: -primary-color;
+}

@@ -71,7 +71,7 @@ public class LoginController {
                     System.out.println("openAdminPage");
 
                     Scene registerPage = null;
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/AdminScene.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/admin_user.fxml"));
                     registerPage = new Scene(root, 1116, 682);
         
                     stage.setScene(registerPage);
@@ -100,7 +100,7 @@ public class LoginController {
             System.out.println("openRegisterPage");
 
             Scene registerPage = null;
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/RegisterScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/register.fxml"));
             registerPage = new Scene(root, 1116, 682);
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

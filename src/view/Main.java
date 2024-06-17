@@ -24,9 +24,9 @@ public class Main extends Application {
         try {
             
             Scene scene=null;
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/LoginScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
             scene = new Scene(root, 1116, 682);
-            scene.getStylesheets().add(getClass().getResource("/CSS/style.css").toExternalForm());
+            //scene.getStylesheets().add(getClass().getResource("/CSS/login.css").toExternalForm());
             
 
             stage.setScene(scene);
