@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -50,19 +51,19 @@ public class LoginController {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
         if(username == null){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être null.");
+            PopupInfoController.showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être null.");
         }
         else if(username.isEmpty()){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être vide.");
+            PopupInfoController.showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être vide.");
         }
         else if(username.length() < 3 || username.length() > 20){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter entre 3 et 20 caractères.");
+            PopupInfoController.showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter entre 3 et 20 caractères.");
         }
         else if(password.length() < 8 || password.length() > 32){
-            showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+            PopupInfoController.showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
         }
         else if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
-            showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            PopupInfoController.showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
         }
         else{
             if(user.checkLogin(username, password)){
@@ -78,7 +79,7 @@ public class LoginController {
             }
             else{
                 System.err.println("login err for" + username);
-                showPopupInfo(stage, "Erreur de connexion\nLe mot de passe ou le nom d'utilisateur est invalide.");
+                PopupInfoController.showPopupInfo(stage, "Erreur de connexion\nLe mot de passe ou le nom d'utilisateur est invalide.");
             }
         }
     }
@@ -92,8 +93,12 @@ public class LoginController {
     public void openRegisterPage(ActionEvent event){
         try{
             System.out.println("openRegisterPage");
+
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/RegisterScene.fxml"));
+            registerPage = new Scene(root, 600, 500);
+
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/RegisterScene.fxml"));
             stage.setScene(registerPage);
         }
         catch(IOException e){
