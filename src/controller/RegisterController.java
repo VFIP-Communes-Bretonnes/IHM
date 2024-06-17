@@ -63,44 +63,44 @@ public class RegisterController {
         String password_confirm = textfield_psswrd_confirm_register.getText();
 
         if(username == null){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être null.");
+            new PopupInfoController().showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être null.");
         }
         else if(username.isEmpty()){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être vide.");
+            new PopupInfoController().showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur ne doit pas être vide.");
         }
         else if(username.length() < 3 || username.length() > 20){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter entre 3 et 20 caractères.");
+            new PopupInfoController().showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter entre 3 et 20 caractères.");
         }
         else if (!username.matches("^[a-zA-Z0-9-]+$")){
-            showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter uniquement des lettres, des chiffres et des tirets.");
+            new PopupInfoController().showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter uniquement des lettres, des chiffres et des tirets.");
         }
         else if(!mail.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
-            showPopupInfo(stage, "L'email est invalide\nVeuillez entrer un email valide.");
+            new PopupInfoController().showPopupInfo(stage, "L'email est invalide\nVeuillez entrer un email valide.");
         }
         else if(!phone.matches("^[0-9]{10}$")){
-            showPopupInfo(stage, "Le numéro de téléphone est invalide\nVeuillez entrer un numéro de téléphone valide de 10 chiffres.");
+            new PopupInfoController().showPopupInfo(stage, "Le numéro de téléphone est invalide\nVeuillez entrer un numéro de téléphone valide de 10 chiffres.");
         }
         else if(!cgu){
-            showPopupInfo(stage, "Vous devez accepter les conditions générales d'utilisation.");
+            new PopupInfoController().showPopupInfo(stage, "Vous devez accepter les conditions générales d'utilisation.");
         }
         else if(password.length() < 8 || password.length() > 32){
-            showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
         }
         else if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
-            showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
         }
         else if(!password_confirm.toString().equals(password.toString())){
-            showPopupInfo(stage, "La verification de mot de passe est invalide\nLe mot de passe et la confirmation du mot de passe doivent être identique.");
+            new PopupInfoController().showPopupInfo(stage, "La verification de mot de passe est invalide\nLe mot de passe et la confirmation du mot de passe doivent être identique.");
         }
         else{
-            boolean wantToContinue = showPopupYoN(stage, "Vous êtes sur le point de créer l'utilisateur '" + username + "'.\nVouslez vous continuer cette action ?");
+            boolean wantToContinue = new PopupYoNController().showPopupYoN(stage, "Vous êtes sur le point de créer l'utilisateur '" + username + "'.\nVouslez vous continuer cette action ?");
         
             if (wantToContinue) {
                 if(User.register(username, password, mail, phone)){
-                    showPopupInfo(stage, "compte utilisateur '" + username + "' bien créer !");
+                    new PopupInfoController().showPopupInfo(stage, "compte utilisateur '" + username + "' bien créer !");
                 }
                 else{
-                    showPopupInfo(stage, "Erreur de création de compte\nLa création de l'utilisateur '" + username + "' à échouer !");
+                    new PopupInfoController(). showPopupInfo(stage, "Erreur de création de compte\nLa création de l'utilisateur '" + username + "' à échouer !");
                 }
             }
             else {

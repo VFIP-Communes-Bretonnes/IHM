@@ -19,7 +19,7 @@ public class PopupYoNController {
      * @return true if the user clicks yes, false if the user clicks no or if an error occurs, a boolean.
      * @throws RuntimeException if ownerStage or message are null or empty.
      */
-    public static boolean showPopupYoN(Stage ownerStage, String message) {
+    public boolean showPopupYoN(Stage ownerStage, String message) {
         try{
             PopupController popupController = new PopupController();
 

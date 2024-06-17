@@ -101,17 +101,17 @@ public class AdminPageController {
         try{
             database.loadAllData();
             database.getAllObjectsData().exportationEnCSV();
-            showPopupInfo(stage, "données exporter !");
+            new PopupInfoController().showPopupInfo(stage, "données exporter !");
         }
         catch (SQLException e){
             e.printStackTrace();
-            showPopupInfo(stage, "Erreur d'exportation des données !");
+            new PopupInfoController().showPopupInfo(stage, "Erreur d'exportation des données !");
         }
     }
 
     public void loadUserTableAdmin() {
         tableView_user_adminpage.getColumns().clear();
-        MainController mainControllerCopy = this;
+        AdminPageController adminPageControllerCopy = this;
         ArrayList<User> usersList = User.loadAllDatabaseUsers();
         ObservableList<User> data = FXCollections.observableArrayList(usersList);
 
@@ -132,10 +132,10 @@ public class AdminPageController {
                 user.getReadWriteDatabase().updateUserByObject(user);
             }
             catch(SQLException e){
-                showPopupInfo((Stage) roleColumn.getTableView().getScene().getWindow(), "Echec de la modification du rôle dans la base de données !");
+                new PopupInfoController().showPopupInfo((Stage) roleColumn.getTableView().getScene().getWindow(), "Echec de la modification du rôle dans la base de données !");
             }
             catch(IllegalArgumentException e){
-                showPopupInfo((Stage) roleColumn.getTableView().getScene().getWindow(), "Ce rôle n'existe pas !");
+                new PopupInfoController().showPopupInfo((Stage) roleColumn.getTableView().getScene().getWindow(), "Ce rôle n'existe pas !");
             }
         });
 
@@ -170,7 +170,7 @@ public class AdminPageController {
                                 public void handle(ActionEvent event) {
                                     User user = getTableView().getItems().get(getIndex());
                                     String username = user.getUsername();
-                                    ButtonEventHandeler.userRemoverButton(username, (Stage) getScene().getWindow(), mainControllerCopy);
+                                    ButtonEventHandeler.userRemoverButton(username, (Stage) getScene().getWindow(), adminPageControllerCopy);
                                 }
                             });
                             setGraphic(button);
@@ -571,7 +571,7 @@ public class AdminPageController {
 
     public void logout(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        if(showPopupYoN(stage, "Déconexion :\nVoulez vous vraiment vous déconnecter ?")){
+        if(new PopupYoNController().showPopupYoN(stage, "Déconexion :\nVoulez vous vraiment vous déconnecter ?")){
             openLoginPage(event);
         }
     }

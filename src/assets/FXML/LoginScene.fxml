@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1116.0" stylesheets="@../CSS/current-styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="682.0" prefWidth="1116.0" stylesheets="@../CSS/current-styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="461.0" layoutY="216.0" prefHeight="200.0" prefWidth="200.0" styleClass="login-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,17 +25,17 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="userInput" maxWidth="250.0" minHeight="36.0" promptText="Mail" styleClass="login-inputs">
+                  <TextField fx:id="textfield_username_connexion" maxWidth="250.0" minHeight="36.0" promptText="Mail" styleClass="login-inputs">
                      <VBox.margin>
                         <Insets top="35.0" />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField fx:id="passordInput" maxWidth="250.0" minHeight="36.0" promptText="Password" styleClass="login-inputs">
+                  <PasswordField fx:id="textfield_psswrd_connexion" maxWidth="250.0" minHeight="36.0" promptText="Password" styleClass="login-inputs">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button fx:id="coonecterBtn" mnemonicParsing="false" text="Se Connecter">
+                  <Button fx:id="button_login_connexion" mnemonicParsing="false" onAction="#tryLogin" text="Se Connecter">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -44,7 +44,7 @@
                         <String fx:value="login-button-top" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="inscrireBtn" layoutX="185.0" layoutY="108.0" mnemonicParsing="false" text="S'inscrire" textFill="WHITE">
+                  <Button fx:id="button_register_connexion" layoutX="185.0" layoutY="108.0" mnemonicParsing="false" onAction="#openRegisterPage" text="S'inscrire" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>

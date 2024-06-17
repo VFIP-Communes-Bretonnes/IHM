@@ -18,7 +18,7 @@ public class PopupInfoController {
      * @param message The message to be displayed in the popup. It cannot be null or empty, a String object.
      * @throws RuntimeException if ownerStage or message are null or empty.
      */
-    public static void showPopupInfo(Stage ownerStage, String message){
+    public void showPopupInfo(Stage ownerStage, String message){
         try{
             PopupController popupController = new PopupController();
 

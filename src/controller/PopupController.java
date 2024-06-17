@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 /**
@@ -27,7 +28,7 @@ public class PopupController {
     /**
      * Private attribute, the label for the message in the popup window, a JavaFX Label.
      */
-    @FXML private Label label_popupyon;
+    @FXML private TextArea message_popup;
     
     /**
      * Private attribute, the result of the user's choice in the popup window, a boolean.
@@ -41,7 +42,7 @@ public class PopupController {
      * @throws RuntimeException if message is null or empty.
      */
     public void initialize(String message) {
-        label_popupyon.setText(message);
+        message_popup.setText(message);
     }
 
     /**
