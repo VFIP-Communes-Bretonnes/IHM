@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import model.dao.ReadWriteDatabase;
 import model.data.Aeroport;
 import model.data.Annee;
@@ -38,7 +39,6 @@ import model.data.Gare;
 import model.data.User;
 
 public class AdminPageController {
-
     
     /**
      * Private attribute, the button for the home page on the admin page, a JavaFX Button.
@@ -463,8 +463,11 @@ public class AdminPageController {
     public void openLoginPage(ActionEvent event){
         try{
             System.out.println("openRegisterPage");
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/LoginScene.fxml"));
             stage.setScene(registerPage);
         }
         catch(IOException e){
@@ -480,9 +483,11 @@ public class AdminPageController {
      */
     public void openHomePageAdmin(ActionEvent event){
         try{
-            System.out.println("openHomePageAdmin");
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/nvlkjzrbvkjsgbujygdv.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/AdminScene.fxml"));
             stage.setScene(registerPage);
         }
         catch(IOException e){
@@ -516,27 +521,11 @@ public class AdminPageController {
      */
     public void openUserPageAdmin(ActionEvent event){
         try{
-            System.out.println("openUserPageAdmin");
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/AdminSceneUsers.fxml"));
-            stage.setScene(registerPage);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/admin_user.fxml"));
+            registerPage = new Scene(root, 1116, 682);
 
-    /**
-     * Public method that opens the stat page on the admin page.
-     *
-     * @param event The ActionEvent that triggered the method. It cannot be null, an ActionEvent object.
-     * @throws RuntimeException if event is null.
-     */
-    public void openStatPageAdmin(ActionEvent event){
-        try{
-            System.out.println("openStatPageAdmin");
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/AdminSceneStats.fxml"));
             stage.setScene(registerPage);
         }
         catch(IOException e){
@@ -552,9 +541,11 @@ public class AdminPageController {
      */
     public void openSettingsPageAdmin(ActionEvent event){
         try{
-            System.out.println("openSettingsPageAdmin");
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/admin_settings.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/AdminSceneSettings.fxml"));
             stage.setScene(registerPage);
         }
         catch(IOException e){

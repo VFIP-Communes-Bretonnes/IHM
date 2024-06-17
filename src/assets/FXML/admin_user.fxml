@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_user.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_user.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="64.8" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
@@ -24,7 +24,7 @@
                         <Insets bottom="10.0" left="10.0" />
                      </HBox.margin>
                      <children>
-                        <Button fx:id="button_home_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Tableau de bord" VBox.vgrow="ALWAYS">
+                        <Button fx:id="button_home_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openHomePageAdmin" styleClass="dashboard-button" text="    Tableau de bord" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -39,7 +39,7 @@
                               <Insets top="35.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Base de Donnée">
+                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" styleClass="dashboard-button" text="    Base de Donnée">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -54,7 +54,7 @@
                               <Insets left="20.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="button_user_register" alignment="BASELINE_LEFT" mnemonicParsing="false" text="    Utilisateurs">
+                        <Button fx:id="button_user_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openUserPageAdmin" text="    Utilisateurs">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -73,7 +73,7 @@
                               <String fx:value="dashboard-button-main" />
                            </styleClass>
                         </Button>
-                        <Button fx:id="button_settings_register" alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Paramètres">
+                        <Button fx:id="button_settings_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openSettingsPageAdmin" styleClass="dashboard-button" text="    Paramètres">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -88,7 +88,7 @@
                               <Insets top="40.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Déconnexion">
+                        <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" styleClass="dashboard-button" text="    Déconnexion">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
