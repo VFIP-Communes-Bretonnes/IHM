@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,14 +22,20 @@ public class Main extends Application {
      */
     public void start(Stage stage) {
         try {
-            Scene root = FXMLLoader.load(getClass().getResource("/FXML/LoginScene.fxml"));
+            
+            Scene scene=null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/LoginScene.fxml"));
+            scene = new Scene(root, 1116, 682);
+            scene.getStylesheets().add(getClass().getResource("/CSS/style.css").toExternalForm());
             
 
+            stage.setScene(scene);
+
+
             stage.setTitle("Statumun");
-            stage.setScene(root);
             stage.setResizable(true);
-            stage.setMinWidth(744.0);
-            stage.setMinHeight(455.0);
+            stage.setMinWidth(1116.0);
+            stage.setMinHeight(682.0);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
