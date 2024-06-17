@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Scene stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="820.0" prefWidth="1537.0">
         <children>
          <GridPane layoutX="31.0" layoutY="17.0" prefHeight="91.0" prefWidth="274.0">
@@ -66,4 +65,3 @@
          </GridPane>
         </children>
     </AnchorPane>
-</Scene>
