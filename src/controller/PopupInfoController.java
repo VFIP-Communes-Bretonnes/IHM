@@ -9,21 +9,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class PopupYoNController {
+public class PopupInfoController {
 
-    /**
-     * Public method that displays a yes or no popup with the specified message.
+        /**
+     * Public method that displays an information popup with the specified message.
      *
      * @param ownerStage The Stage that will own the popup. It cannot be null, a Stage object.
      * @param message The message to be displayed in the popup. It cannot be null or empty, a String object.
-     * @return true if the user clicks yes, false if the user clicks no or if an error occurs, a boolean.
      * @throws RuntimeException if ownerStage or message are null or empty.
      */
-    public static boolean showPopupYoN(Stage ownerStage, String message) {
+    public static void showPopupInfo(Stage ownerStage, String message){
         try{
             PopupController popupController = new PopupController();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/PopupYoN.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/PopupInfo.fxml"));
             loader.setController(popupController);
             Parent root = loader.load();
 
@@ -39,13 +38,10 @@ public class PopupYoNController {
             popupStage.initOwner(ownerStage);
 
             popupStage.showAndWait();
-            boolean result = popupController.getResult();
-
-            return result;
         }
         catch(IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
+
 }
