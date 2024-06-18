@@ -142,7 +142,7 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <TableView fx:id="tableView_user_adminpage" editable="true" prefHeight="530.0" prefWidth="774.0">
+                              <TableView fx:id="tableView_bdd_adminpage" editable="true" prefHeight="530.0" prefWidth="774.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
                                  </VBox.margin>

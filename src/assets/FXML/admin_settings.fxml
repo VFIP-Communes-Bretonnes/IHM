@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/setting.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/setting.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,7 +25,7 @@
                         <Insets bottom="10.0" left="10.0" />
                      </HBox.margin>
                      <children>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Tableau de bord" VBox.vgrow="ALWAYS">
+                        <Button fx:id="button_home_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openHomePageAdmin" styleClass="dashboard-button" text="    Tableau de bord" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -40,7 +40,7 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Base de Donnée">
+                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" styleClass="dashboard-button" text="    Base de Donnée">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -55,7 +55,7 @@
                               <Insets left="20.0" />
                            </padding>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Utilisateurs">
+                        <Button fx:id="button_user_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openUserPageAdmin" styleClass="dashboard-button" text="    Utilisateurs">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -70,7 +70,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" text="    Paramètres">
+                        <Button fx:id="button_settings_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openSettingsPageAdmin" text="    Paramètres">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -89,7 +89,7 @@
                               <String fx:value="dashboard-button-main" />
                            </styleClass>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" text="    Déconnexion">
+                        <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" text="    Déconnexion">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -129,7 +129,7 @@
                               </Label>
                               <StackPane alignment="CENTER_LEFT">
                                  <children>
-                                    <TextField fx:id="userInput1111" maxWidth="250.0" minHeight="36.0" promptText="Nom d'utilisateur" styleClass="setting-modifier">
+                                    <TextField fx:id="textfield_username_settings" maxWidth="250.0" minHeight="36.0" promptText="Nom d'utilisateur" styleClass="setting-modifier">
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
@@ -152,7 +152,7 @@
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT">
                                  <children>
-                                    <TextField fx:id="userInput111" maxWidth="250.0" minHeight="36.0" promptText="Mail" styleClass="setting-modifier">
+                                    <TextField fx:id="textfield_mail_settings" maxWidth="250.0" minHeight="36.0" promptText="Mail" styleClass="setting-modifier">
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
@@ -175,7 +175,7 @@
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT">
                                  <children>
-                                    <TextField fx:id="userInput11" maxWidth="250.0" minHeight="36.0" promptText="Numéro de Téléphone" styleClass="setting-modifier">
+                                    <TextField fx:id="textfield_phone_settings" maxWidth="250.0" minHeight="36.0" promptText="Numéro de Téléphone" styleClass="setting-modifier">
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
@@ -203,7 +203,7 @@
                               </Label>
                               <StackPane alignment="CENTER_LEFT">
                                  <children>
-                                    <PasswordField fx:id="passordInput" maxWidth="250.0" minHeight="36.0" promptText="Mot de passe actuel " styleClass="setting-modifier">
+                                    <PasswordField fx:id="textfield_actualpswrd_settings" maxWidth="250.0" minHeight="36.0" promptText="Mot de passe actuel " styleClass="setting-modifier">
                                        <StackPane.margin>
                                           <Insets left="30.0" />
                                        </StackPane.margin>
@@ -226,7 +226,7 @@
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT">
                                  <children>
-                                    <PasswordField fx:id="passordInput1" maxWidth="250.0" minHeight="36.0" promptText="Nouveau mot de passe" styleClass="setting-modifier">
+                                    <PasswordField fx:id="textfield_newpswrd_settings" maxWidth="250.0" minHeight="36.0" promptText="Nouveau mot de passe" styleClass="setting-modifier">
                                        <StackPane.margin>
                                           <Insets left="30.0" />
                                        </StackPane.margin>
@@ -249,7 +249,7 @@
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT">
                                  <children>
-                                    <PasswordField fx:id="passordInput2" maxWidth="250.0" minHeight="36.0" promptText="Confirmer le mot de passe" styleClass="setting-modifier">
+                                    <PasswordField fx:id="textfield_confirmpswrd_settings" maxWidth="250.0" minHeight="36.0" promptText="Confirmer le mot de passe" styleClass="setting-modifier">
                                        <StackPane.margin>
                                           <Insets left="30.0" />
                                        </StackPane.margin>
@@ -265,7 +265,7 @@
                                           <Insets left="430.0" />
                                        </StackPane.margin>
                                     </ImageView>
-                                    <Button fx:id="coonecterBtn" mnemonicParsing="false" styleClass="apply-button" text="Appliquer">
+                                    <Button fx:id="button_apllysettings_settings" mnemonicParsing="false" onAction="#applySettingsToBDD" styleClass="apply-button" text="Appliquer">
                                        <StackPane.margin>
                                           <Insets left="650.0" />
                                        </StackPane.margin>

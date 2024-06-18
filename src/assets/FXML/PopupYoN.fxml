@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="400.0" styleClass="anchorpane" stylesheets="@../CSS/popup.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="400.0" styleClass="anchorpane" stylesheets="@../CSS/popup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="229.0" prefWidth="400.0" styleClass="popup-box">
          <children>
-            <Label alignment="TOP_CENTER" prefHeight="162.0" prefWidth="328.0" styleClass="popup-box-text" textAlignment="CENTER">
+            <Label fx:id="message_popup" alignment="TOP_CENTER" prefHeight="162.0" prefWidth="328.0" styleClass="popup-box-text" textAlignment="CENTER">
                <padding>
                   <Insets top="15.0" />
                </padding>
