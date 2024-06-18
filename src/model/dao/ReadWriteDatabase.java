@@ -92,7 +92,7 @@ public class ReadWriteDatabase implements Serializable{
     public void loadVoisinage() throws SQLException{
         Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
         Statement DatabaseStatement = DatabaseConnection.createStatement();
-        ResultSet res = DatabaseStatement.executeQuery("select * from Voisinage");
+        ResultSet res = DatabaseStatement.executeQuery("select * from voisinage");
         
         ///////// VOISINAGE
 
@@ -107,7 +107,7 @@ public class ReadWriteDatabase implements Serializable{
     public void loadAnnee() throws SQLException{
         Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
         Statement DatabaseStatement = DatabaseConnection.createStatement();
-        ResultSet res = DatabaseStatement.executeQuery("select * from Annee");
+        ResultSet res = DatabaseStatement.executeQuery("select * from annee");
 
         ///////// ANNEE
 
@@ -123,7 +123,7 @@ public class ReadWriteDatabase implements Serializable{
     public void loadDonneesAnnuelles() throws SQLException{
         Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
         Statement DatabaseStatement = DatabaseConnection.createStatement();
-        ResultSet res = DatabaseStatement.executeQuery("select * from DonneesAnnuelles");
+        ResultSet res = DatabaseStatement.executeQuery("select * from donneesannuelles");
 
         ///////// DONNEESANNUELLES
 
@@ -147,7 +147,7 @@ public class ReadWriteDatabase implements Serializable{
     public void loadAeroport() throws SQLException{
         Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
         Statement DatabaseStatement = DatabaseConnection.createStatement();
-        ResultSet res = DatabaseStatement.executeQuery("select * from Aeroport");
+        ResultSet res = DatabaseStatement.executeQuery("select * from aeroport");
 
         ///////// AEROPORT
         
