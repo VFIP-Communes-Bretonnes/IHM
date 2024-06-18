@@ -750,14 +750,18 @@ public class AdminPageController {
 
     public void saveEditedDataToBDD(ActionEvent event){
         String choix = choix_table_bdd_adminpage.getText();
+        ReadWriteDatabase database = new ReadWriteDatabase();
 
         ObservableList<Object> items = tableView_bdd_adminpage.getItems();
 
         for (Object item : items) {
-            System.out.println(item);
-            System.out.println(item.getClass());
-            if(item instanceof Commune){
-                System.out.println( ((Commune) item).getListeVoisins().toString() );
+            try{
+                if(item instanceof Departement){
+                    database.updateDepartement((Departement) item);
+                }
+            }
+            catch(SQLException e){
+                e.printStackTrace();
             }
         }
     }

@@ -2,6 +2,8 @@ package model.dao;
 
 import java.io.Serializable;
 import java.sql.*;
+import java.util.ArrayList;
+
 import model.data.*;
 
 /**
@@ -338,5 +340,18 @@ public class ReadWriteDatabase implements Serializable{
             }
         }
         return toRet;
+    }
+
+    public void updateDepartement(Departement departement) throws SQLException {
+        String sql = "UPDATE Departement SET nomDep = ?, investissementCulturel2019 = ? WHERE idDep = ?";
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setString(1, departement.getNomDep().toString());
+            preparedStatement.setDouble(2, departement.getInvestissementCulturel2019());
+            preparedStatement.setInt(3, departement.getIdDep());
+    
+            preparedStatement.executeUpdate();
+        }
     }
 }
