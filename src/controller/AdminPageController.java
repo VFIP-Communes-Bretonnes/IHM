@@ -241,6 +241,7 @@ public class AdminPageController {
     }
 
     public void exportDataToCSV(ActionEvent event){
+        saveEditedDataToBDD(event);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         ReadWriteDatabase database = new ReadWriteDatabase();
         try{
@@ -753,7 +754,7 @@ public class AdminPageController {
         ReadWriteDatabase database = new ReadWriteDatabase();
 
         ObservableList<Object> items = tableView_bdd_adminpage.getItems();
-
+        new PopupInfoController().showPopupInfo((Stage) ((Node)event.getSource()).getScene().getWindow(), "Sauvegarde en cours !");
         for (Object item : items) {
             try{
                 if(item instanceof Departement){
@@ -776,6 +777,7 @@ public class AdminPageController {
                 }
             }
             catch(SQLException e){
+                new PopupInfoController().showPopupInfo((Stage) ((Node)event.getSource()).getScene().getWindow(), "Erreur lors de la sauvegarde : \n" + e.getMessage());
                 e.printStackTrace();
             }
         }
