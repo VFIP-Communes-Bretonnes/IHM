@@ -56,6 +56,8 @@ public class User implements Serializable {
         this.username = "DEF";
         this.password = "DEF";
         this.role = "DEF";
+        this.mail = "DEF";
+        this.phone = "DEF";
         this.database = new ReadWriteDatabase();
     }
 
@@ -163,6 +165,13 @@ public class User implements Serializable {
         return this.database;
     }
 
+    public void setReadWriteDatabase(ReadWriteDatabase database){
+        if(database == null){
+            throw new IllegalArgumentException("[ERREUR:User:setReadWriteDatabase] : le parametre 'database' est invalide ");
+        }
+        this.database = database;
+    }
+
     /**
      * Public method that sets the username of the user.
      *
@@ -208,13 +217,19 @@ public class User implements Serializable {
         boolean ret = false;
         this.setUsername(username);
         this.setPassword(password);
-        String tmp = this.database.findUserAndGetRole(username, password);
-        if(tmp.equals("err")){
+        User tmp = this.database.findUserAndGetRole(username, password);
+        if(tmp == null){
             ret = false;
         }
         else{
-            this.role = tmp;
-            System.out.println(this.role);
+            this.setMail(tmp.getMail());
+            this.setUsername(tmp.getUsername());
+            this.setPassword(tmp.getPassword());
+            this.setPhone(tmp.getPhone());
+            this.setRole(tmp.getRole());
+            this.setReadWriteDatabase(tmp.getReadWriteDatabase());
+            System.out.println(this.getRole());
+            this.saveUserObject();
             ret = true;
         }
         return ret;

@@ -43,6 +43,7 @@ public class PopupController {
      */
     public void initialize(String message) {
         message_popup.setText(message);
+        message_popup.setWrapText(true);
     }
 
     /**

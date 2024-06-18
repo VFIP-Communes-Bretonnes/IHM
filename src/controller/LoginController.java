@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.data.User;
@@ -77,6 +78,10 @@ public class LoginController {
                     stage.setScene(registerPage);
 
                     user.saveUserObject();
+
+                    AdminPageController adminPageController = new AdminPageController();
+                    adminPageController.setTableView_user_adminpage((TableView) ((Node)root).lookup("#tableView_user_adminpage"));
+                    adminPageController.loadUserTableAdmin();
                 }
                 catch(IOException e){
                     e.printStackTrace();

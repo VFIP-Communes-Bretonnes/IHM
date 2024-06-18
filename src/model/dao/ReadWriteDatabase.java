@@ -184,8 +184,10 @@ public class ReadWriteDatabase implements Serializable{
             String nom = res.getString("nom");
             String role = res.getString("roles");
             String mail = res.getString("mail");
+            String pswrd = res.getString("pswrd");
             String phone = res.getString("phone");
             User user = new User(nom,role, mail, phone ,this);
+            user.setPassword(pswrd);
             allObjectsData.addUser(user);
         }
     }
@@ -207,8 +209,9 @@ public class ReadWriteDatabase implements Serializable{
      * @return The user's role if the user is found in the database with the specified username and password, "err" otherwise, a String object.
      * @throws RuntimeException if utilisateur or motDePasse are null or empty.
      */
-    public String findUserAndGetRole(String utilisateur, String motDePasse){
-        String ret = "err";
+    public User findUserAndGetRole(String utilisateur, String motDePasse){
+        User ret = null;
+        boolean userLoggedin = false;
         if(utilisateur == null){
             throw new RuntimeException("[ERREUR:ReadWriteDatabase:setCurrentUser] : le parametre 'utilisateur' est 'null' ");
         }
@@ -219,7 +222,7 @@ public class ReadWriteDatabase implements Serializable{
             Connection DatabaseConnection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
             Statement DatabaseStatement = DatabaseConnection.createStatement();
             ResultSet res = DatabaseStatement.executeQuery("select * from utilisateurs");
-            while(res.next() && ret.equals("err")){
+            while(res.next() && userLoggedin == false){
                 String nom = res.getString("nom");
                 String pswrd = res.getString("pswrd");
                 String roles = res.getString("roles");
@@ -227,15 +230,26 @@ public class ReadWriteDatabase implements Serializable{
                 String phone = res.getString("phone");
 
                 if(nom.equals(utilisateur) && pswrd.equals(motDePasse)){
-                    ret = roles;
+                    userLoggedin = true;
                 }
 
                 if(mail.equals(utilisateur) && pswrd.equals(motDePasse)){
-                    ret = roles;
+                    userLoggedin = true;
                 }
 
                 if(phone.equals(utilisateur) && pswrd.equals(motDePasse)){
-                    ret = roles;
+                    userLoggedin = true;
+                }
+
+                if(userLoggedin){
+                    User user = new User();
+                    user.setMail(mail);
+                    user.setUsername(nom);
+                    user.setPassword(pswrd);
+                    user.setPhone(phone);
+                    user.setRole(roles);
+                    user.setReadWriteDatabase(this);
+                    ret = user;
                 }
             }
         }
@@ -286,17 +300,29 @@ public class ReadWriteDatabase implements Serializable{
         }
     }
 
-    public User updateUserDataSettings(User user, String pswrd) throws SQLException{
-        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
-            if(){
-                
-            }
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE utilisateurs SET roles = ? WHERE nom = ?;")) {
-
-            preparedStatement.setString(1, user.getRole());
-            preparedStatement.setString(2, user.getUsername());
-
-            preparedStatement.executeUpdate();
+    public User updateUserDataSettings(String currentUserName, User user, String pswrd, String newpswrd) throws SQLException{
+        User toRet = null;
+        if(findUserAndGetRole(currentUserName, pswrd) == null){
+            toRet = null;
         }
+        else{
+            try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM utilisateurs WHERE nom = ?;")) {
+                preparedStatement.setString(1, currentUserName);
+                preparedStatement.executeUpdate();
+            }
+            try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO utilisateurs (nom, pswrd, roles, phone, mail) VALUES (?, ?, ?, ?, ?)")) {
+    
+                preparedStatement.setString(1, user.getUsername());
+                preparedStatement.setString(2, newpswrd);
+                preparedStatement.setString(3, user.getRole());
+                preparedStatement.setString(4, user.getPhone());
+                preparedStatement.setString(5, user.getMail());
+                preparedStatement.executeUpdate();
+                toRet = new User();
+            }
+        }
+        return toRet;
     }
 }

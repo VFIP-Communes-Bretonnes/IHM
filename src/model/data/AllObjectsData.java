@@ -466,6 +466,20 @@ public class AllObjectsData implements Serializable {
         }
     }
 
+    public void exportUserToCSV(){
+        String cheminFichier = "Users.csv";
+        try (PrintWriter pw = new PrintWriter(new File(cheminFichier))) {
+            pw.println("nom,pswrd,roles,phone,mail");
+            for (User user : usersList) {
+                pw.println(user.getUsername() + "," + user.getPassword() + "," + user.getRole() + "," + user.getPhone() + "," + user.getMail());
+            }
+            pw.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println(e.getStackTrace());
+        }
+    }
+
     public Object findObject(Object o){
         Object retO = null;
 

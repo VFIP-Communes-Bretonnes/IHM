@@ -98,37 +98,103 @@ public class AdminPageController {
         User currentUser = User.loadUserObject();
         currentUser.saveUserObject();
 
-        textfield_mail_settings.setPromptText(currentUser.getMail());
-        textfield_phone_settings.setPromptText(currentUser.getPhone());
-        textfield_username_settings.setPromptText(currentUser.getUsername());
-
+        String currentpassword = currentUser.getPassword();
         String password = textfield_actualpswrd_settings.getText();
         String new_password = textfield_newpswrd_settings.getText();
         String password_confirm = textfield_confirmpswrd_settings.getText();
+        String currentUserName = currentUser.getUsername();
 
-        if(password.length() < 8 || password.length() > 32){
-            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+        boolean canTryUpdate = true;
+        boolean cestutiledefairecetry = false;
+
+        if(textfield_username_settings.getText() == null || textfield_username_settings.getText().isEmpty()){
+            
+        }
+        else if(textfield_username_settings.getText().length() < 3 || textfield_username_settings.getText().length() > 20){
+            new PopupInfoController().showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter entre 3 et 20 caractères.");
+            canTryUpdate = false;
+        }
+        else if (!textfield_username_settings.getText().matches("^[a-zA-Z0-9-]+$")){
+            new PopupInfoController().showPopupInfo(stage, "Le nom d'utilisateur est invalide\nLe nom d'utilisateur doit comporter uniquement des lettres, des chiffres et des tirets.");
+            canTryUpdate = false;
+        }
+        else{
+            currentUser.setUsername(textfield_username_settings.getText());
+            cestutiledefairecetry = true;
+        }
+
+        if(textfield_mail_settings.getText() == null  || textfield_mail_settings.getText().isEmpty()){
+
+        }
+        else if(!textfield_mail_settings.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+            new PopupInfoController().showPopupInfo(stage, "L'email est invalide\nVeuillez entrer un email valide.");
+            canTryUpdate = false;
+        }
+        else{
+            currentUser.setMail(textfield_mail_settings.getText());
+            cestutiledefairecetry = true;
+        }
+
+        if(textfield_phone_settings.getText() == null || textfield_phone_settings.getText().isEmpty()){
+
+        }
+        else if(!textfield_phone_settings.getText().matches("^[0-9]{10}$")){
+            new PopupInfoController().showPopupInfo(stage, "Le numéro de téléphone est invalide\nVeuillez entrer un numéro de téléphone valide de 10 chiffres.");
+            canTryUpdate = false;
+        }
+        else{
+            currentUser.setPhone(textfield_phone_settings.getText());
+            cestutiledefairecetry = true;
+        }
+
+        if(password == null || password.isEmpty()){
+            new_password = currentpassword;
+        }
+        else if(password.length() < 8 || password.length() > 32){
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe actuel est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+            canTryUpdate = false;
         }
         else if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
-            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe actuel est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            canTryUpdate = false;
         }
-        if(new_password.length() < 8 || new_password.length() > 32){
-            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+        else if(new_password == null || new_password.isEmpty()){
+            new PopupInfoController().showPopupInfo(stage, "Le nouveau mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+            canTryUpdate = false;
+        }
+        else if(new_password.length() < 8 || new_password.length() > 32){
+            new PopupInfoController().showPopupInfo(stage, "Le nouveau mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+            canTryUpdate = false;
         }
         else if(!new_password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
-            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            new PopupInfoController().showPopupInfo(stage, "Le nouveau mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            canTryUpdate = false;
         }
         else if(!password_confirm.toString().equals(new_password.toString())){
-            new PopupInfoController().showPopupInfo(stage, "La verification de mot de passe est invalide\nLe mot de passe et la confirmation du mot de passe doivent être identique.");
+            new PopupInfoController().showPopupInfo(stage, "La verification du nouveau mot de passe est invalide\nLe mot de passe et la confirmation du mot de passe doivent être identique.");
+            canTryUpdate = false;
         }
-        else{        
-            if(user.getReadWriteDatabase().){
-                new PopupInfoController().showPopupInfo(stage, "compte utilisateur '" + currentUser.getUsername() + "' bien modifier !");
+        else{
+            currentUser.setPassword(new_password);
+            currentpassword = password;
+            cestutiledefairecetry = true;
+        }
+
+        if(canTryUpdate && cestutiledefairecetry){
+            try{
+                if(currentUser.getReadWriteDatabase().updateUserDataSettings(currentUserName, currentUser, currentpassword, new_password) != null){
+                    new PopupInfoController().showPopupInfo(stage, "compte utilisateur '" + currentUser.getUsername() + "' bien modifier !");
+                    currentUser.saveUserObject();
+                }
+                else{
+                    new PopupInfoController(). showPopupInfo(stage, "Erreur de modification de l'utilisateur '" + currentUser.getUsername() + "' !\n le mot de passe actuel est invalide");
+                }
             }
-            else{
+            catch(SQLException e){
+                e.printStackTrace();
                 new PopupInfoController(). showPopupInfo(stage, "Erreur de modification de l'utilisateur '" + currentUser.getUsername() + "' !");
-            }
-        }
+            }   
+        } 
     }
 
     public void exportDataToCSV(ActionEvent event){
@@ -142,6 +208,20 @@ public class AdminPageController {
         catch (SQLException e){
             e.printStackTrace();
             new PopupInfoController().showPopupInfo(stage, "Erreur d'exportation des données !");
+        }
+    }
+
+    public void exportUsersToCSV(ActionEvent event){
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        try{
+            ReadWriteDatabase database = new ReadWriteDatabase();
+            database.loadAllUsers();
+            database.getAllObjectsData().exportUserToCSV();
+            String currentDirectory = System.getProperty("user.dir");
+            new PopupInfoController().showPopupInfo(stage, "Données exporter dans \n'" + currentDirectory + "\\Users\\.csv'");
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
     }
 
@@ -571,10 +651,17 @@ public class AdminPageController {
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(registerPage);
+
+            tableView_user_adminpage = (TableView) ((Node)root).lookup("#tableView_user_adminpage");
+            loadUserTableAdmin();
         }
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void setTableView_user_adminpage(TableView tableView){
+        this.tableView_user_adminpage = tableView;
     }
 
     /**
@@ -591,6 +678,17 @@ public class AdminPageController {
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(registerPage);
+
+            User currentUser = User.loadUserObject();
+            currentUser.saveUserObject();
+
+            textfield_mail_settings = (TextField) ((Node)root).lookup("#textfield_mail_settings");
+            textfield_phone_settings = (TextField) ((Node)root).lookup("#textfield_phone_settings");
+            textfield_username_settings = (TextField) ((Node)root).lookup("#textfield_username_settings");
+
+            textfield_mail_settings.setPromptText(currentUser.getMail());
+            textfield_phone_settings.setPromptText(currentUser.getPhone());
+            textfield_username_settings.setPromptText(currentUser.getUsername());
         }
         catch(IOException e){
             e.printStackTrace();
