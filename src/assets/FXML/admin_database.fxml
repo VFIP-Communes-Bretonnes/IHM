@@ -40,7 +40,7 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" styleClass="dashboard-button" text="    Base de Donnée">
+                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" text="    Base de Donnée">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -54,8 +54,12 @@
                            <padding>
                               <Insets left="20.0" />
                            </padding>
+                           <styleClass>
+                              <String fx:value="dashboard-button" />
+                              <String fx:value="dashboard-button-main" />
+                           </styleClass>
                         </Button>
-                        <Button fx:id="button_user_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openUserPageAdmin" text="    Utilisateurs">
+                        <Button fx:id="button_user_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openUserPageAdmin" styleClass="dashboard-button" text="    Utilisateurs">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -69,10 +73,6 @@
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
-                           <styleClass>
-                              <String fx:value="dashboard-button" />
-                              <String fx:value="dashboard-button-main" />
-                           </styleClass>
                         </Button>
                         <Button fx:id="button_settings_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openSettingsPageAdmin" styleClass="dashboard-button" text="    Paramètres">
                            <graphic>
