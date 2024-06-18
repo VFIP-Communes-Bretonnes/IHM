@@ -81,7 +81,7 @@ public class AdminPageController {
     @FXML private Button button_savetobdd_bdd_pageadmin;
     // pour les TableView
     private HashMap<ComboBox<String>, Integer> comboBoxList;
-    private VBox neighborListContainer;
+    private VBox neighborListContainer; 
 
     // Settings :
     @FXML private Button button_apllysettings_settings;
