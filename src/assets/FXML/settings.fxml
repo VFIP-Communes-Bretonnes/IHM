@@ -40,36 +40,6 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Base de Donnée">
-                           <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/database_icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" styleClass="dashboard-button" text="    Utilisateurs">
-                           <graphic>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/utilisateurs_icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Button>
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" text="    Paramètres">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -82,7 +52,7 @@
                               <Insets left="20.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets bottom="182.0" top="20.0" />
                            </VBox.margin>
                            <styleClass>
                               <String fx:value="dashboard-button" />

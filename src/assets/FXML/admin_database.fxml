@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_database.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_database.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -121,12 +121,12 @@
                                  <children>
                                     <MenuButton fx:id="choix_table_bdd_adminpage" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="218.0" styleClass="toolbar-menu" text="Choix de la Table" textFill="WHITE">
                                        <items>
-                                          <MenuItem fx:id="itemchoice_dep_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" styleClass="toolbar-menuitem" text="Departement" />
-                                          <MenuItem fx:id="itemchoice_aero_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" text="Aeroport" />
-                                          <MenuItem fx:id="itemchoice_annee_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" text="Annee" />
-                                          <MenuItem fx:id="itemchoice_com_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" text="Commune" />
-                                          <MenuItem fx:id="itemchoice_donnann_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" text="DonneesAnnuelles" />
-                                          <MenuItem fx:id="itemchoice_gare_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" style="-fx-text-fill: black;" text="Gare" />
+                                          <MenuItem fx:id="itemchoice_dep_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" styleClass="toolbar-menuitem" text="Departement" />
+                                          <MenuItem fx:id="itemchoice_aero_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" styleClass="toolbar-menuitem" text="Aeroport" />
+                                          <MenuItem fx:id="itemchoice_annee_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" styleClass="toolbar-menuitem" text="Annee" />
+                                          <MenuItem fx:id="itemchoice_com_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" styleClass="toolbar-menuitem" text="Commune" />
+                                          <MenuItem fx:id="itemchoice_donnann_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" styleClass="toolbar-menuitem" text="DonneesAnnuelles" />
+                                          <MenuItem fx:id="itemchoice_gare_bdd_adminpage" mnemonicParsing="false" onAction="#changementChoixBddAdmin" styleClass="toolbar-menuitem" text="Gare" />
                                        </items>
                                        <HBox.margin>
                                           <Insets right="164.0" />
