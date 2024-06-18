@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_user.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_user.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -89,7 +89,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" styleClass="dashboard-button" text="    Déconnexion">
+                        <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" text="    Déconnexion">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -103,6 +103,10 @@
                            <VBox.margin>
                               <Insets top="130.0" />
                            </VBox.margin>
+                           <styleClass>
+                              <String fx:value="dashboard-button" />
+                              <String fx:value="dashboard-button-deconnexion" />
+                           </styleClass>
                         </Button>
                      </children>
                   </VBox>
@@ -113,10 +117,12 @@
                      <children>
                         <VBox prefHeight="610.0" prefWidth="814.0" styleClass="user-box">
                            <children>
-                              <HBox prefHeight="60.0" prefWidth="742.0" spacing="264.0">
+                              <HBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="742.0" spacing="264.0">
                                  <children>
-                                  <Button mnemonicParsing="false" onAction="#loadUserTableAdmin" prefHeight="60.0" prefWidth="245.0" styleClass="toolbar-button" text="Charger les utilisateurs" />
-                                    <Button mnemonicParsing="false" onAction="#exportUsersToCSV" prefHeight="60.0" prefWidth="245.0" styleClass="toolbar-button" text="Exporter en .CSV" />
+                                    <Button mnemonicParsing="false" onAction="#exportUsersToCSV" prefHeight="60.0" prefWidth="245.0" styleClass="toolbar-button" text="Exporter en .CSV">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin></Button>
                                  </children>
                                  <VBox.margin>
                                     <Insets left="20.0" top="10.0" />

@@ -11,7 +11,8 @@
     -light-grey-color: #C8C8C8;
     -light-grey-secondary:#dbdbdb;
     -focus-color: -secondary-color;
-
+    -red-color: #f27979;
+    -red-color-secondary: #ff9c9c;
 
     -white-smoke :  #F4F4F4;
     -modifier-smoke: #b8b8b8;
@@ -70,6 +71,14 @@
 
 .dashboard-button-main {
     -fx-background-color: -primary-color;
+}
+
+.dashboard-button-deconnexion:hover {
+    -fx-background-color: -red-color-secondary;
+}
+
+.dashboard-button-deconnexion:armed {
+    -fx-background-color: -red-color;
 }
 
 .user-box {
