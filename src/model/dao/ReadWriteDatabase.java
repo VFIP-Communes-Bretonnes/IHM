@@ -20,7 +20,7 @@ public class ReadWriteDatabase implements Serializable{
     /**
      * Private static final attribute, the URL of the database.
      */
-    final static String databaseUrl = "jdbc:mysql://localhost:3306/bdSAE";
+    final static String databaseUrl = "jdbc:mysql://localhost:3306/bdsae";
     
     /**
      * Private static final attribute, the default username for the database.
