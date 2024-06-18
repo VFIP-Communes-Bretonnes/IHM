@@ -449,4 +449,63 @@ public class ReadWriteDatabase implements Serializable{
         }
     }
     
+    public void updateGare(Gare gare) throws SQLException {
+        String sql = "UPDATE Gare SET nomGare = ?, estFret = ?, estVoyageur = ?, laCommune = ? WHERE codeGare = ?";
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setString(1, gare.getNomGare());
+            preparedStatement.setBoolean(2, gare.getEstFret());
+            preparedStatement.setBoolean(3, gare.getEstVoyageur());
+            preparedStatement.setInt(4, gare.getLaCommune().getIdCommune());
+            preparedStatement.setInt(5, gare.getCodeGare());
+    
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void updateAnnee(Annee annee) throws SQLException {
+        String sql = "UPDATE Annee SET tauxInflation = ? WHERE annee = ?";
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setDouble(1, annee.getTauxInflation());
+            preparedStatement.setInt(2, annee.getAnnee());
+    
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void updateDonneesAnnuelles(DonneesAnnuelles donneesAnnuelles) throws SQLException {
+        String sql = "UPDATE DonneesAnnuelles SET nbMaison = ?, nbAppart = ?, prixMoyen = ?, prixM2Moyen = ?, SurfaceMoy = ?, depensesCulturellesTotales = ?, budgetTotal = ?, population = ? WHERE lAnnee = ? AND laCommune = ?";
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setInt(1, donneesAnnuelles.getNbMaison());
+            preparedStatement.setInt(2, donneesAnnuelles.getNbAppart());
+            preparedStatement.setDouble(3, donneesAnnuelles.getPrixMoyen());
+            preparedStatement.setDouble(4, donneesAnnuelles.getPrixM2Moyen());
+            preparedStatement.setDouble(5, donneesAnnuelles.getSurfaceMoy());
+            preparedStatement.setDouble(6, donneesAnnuelles.getDepensesCulturellesTotales());
+            preparedStatement.setDouble(7, donneesAnnuelles.getBudgetTotal());
+            preparedStatement.setInt(8, donneesAnnuelles.getPopulation());
+            preparedStatement.setInt(9, donneesAnnuelles.getlAnnee().getAnnee());
+            preparedStatement.setInt(10, donneesAnnuelles.getLaCommune().getIdCommune());
+    
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void updateAeroport(Aeroport aeroport) throws SQLException {
+        String sql = "UPDATE Aeroport SET adresse = ?, leDepartement = ? WHERE nom = ?";
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setString(1, aeroport.getAdresse());
+            preparedStatement.setInt(2, aeroport.getLeDepartement().getIdDep());
+            preparedStatement.setString(3, aeroport.getNom());
+    
+            preparedStatement.executeUpdate();
+        }
+    }
 }

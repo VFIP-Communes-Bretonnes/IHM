@@ -762,6 +762,18 @@ public class AdminPageController {
                 if(item instanceof Commune){
                     database.updateCommune((Commune) item);
                 }
+                if(item instanceof Annee){
+                    database.updateAnnee((Annee) item);
+                }
+                if(item instanceof DonneesAnnuelles){
+                    database.updateDonneesAnnuelles((DonneesAnnuelles) item);
+                }
+                if(item instanceof Aeroport){
+                    database.updateAeroport((Aeroport) item);
+                }
+                if(item instanceof Gare){
+                    database.updateGare((Gare) item);
+                }
             }
             catch(SQLException e){
                 e.printStackTrace();
