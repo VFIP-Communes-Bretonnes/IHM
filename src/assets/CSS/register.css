@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'Krona One';
+    src: url(../Fonts/KronaOne-Regular.ttf);
+}
+
+*{
+    -krona-one: 'Krona One';
+    -primary-color: #B8ACFF;
+    -secondary-color: #D0C9FF;
+    -tertiary-color: #000119;
+    -light-grey-color: #C8C8C8;
+    -light-grey-secondary:#dbdbdb;
+    -focus-color: -secondary-color;
+
+
+    -white-smoke :  #F4F4F4;
+    -white : #ffffff;
+    -text-fill: -tertiary-color;
+    -border: #7A7A7A;
+    -border-focus: -primary-color;
+}
+
+/**
+==================================== REGISTER ==============================================================================
+ */
+
+.register-base {
+   -fx-background-color: -tertiary-color;
+}
+
+.statumun-title{
+    -fx-font-family: 'Krona One';
+    -fx-text-fill: -white-smoke;
+    -fx-font-size: 16;
+}
+
+.register-box {
+    -fx-background-color: -white-smoke;
+    -fx-background-radius: 43;
+}
+
+.register-box-title {
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 48;
+    -fx-text-fill: -text-fill;
+}
+
+.register-inputs{
+    -fx-font-family: 'Krona One';
+    -fx-min-height: 71;
+    -fx-max-width: 419;
+    -fx-background-color: -white;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-font-size: 14;
+    -fx-text-fill: -text-fill;
+    -fx-padding: 20;
+}
+
+.register-inputs:hover{
+    -fx-border-color: -border-focus;
+    -fx-border-radius: 20;
+    -fx-background-color: -white;
+}
+
+.register-inputs:focused{
+    -fx-border-color: -border-focus;
+    -fx-border-radius: 20;
+    -fx-background-color: -white;
+}
+
+.register-button{
+    -fx-pref-width: 419;
+    -fx-min-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.register-button-top {
+    -fx-background-color: -primary-color;
+}
+
+.register-button-top:hover{
+    -fx-background-color: -secondary-color;
+}
+
+.register-button-top:armed{
+    -fx-background-color: -primary-color;
+}
+
+.register-CGU {
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 10;
+}
+
+.register-CGU .box {
+	-fx-background-color: -white;
+	-fx-border-color: transparent;
+	-fx-border-radius: 3;
+	-fx-border-color: -primary-color;
+}
+
+.register-CGU .mark {
+ 	-fx-shape: "M1.73,12.91 8.1,19.28 22.79,4.59 22.79,1.59 8.1,16.28 1.73,9.91";
+}
+
+.register-CGU:selected .mark {
+	-fx-background-color: -white;
+}
+.register-CGU:selected .box {
+	-fx-background-color: -primary-color;
+}
+
+.register-back-button {
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 30;
+    -fx-text-fill: -white;
+    -fx-background-color: -tertiary-color;
+    -fx-padding: 20;
+    -fx-background-radius: 20;
+}
+
+.register-back-button:hover{
+    -fx-text-fill: -secondary-color;
+}
+
+.register-back-button:armed{
+    -fx-text-fill: -primary-color;
+}
