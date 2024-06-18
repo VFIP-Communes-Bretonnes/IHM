@@ -28,7 +28,7 @@ public class PopupController {
     /**
      * Private attribute, the label for the message in the popup window, a JavaFX Label.
      */
-    @FXML private TextArea message_popup;
+    @FXML private Label message_popup;
     
     /**
      * Private attribute, the result of the user's choice in the popup window, a boolean.

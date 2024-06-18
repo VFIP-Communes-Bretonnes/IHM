@@ -277,12 +277,26 @@ public class ReadWriteDatabase implements Serializable{
 
     public void updateUserByObject(User user) throws SQLException{
         try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE utilisateurs SET roles = ? WHERE nom = ?;")) {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE utilisateurs SET roles = ? WHERE nom = ?;")) {
 
-        preparedStatement.setString(1, user.getRole());
-        preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(1, user.getRole());
+            preparedStatement.setString(2, user.getUsername());
 
-        preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+        }
     }
+
+    public User updateUserDataSettings(User user, String pswrd) throws SQLException{
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+            if(){
+                
+            }
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE utilisateurs SET roles = ? WHERE nom = ?;")) {
+
+            preparedStatement.setString(1, user.getRole());
+            preparedStatement.setString(2, user.getUsername());
+
+            preparedStatement.executeUpdate();
+        }
     }
 }

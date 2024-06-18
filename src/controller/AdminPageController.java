@@ -20,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
@@ -56,11 +57,6 @@ public class AdminPageController {
     @FXML private Button button_user_register;
     
     /**
-     * Private attribute, the button for the stat register page on the admin page, a JavaFX Button.
-     */
-    @FXML private Button button_stat_register;
-    
-    /**
      * Private attribute, the button for the settings register page on the admin page, a JavaFX Button.
      */
     @FXML private Button button_settings_register;
@@ -70,6 +66,7 @@ public class AdminPageController {
      */
     @FXML private Button button_deco_register;
     
+    // BDD :
 
     @FXML private TableView<User> tableView_user_adminpage;
     @FXML private TableView<Object> tableView_bdd_adminpage;
@@ -82,11 +79,57 @@ public class AdminPageController {
     @FXML private MenuItem itemchoice_gare_bdd_adminpage;
     @FXML private Button button_exportcsv_bdd_pageadmin;
     @FXML private Button button_savetobdd_bdd_pageadmin;
-
     // pour les TableView
-
     private HashMap<ComboBox<String>, Integer> comboBoxList;
     private VBox neighborListContainer;
+
+    // Settings :
+    @FXML private Button button_apllysettings_settings;
+    @FXML private TextField textfield_username_settings;
+    @FXML private TextField textfield_mail_settings;
+    @FXML private TextField textfield_phone_settings;
+    @FXML private TextField textfield_actualpswrd_settings;
+    @FXML private TextField textfield_newpswrd_settings;
+    @FXML private TextField textfield_confirmpswrd_settings;
+
+    public void applySettingsToBDD(ActionEvent event){
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        User currentUser = User.loadUserObject();
+        currentUser.saveUserObject();
+
+        textfield_mail_settings.setPromptText(currentUser.getMail());
+        textfield_phone_settings.setPromptText(currentUser.getPhone());
+        textfield_username_settings.setPromptText(currentUser.getUsername());
+
+        String password = textfield_actualpswrd_settings.getText();
+        String new_password = textfield_newpswrd_settings.getText();
+        String password_confirm = textfield_confirmpswrd_settings.getText();
+
+        if(password.length() < 8 || password.length() > 32){
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+        }
+        else if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+        }
+        if(new_password.length() < 8 || new_password.length() > 32){
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter entre 8 et 32 caractères.");
+        }
+        else if(!new_password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
+            new PopupInfoController().showPopupInfo(stage, "Le mot de passe est invalide\nLe mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+        }
+        else if(!password_confirm.toString().equals(new_password.toString())){
+            new PopupInfoController().showPopupInfo(stage, "La verification de mot de passe est invalide\nLe mot de passe et la confirmation du mot de passe doivent être identique.");
+        }
+        else{        
+            if(user.getReadWriteDatabase().){
+                new PopupInfoController().showPopupInfo(stage, "compte utilisateur '" + currentUser.getUsername() + "' bien modifier !");
+            }
+            else{
+                new PopupInfoController(). showPopupInfo(stage, "Erreur de modification de l'utilisateur '" + currentUser.getUsername() + "' !");
+            }
+        }
+    }
 
     public void exportDataToCSV(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -109,11 +152,11 @@ public class AdminPageController {
         ObservableList<User> data = FXCollections.observableArrayList(usersList);
 
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
-        usernameColumn.setMinWidth(100);
+        usernameColumn.setMinWidth(150);
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
-        roleColumn.setMinWidth(100);
+        roleColumn.setMinWidth(80);
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         // Make the role column editable
@@ -133,7 +176,7 @@ public class AdminPageController {
         });
 
         TableColumn<User, String> mailColumn = new TableColumn<>("Mail");
-        mailColumn.setMinWidth(100);
+        mailColumn.setMinWidth(200);
         mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
 
         TableColumn<User, String> phoneColumn = new TableColumn<>("Phone");
@@ -143,7 +186,7 @@ public class AdminPageController {
         tableView_user_adminpage.setEditable(true);
 
         TableColumn<User, Void> buttonCol = new TableColumn<>("Action");
-        buttonCol.setMinWidth(100);
+        buttonCol.setMinWidth(200);
 
         // Use a custom cell factory for the button column
         Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
@@ -159,6 +202,7 @@ public class AdminPageController {
                         } else {
                             // Create a button without a callback
                             Button button = new Button("Supprimer");
+                            button.getStyleClass().add("toolbar-button");
                             button.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent event) {
                                     User user = getTableView().getItems().get(getIndex());
