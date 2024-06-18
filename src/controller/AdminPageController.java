@@ -92,6 +92,49 @@ public class AdminPageController {
     @FXML private TextField textfield_newpswrd_settings;
     @FXML private TextField textfield_confirmpswrd_settings;
 
+    // admin_user :
+    @FXML private TextField textField_username_adduser;
+    @FXML private TextField textField_role_adduser;
+    @FXML private TextField textfield_mail_adduser;
+    @FXML private TextField textfield_phone_adduser;
+    @FXML private TextField textfield_psswrd_adduser;
+
+    public void addNewUserToDatabase(ActionEvent event){
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        String username = textField_username_adduser.getText();
+        String role = textField_role_adduser.getText();
+        String mail = textfield_mail_adduser.getText();
+        String phone = textfield_phone_adduser.getText();
+        String psswrd = textfield_psswrd_adduser.getText();
+
+        try{
+        User newUser = new User();
+        ReadWriteDatabase database = new ReadWriteDatabase();
+
+        newUser.setUsername(username);
+        newUser.setMail(mail);
+        newUser.setPassword(psswrd);
+        newUser.setPhone(phone);
+        newUser.setRole(role);
+        newUser.setReadWriteDatabase(database);
+
+            database.addNewUserByObjct(newUser);
+            new PopupInfoController().showPopupInfo(stage, "l'utilisateur '" + username + "' à bien été ajouter dans la base de données !");
+        }
+        catch(Exception e){
+            new PopupInfoController().showPopupInfo(stage, "l'utilisateur '" + username + "'n'a pas été ajouter dans la base de données :\n\nLes données entrée ne sont pas valides !");
+        }
+
+        textField_username_adduser.clear();
+        textField_role_adduser.clear();
+        textfield_mail_adduser.clear();
+        textfield_phone_adduser.clear();
+        textfield_psswrd_adduser.clear();
+
+        loadUserTableAdmin();
+    }
+
     public void applySettingsToBDD(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
@@ -218,7 +261,7 @@ public class AdminPageController {
             database.loadAllUsers();
             database.getAllObjectsData().exportUserToCSV();
             String currentDirectory = System.getProperty("user.dir");
-            new PopupInfoController().showPopupInfo(stage, "Données exporter dans \n'" + currentDirectory + "\\Users\\.csv'");
+            new PopupInfoController().showPopupInfo(stage, "Données exporter dans \n'" + currentDirectory + "\\Users.csv'");
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -627,9 +670,12 @@ public class AdminPageController {
      */
     public void openBDDPageAdmin(ActionEvent event){
         try{
-            System.out.println("openBDDPageAdmin");
+            Scene registerPage = null;
+
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/nvlkjzrbvkjsgbujygdv.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene registerPage = FXMLLoader.load(getClass().getResource("/FXML/AdminSceneBDD.fxml"));
             stage.setScene(registerPage);
         }
         catch(IOException e){

@@ -280,6 +280,20 @@ public class ReadWriteDatabase implements Serializable{
         }
     }
 
+    public static void addNewUserByObjct(User user) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO utilisateurs (nom, pswrd, roles, phone, mail) VALUES (?, ?, ?, ?, ?)")) {
+
+                preparedStatement.setString(1, user.getUsername());
+                preparedStatement.setString(2, user.getPassword());
+                preparedStatement.setString(3, user.getRole());
+                preparedStatement.setString(4, user.getPhone());
+                preparedStatement.setString(5, user.getMail());
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
     public void deleteUserByUsername(String userName) throws SQLException {
         try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM utilisateurs WHERE nom = ?;")) {
