@@ -5,24 +5,31 @@ import java.lang.reflect.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -82,6 +89,10 @@ public class AdminPageController {
     // pour les TableView
     private HashMap<ComboBox<String>, Integer> comboBoxList;
     private VBox neighborListContainer; 
+
+    ProgressIndicator progressIndicator = new ProgressIndicator();
+    Label loadingLabel = new Label("Loading...");
+
 
     // Settings :
     @FXML private Button button_apllysettings_settings;
@@ -241,7 +252,6 @@ public class AdminPageController {
     }
 
     public void exportDataToCSV(ActionEvent event){
-        saveEditedDataToBDD(event);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         ReadWriteDatabase database = new ReadWriteDatabase();
         try{
@@ -364,7 +374,16 @@ public class AdminPageController {
         for (Field field : fields) {
             Class<?> fieldType = field.getType();
     
-            if (!fieldType.isPrimitive() && !fieldType.equals(String.class)) {
+            if ("idDep".equals(field.getName()) 
+            || "nom".equals(field.getName()) 
+            || "annee".equals(field.getName()) 
+            || "codeGare".equals(field.getName())
+            || "lAnnee".equals(field.getName())
+            || "laCommune".equals(field.getName())
+            || "idCommune".equals(field.getName())) {
+                createLabelColumn(tableView, field);
+            }
+            else if (!fieldType.isPrimitive() && !fieldType.equals(String.class)) {
                 createComboBoxColumn(tableView, database, field, fieldType);
             } else {
                 createEditableColumn(tableView, field);
@@ -374,6 +393,35 @@ public class AdminPageController {
         tableView.getItems().setAll(list);
     }
     
+    private void createLabelColumn(TableView<Object> tableView, Field field) {
+        TableColumn<Object, String> column = new TableColumn<>(field.getName());
+        column.setCellValueFactory(cellData -> {
+            try {
+                field.setAccessible(true);
+                return new SimpleStringProperty(field.get(cellData.getValue()).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return new SimpleStringProperty("");
+            }
+        });
+    
+        column.setCellFactory(param -> new TableCell<Object, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    Label label = new Label(item);
+                    setGraphic(label);
+                }
+            }
+        });
+    
+        tableView.getColumns().add(column);
+    }
+
     private void createComboBoxColumn(TableView<Object> tableView, ReadWriteDatabase database, Field field, Class<?> fieldType) {
         String className = fieldType.getSimpleName();
         if (className.charAt(className.length() - 1) != 's') {
@@ -622,6 +670,7 @@ public class AdminPageController {
         }
     }
 
+
     /**
      * Public method that opens the login page.
      *
@@ -749,67 +798,144 @@ public class AdminPageController {
         }
     }
 
-    public void saveEditedDataToBDD(ActionEvent event){
+    public void saveEditedDataToBDD(ActionEvent event) {
         String choix = choix_table_bdd_adminpage.getText();
         ReadWriteDatabase database = new ReadWriteDatabase();
-
         ObservableList<Object> items = tableView_bdd_adminpage.getItems();
-        new PopupInfoController().showPopupInfo((Stage) ((Node)event.getSource()).getScene().getWindow(), "Sauvegarde en cours !");
-        for (Object item : items) {
-            try{
-                if(item instanceof Departement){
-                    database.updateDepartement((Departement) item);
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        Label loadingLabel = new Label("Loading...");
+        VBox loadingBox = new VBox(10, progressIndicator, loadingLabel);
+        loadingBox.setAlignment(Pos.CENTER);
+        // Show loading indicator
+        loadingBox.setVisible(true);
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+        root.getChildren().add(loadingBox);
+
+        loadingBox.getStyleClass().add("loading-panel");
+    
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                for (Object item : items) {
+                    try {
+                        if (item instanceof Departement) {
+                            database.updateDepartement((Departement) item);
+                        }
+                        if (item instanceof Commune) {
+                            database.updateCommune((Commune) item);
+                        }
+                        if (item instanceof Annee) {
+                            database.updateAnnee((Annee) item);
+                        }
+                        if (item instanceof DonneesAnnuelles) {
+                            database.updateDonneesAnnuelles((DonneesAnnuelles) item);
+                        }
+                        if (item instanceof Aeroport) {
+                            database.updateAeroport((Aeroport) item);
+                        }
+                        if (item instanceof Gare) {
+                            database.updateGare((Gare) item);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
-                if(item instanceof Commune){
-                    database.updateCommune((Commune) item);
-                }
-                if(item instanceof Annee){
-                    database.updateAnnee((Annee) item);
-                }
-                if(item instanceof DonneesAnnuelles){
-                    database.updateDonneesAnnuelles((DonneesAnnuelles) item);
-                }
-                if(item instanceof Aeroport){
-                    database.updateAeroport((Aeroport) item);
-                }
-                if(item instanceof Gare){
-                    database.updateGare((Gare) item);
-                }
+                return null;
             }
-            catch(SQLException e){
-                new PopupInfoController().showPopupInfo((Stage) ((Node)event.getSource()).getScene().getWindow(), "Erreur lors de la sauvegarde : \n" + e.getMessage());
+    
+            @Override
+            protected void succeeded() {
+                // Hide loading indicator
+                loadingBox.setVisible(false);
+            }
+    
+            @Override
+            protected void failed() {
+                // Hide loading indicator and handle the error
+                loadingBox.setVisible(false);
+                // Optionally, show an error message
+                Throwable e = getException();
                 e.printStackTrace();
             }
-        }
+        };
+    
+        // Run the task in a background thread
+        new Thread(task).start();
     }
-
+    
     public void changementChoixBddAdmin(ActionEvent event){
-        MenuItem clickedItem = (MenuItem) event.getSource();
-        choix_table_bdd_adminpage.setText(clickedItem.getText());
-        tableView_bdd_adminpage.setEditable(true);
-        ReadWriteDatabase database = new ReadWriteDatabase();
 
-        try{
-            database.loadAllData();
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        Label loadingLabel = new Label("Loading...");
+        VBox loadingBox = new VBox(10, progressIndicator, loadingLabel);
+        loadingBox.setAlignment(Pos.CENTER);
+        loadingBox.setVisible(true);
+        loadingBox.toFront();
 
-            if (clickedItem == itemchoice_dep_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getDepartementsList(), tableView_bdd_adminpage, database);
-            } else if (clickedItem == itemchoice_aero_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getAeroportsList(), tableView_bdd_adminpage, database);
-            } else if (clickedItem == itemchoice_annee_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getAnneesList(), tableView_bdd_adminpage, database);
-            } else if (clickedItem == itemchoice_com_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getCommunesList(), tableView_bdd_adminpage, database);
-            } else if (clickedItem == itemchoice_donnann_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getDonneesAnnuellesList(), tableView_bdd_adminpage, database);
-            } else if (clickedItem == itemchoice_gare_bdd_adminpage) {
-                loadDataIntoTable(database.getAllObjectsData().getGaresList(), tableView_bdd_adminpage, database);
+        Stage stage = (Stage) tableView_bdd_adminpage.getScene().getWindow();
+        AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+        root.getChildren().add(loadingBox);
+
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                // Show loading indicator
+                Platform.runLater(() -> {
+                    loadingBox.setVisible(true);
+                });
+        
+                // Long-running task
+                MenuItem clickedItem = (MenuItem) event.getSource();
+                choix_table_bdd_adminpage.setText(clickedItem.getText());
+                tableView_bdd_adminpage.setEditable(true);
+                ReadWriteDatabase database = new ReadWriteDatabase();
+                database.loadAllData();
+        
+                // Update UI with results
+                Platform.runLater(() -> {
+                    if (clickedItem == itemchoice_dep_bdd_adminpage) {
+                        loadDataIntoTable(database.getAllObjectsData().getDepartementsList(), tableView_bdd_adminpage, database);
+                    } else if (clickedItem == itemchoice_aero_bdd_adminpage) {
+                        loadDataIntoTable(database.getAllObjectsData().getAeroportsList(), tableView_bdd_adminpage, database);
+                    } else if (clickedItem == itemchoice_annee_bdd_adminpage) {
+                        loadDataIntoTable(database.getAllObjectsData().getAnneesList(), tableView_bdd_adminpage, database);
+                    } else if (clickedItem == itemchoice_com_bdd_adminpage) {
+                        loadDataIntoTable(database.getAllObjectsData().getCommunesList(), tableView_bdd_adminpage, database);
+                    } else if (clickedItem == itemchoice_donnann_bdd_adminpage) {
+                        loadDataIntoTable(database.getAllObjectsData().getDonneesAnnuellesList(), tableView_bdd_adminpage, database);
+                    } else if (clickedItem == itemchoice_gare_bdd_adminpage) {
+                        loadDataIntoTable(database.getAllObjectsData().getGaresList(), tableView_bdd_adminpage, database);
+                    }
+                    System.out.println(clickedItem.getText());
+                    System.out.println(database.getAllObjectsData().getDepartementsList().toString());
+        
+                    // Hide loading indicator
+                    loadingBox.setVisible(false);
+                });
+        
+                return null;
             }
-            System.out.println(clickedItem.getText());
-            System.out.println(database.getAllObjectsData().getDepartementsList().toString());
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
+        
+            @Override
+            protected void succeeded() {
+                // Hide loading indicator
+                loadingBox.setVisible(false);
+            }
+        
+            @Override
+            protected void failed() {
+                // Hide loading indicator and handle the error
+                // Optionally, show an error message
+                Throwable e = getException();
+                loadingBox.setVisible(false);
+                e.printStackTrace();
+            }
+        };
+        
+        // Run the task in a background thread
+        new Thread(task).start();
     }
+    
 }
