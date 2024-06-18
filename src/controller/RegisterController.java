@@ -102,6 +102,16 @@ public class RegisterController {
             if (wantToContinue) {
                 if(User.register(username, password, mail, phone)){
                     new PopupInfoController().showPopupInfo(stage, "compte utilisateur '" + username + "' bien créer !");
+                    try{
+                        Scene registerPage = null;
+                        Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
+                        registerPage = new Scene(root, 1116, 682);
+            
+                        stage.setScene(registerPage);
+                    }
+                    catch(IOException e){
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     new PopupInfoController(). showPopupInfo(stage, "Erreur de création de compte\nLa création de l'utilisateur '" + username + "' à échouer !");
