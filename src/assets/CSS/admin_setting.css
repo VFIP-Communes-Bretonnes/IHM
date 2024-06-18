@@ -72,6 +72,14 @@
     -fx-background-color: -primary-color;
 }
 
+.dashboard-button-deconnexion:hover {
+    -fx-background-color: -red-color-secondary;
+}
+
+.dashboard-button-deconnexion:armed {
+    -fx-background-color: -red-color;
+}
+
 .setting-box {
     -fx-background-radius: 43;
     -fx-background-color: -white;
