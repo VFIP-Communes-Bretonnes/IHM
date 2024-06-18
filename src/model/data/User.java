@@ -248,7 +248,8 @@ public class User implements Serializable {
             return true;
         }
         catch(SQLException e){
-            System.err.println(e.getMessage());
+            //System.err.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

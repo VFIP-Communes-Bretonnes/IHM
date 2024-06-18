@@ -325,7 +325,7 @@ public class AdminPageController {
                         } else {
                             // Create a button without a callback
                             Button button = new Button("Supprimer");
-                            button.getStyleClass().add("toolbar-button");
+                            //button.getStyleClass().add("toolbar-button");
                             button.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent event) {
                                     User user = getTableView().getItems().get(getIndex());
