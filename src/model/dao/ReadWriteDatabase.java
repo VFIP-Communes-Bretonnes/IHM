@@ -343,7 +343,7 @@ public class ReadWriteDatabase implements Serializable{
     }
 
     public void updateDepartement(Departement departement) throws SQLException {
-        String sql = "UPDATE Departement SET nomDep = ?, investissementCulturel2019 = ? WHERE idDep = ?";
+        String sql = "UPDATE departement SET nomDep = ?, investissementCulturel2019 = ? WHERE idDep = ?";
         try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
     
@@ -354,4 +354,99 @@ public class ReadWriteDatabase implements Serializable{
             preparedStatement.executeUpdate();
         }
     }
+
+    public void updateCommune(Commune commune) throws SQLException {
+        String sql = "UPDATE commune SET nomCommune = ?, leDepartement = ? WHERE idCommune = ?";
+        Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try {
+    
+            preparedStatement.setString(1, commune.getNomCommune());
+            preparedStatement.setInt(2, commune.getLeDepartement().getIdDep());
+            preparedStatement.setInt(3, commune.getIdCommune());
+    
+            preparedStatement.executeUpdate();
+            
+            
+            ArrayList<Departement> departements = new ArrayList<Departement>();
+
+            Statement DatabaseStatement = connection.createStatement();
+            ResultSet res = DatabaseStatement.executeQuery("select * from departement");
+            while(res.next()){
+                int investissementCulturel2019 = res.getInt("investissementCulturel2019");
+                String nomDepartement = res.getString("nomDep").replace('-', '_').replace('\'', '_');
+                int idDepartement = res.getInt("idDep");
+                Departement departement = new Departement(idDepartement, Departement.NomDepartement.valueOf(nomDepartement) , investissementCulturel2019);
+                departements.add(departement);
+            }
+            
+            AllObjectsData dataList = new AllObjectsData();
+
+            Commune communeOriginal = null;
+            DatabaseStatement = connection.createStatement();
+            res = DatabaseStatement.executeQuery("select * from commune");
+            while(res.next()){
+                int idCommune = res.getInt("idCommune");
+                String nomCommune = res.getString("nomCommune");
+                int idDepartement = res.getInt("leDepartement");
+                
+                dataList.setDepartementsList(departements);
+                Commune commune2 = new Commune(idCommune, nomCommune , dataList.getDepartementAvecID(idDepartement));
+                if(idCommune == commune.getIdCommune()){
+                    communeOriginal = commune2;
+                }
+                dataList.addCommune(commune2);
+            }
+
+            DatabaseStatement = connection.createStatement();
+            res = DatabaseStatement.executeQuery("select * from voisinage");    
+            while(res.next()){
+                int idCommune = res.getInt("commune");
+                int idCommuneVoisine = res.getInt("communeVoisine");
+                if(idCommune == communeOriginal.getIdCommune()){
+                    communeOriginal.ajouterVoisin(dataList.getCommuneAvecID(idCommuneVoisine));
+                }
+            }
+
+            //System.out.println(communeOriginal.getListeVoisins());        
+
+            for (Commune voisin : communeOriginal.getListeVoisins()) {
+
+                try {
+                    
+                    sql = "DELETE FROM voisinage WHERE (commune=? AND communeVoisine=?);";
+                    preparedStatement = connection.prepareStatement(sql);
+                    preparedStatement.setInt(1, commune.getIdCommune());
+                    preparedStatement.setInt(2, voisin.getIdCommune());
+                    preparedStatement.executeUpdate();
+                }
+                catch (Exception e) {
+
+                }   
+            }
+
+            
+            for (Commune voisin : commune.getListeVoisins()) {
+                sql = "INSERT INTO `voisinage` (`commune`,`communeVoisine`) VALUES (?,?);";
+                preparedStatement = connection.prepareStatement(sql);
+                try {
+            
+                    preparedStatement.setInt(1, commune.getIdCommune());
+                    preparedStatement.setInt(2, voisin.getIdCommune());
+            
+                    preparedStatement.executeUpdate();
+                }
+                catch (Exception e) {
+                    
+                }  
+            }
+        }
+        catch(Exception e){
+
+        }
+        finally{
+            connection.close();
+        }
+    }
+    
 }

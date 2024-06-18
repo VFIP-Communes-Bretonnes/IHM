@@ -759,6 +759,9 @@ public class AdminPageController {
                 if(item instanceof Departement){
                     database.updateDepartement((Departement) item);
                 }
+                if(item instanceof Commune){
+                    database.updateCommune((Commune) item);
+                }
             }
             catch(SQLException e){
                 e.printStackTrace();
