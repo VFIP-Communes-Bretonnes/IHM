@@ -106,23 +106,13 @@
     -fx-background-color: -primary-color;
 }
 
-
-.table-button {
-	-fx-background-color: -fx-primary-color;
-	-fx-cursor: hand;
-}
-.table-button:hover {
-	-fx-background-color: -fx-secondary-color;
-}
+/** TABLE VIEW **/
 
 .table-view {
 	-fx-border-color: transparent;
 	-fx-background-color: -white;
 	-fx-background-radius: 43;
-}
-
-.table-view{
-   -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
 }
 
 .table-view:focused{
@@ -148,7 +138,6 @@
 }
 
 .table-view .table-cell{
-    -fx-alignment: center-left;
     -fx-font-family: 'Krona One';
     -fx-text-fill: -white;
     -fx-padding: 10 5 10 5;
@@ -171,7 +160,6 @@
 
 .table-row-cell:selected {
     -fx-background-color: -primary-color;
-
 }
 
 .table-row-cell:empty {
@@ -182,8 +170,8 @@
 .table-row-cell:filled:hover {
     -fx-background-color: -secondary-color;
 }
-.table-row-cell:filled:selected:hover {
-    -fx-background-color: -secondary-color;
+.table-row-cell:filled:selected {
+    -fx-background-color: -primary-color;
 }
 
 .table-view .placeholder .label {

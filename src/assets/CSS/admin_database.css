@@ -225,7 +225,7 @@
 .table-row-cell:filled:hover {
     -fx-background-color: -secondary-color;
 }
-.table-row-cell:filled:selected:hover {
+.table-row-cell:filled:selected {
     -fx-background-color: -secondary-color;
 }
 
