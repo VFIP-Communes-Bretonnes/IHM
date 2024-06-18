@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_database.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_database.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -132,8 +132,8 @@
                                           <Insets right="164.0" />
                                        </HBox.margin>
                                     </MenuButton>
-                                  <Button mnemonicParsing="false" onAction="#loadUserTableAdmin" prefHeight="60.0" prefWidth="150.0" styleClass="toolbar-button" text="Sauvegarder" />
-                                    <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="185.0" styleClass="toolbar-button" text="Exporter en .CSV">
+                                  <Button mnemonicParsing="false" onAction="#saveEditedDataToBDD" prefHeight="60.0" prefWidth="150.0" styleClass="toolbar-button" text="Sauvegarder" />
+                                    <Button mnemonicParsing="false" onAction="#exportDataToCSV" prefHeight="60.0" prefWidth="185.0" styleClass="toolbar-button" text="Exporter en .CSV">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin></Button>
