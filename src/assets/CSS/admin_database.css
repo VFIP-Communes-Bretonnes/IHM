@@ -1,0 +1,211 @@
+@font-face {
+    font-family: 'Krona One';
+    src: url(../assets/fonts/KronaOne-Regular.ttf);
+}
+
+*{
+    -krona-one: 'Krona One';
+    -primary-color: #B8ACFF;
+    -secondary-color: #D0C9FF;
+    -tertiary-color: #000119;
+    -light-grey-color: #C8C8C8;
+    -light-grey-secondary:#dbdbdb;
+    -focus-color: -secondary-color;
+    -red-color: #f27979;
+    -red-color-secondary: #ff9c9c;
+
+
+    -white-smoke :  #F4F4F4;
+    -modifier-smoke: #b8b8b8;
+    -white : #ffffff;
+    -text-fill: -tertiary-color;
+    -text-fill-smoke: #8f8d8d;
+    -border: #7A7A7A;
+    -border-focus: -primary-color;
+}
+
+/**
+==================================== ADMINDATABASE ==============================================================================
+ */
+
+.anchorpane {
+    -fx-background-color: -tertiary-color;
+}
+
+.adminpage-base {
+   -fx-background-color: -tertiary-color;
+}
+
+.statumun-title{
+    -fx-font-family: 'Krona One';
+    -fx-text-fill: -white-smoke;
+    -fx-font-size: 16;
+}
+
+.dashboard {
+    -fx-background-color: -tertiary-color;
+}
+
+.working {
+    -fx-background-color: -white-smoke;
+    -fx-background-radius: 43;
+}
+
+.dashboard-button {
+    -fx-background-color: -tertiary-color;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-text-fill: -white;
+    -fx-min-height: 71;
+    -fx-max-width: 255;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.dashboard-button:hover {
+    -fx-background-color: -secondary-color;
+}
+
+.dashboard-button:armed {
+    -fx-background-color: -primary-color;
+}
+
+.dashboard-button-main {
+    -fx-background-color: -primary-color;
+}
+
+.dashboard-button-deconnexion:hover {
+    -fx-background-color: -red-color-secondary;
+}
+
+.dashboard-button-deconnexion:armed {
+    -fx-background-color: -red-color;
+}
+
+.user-box {
+    -fx-background-radius: 43;
+    -fx-background-color: -white;
+}
+
+.toolbar-button{
+    -fx-pref-width: 190;
+    -fx-min-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.toolbar-button:hover{
+    -fx-background-color: -secondary-color;
+}
+
+.toolbar-button:armed{
+    -fx-background-color: -primary-color;
+}
+
+.toolbar-menu  {
+    -fx-pref-width: 210;
+    -fx-min-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.toolbar-menu .label {
+    -fx-text-fill: -white;
+}
+
+.toolbar-menu:hover  {
+    -fx-background-color: -secondary-color;
+}
+
+.toolbar-menu:armed{
+    -fx-background-color: -primary-color;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: transparent;
+    -fx-pref-width: 210;
+}
+
+.toolbar-menuitem {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -white;
+    -fx-padding: 10;
+}
+
+.toolbar-menuitem:hover {
+    -fx-background-color: -secondary-color;
+    -fx-text-fill: -white;
+}
+
+
+/** TABLE VIEW **/
+
+.table-view {
+    -fx-base: #f5f5f5;
+    -fx-control-inner-background: #f5f5f5;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -fx-table-header-border-color, -fx-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 3, 2;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color:
+        transparent
+        transparent
+        derive(-fx-base, 80%)
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+    -fx-background-color: -fx-table-header-border-color, -fx-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 3, 2;
+    -fx-padding: 0.2em 0.333333em 0.2em 0.333333em; /* 2 4 2 4 */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-alignment: center-left;
+}
+
+.table-view .column-header .label {
+    -fx-translate-x: 4;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color, -fx-control-inner-background;
+    -fx-background-insets: -0.2, 1;
+    -fx-background-radius: 3, 2;
+}
+
+.table-view .table-cell {
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+}
+
+.table-view .table-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell:filled:selected {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+}
+
+.table-view .table-cell:filled:hover {
+    -fx-background-color: derive(-fx-base, 10%);
+}
