@@ -133,16 +133,22 @@
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
                                  </VBox.margin>
                               </TableView>
-                              <HBox prefHeight="90.0" prefWidth="752.0">
+                              <HBox alignment="CENTER" prefHeight="5.0" prefWidth="814.0" spacing="5.0">
                                  <children>
                                     <Label text="   " />
-                                    <TextField fx:id="textField_username_adduser" maxWidth="250.0" minHeight="36.0" promptText="Nom d'utilisateur" styleClass="register-inputs" />
-                                    <TextField fx:id="textfield_mail_adduser" maxWidth="250.0" minHeight="36.0" promptText="Mail" styleClass="register-inputs" />
-                                    <TextField fx:id="textfield_phone_adduser" maxWidth="250.0" minHeight="36.0" promptText="Numéro de Téléphone" styleClass="register-inputs" />
-                                    <TextField fx:id="textField_role_adduser" maxWidth="250.0" minHeight="36.0" promptText="Rôle" styleClass="register-inputs" />
-                                    <PasswordField fx:id="textfield_psswrd_adduser" maxWidth="250.0" minHeight="36.0" promptText="Mot de passe" styleClass="register-inputs" />
-                                    <Button mnemonicParsing="false" onAction="#addNewUserToDatabase" text="Add" />
+                                    <TextField fx:id="textField_username_adduser" maxWidth="250.0" minHeight="36.0" prefHeight="60.0" prefWidth="130.0" promptText="Nom" styleClass="inputs-add-user" />
+                                    <TextField fx:id="textfield_mail_adduser" maxWidth="183.0" minHeight="36.0" prefHeight="60.0" prefWidth="183.0" promptText="Mail" styleClass="inputs-add-user" />
+                                    <TextField fx:id="textfield_phone_adduser" maxWidth="250.0" minHeight="36.0" prefHeight="60.0" prefWidth="143.0" promptText="Téléphone" styleClass="inputs-add-user" />
+                                    <TextField fx:id="textField_role_adduser" maxWidth="250.0" minHeight="36.0" prefHeight="60.0" prefWidth="103.0" promptText="Rôle" styleClass="inputs-add-user" />
+                                    <PasswordField fx:id="textfield_psswrd_adduser" maxWidth="202.0" minHeight="36.0" prefHeight="60.0" prefWidth="202.0" promptText="Mot de passe" styleClass="inputs-add-user" />
+                                    <Button mnemonicParsing="false" onAction="#addNewUserToDatabase" prefHeight="60.0" prefWidth="100.0" styleClass="add-button" text="Add">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin></Button>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
                               </HBox>
                            </children>
                            <FlowPane.margin>

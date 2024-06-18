@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aca10e5a-d078-427d-aa71-de4ccf9f9656" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/controller/AdminPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/controller/AdminPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/controller/ButtonEventHandeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/controller/ButtonEventHandeler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/controller/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/controller/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/model/data/AllObjectsData.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/model/data/AllObjectsData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/model/data/Gare.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/model/data/Gare.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/model/data/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/model/data/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/view/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/class/view/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/CSS/admin_user.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/CSS/admin_user.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/CSS/setting.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/CSS/setting.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/FXML/admin_settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/FXML/admin_settings.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/FXML/admin_user.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/FXML/admin_user.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/.~lock.Users.csv#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/Users.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/cache.ser" beforeDir="false" afterPath="$PROJECT_DIR$/ws/cache.ser" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2hrxhTEFrkMh7Btl6vEu1ZjGRHC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.cyp.sh.executor": "Run",
+    "git-widget-placeholder": "TestFXML",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/cyprien/javaSDK/javafx-sdk-22.0.1/lib",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ws" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aca10e5a-d078-427d-aa71-de4ccf9f9656" name="Changes" comment="" />
+      <created>1718366116920</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718366116920</updated>
+      <workItem from="1718729334864" duration="19000" />
+      <workItem from="1718729366669" duration="4545000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

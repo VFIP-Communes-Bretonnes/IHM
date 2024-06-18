@@ -111,7 +111,7 @@
 	-fx-background-color: -fx-primary-color;
 	-fx-cursor: hand;
 }
-.table-button:hover{
+.table-button:hover {
 	-fx-background-color: -fx-secondary-color;
 }
 
@@ -121,54 +121,144 @@
 	-fx-background-radius: 43;
 }
 
-.table-view .column-header-background,
-.table-view .column-header-background .filler,
-.table-view .corner {
-	-fx-background-color: transparent;
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: -tertiary-color;
+    -fx-background-radius: 20 20 0 0;
+    -fx-border-color: -white;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: -white;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-padding: 10;
 }
 
 .table-view .column-header {
-	-fx-background-color: -light-grey-color;
-	-fx-border-color: -light-grey-color;
+    -fx-background-color: transparent;
 }
 
-.table-view .column-header .label{
-	-fx-font-family: 'Krona One';
+.table-view .table-cell{
+    -fx-alignment: center-left;
+    -fx-font-family: 'Krona One';
+    -fx-text-fill: -white;
+    -fx-padding: 15 0 15 5;
 }
 
-.table-row-cell:filled {
-	-fx-background-color: transparent;
-	-fx-border-color: transparent -light-grey-color -light-grey-color -light-grey-color, transparent;
-	-fx-border-insets: 0, 1;
+.table-row-cell {
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: -tertiary-color;
+    -fx-background-color: -white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
 }
+
+
+.table-row-cell .label {
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 11;
+}
+
+
+.table-row-cell:selected {
+    -fx-background-color: -primary-color;
+
+}
+
 .table-row-cell:empty {
-	-fx-background-color: transparent;
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0;
 }
+
 .table-row-cell:filled:hover {
-	-fx-background-color: -light-grey-color;
+    -fx-background-color: -secondary-color;
 }
 .table-row-cell:filled:selected:hover {
-	-fx-background-color: -light-grey-color;
+    -fx-background-color: -secondary-color;
 }
-.table-row-cell:filled:selected {
-  	-fx-background-color: #eaeaea;
- 	-fx-background-insets: 0.0;
-	-fx-background-radius: 0.0;
-}
-.table-row-cell:filled:selected .table-cell {
-	-fx-text-fill: black;
-}
-.table-view .cell:filled{
-	-fx-cell-size: 30;
-	-fx-alignment: center-left;
-}
-.check-box-table-cell > .check-box:selected .box .mark {
-	-fx-background-color: -white;
-}
-.check-box-table-cell > .check-box:selected .box{
-	-fx-background-color: -primary-color;
-}
+
 .table-view .placeholder .label {
-	-fx-text-fill: -primary-color;
-	-fx-padding:20px;
+    -fx-text-fill: -primary-color;
+    -fx-padding:20px;
+}
+
+.table-row-cell:filled .table-cell {
+    -fx-text-fill: -tertiary-color;
+}
+
+.table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: -tertiary-color;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+.table-view .filler{
+    -fx-background-color: transparent;
+}
+
+.add-button{
+    -fx-pref-width: 100;
+    -fx-min-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.add-button:hover{
+    -fx-background-color: -secondary-color;
+}
+
+.add-button:armed{
+    -fx-background-color: -primary-color;
+}
+
+.inputs-add-user {
+        -fx-font-family: 'Krona One';
+        -fx-min-height: 60;
+        -fx-max-width: 170;
+        -fx-background-color: -white-smoke;
+        -fx-background-radius: 43;
+        -fx-background-insets: 0, 0 0 1 0;
+        -fx-font-size: 14;
+        -fx-text-fill: -text-fill;
+        -fx-padding: 20;
+}
+
+.inputs-add-user:hover{
+    -fx-border-color: -border-focus;
+    -fx-border-radius: 43;
+    -fx-background-color: -white;
+}
+
+.inputs-add-user:focused{
+    -fx-border-color: -border-focus;
+    -fx-border-radius: 43;
+    -fx-background-color: -white;
 }

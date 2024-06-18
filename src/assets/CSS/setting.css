@@ -113,6 +113,8 @@
 
 .setting-modifier:focused {
     -fx-background-color: -white-smoke;
+    -fx-border-color: -border-focus;
+    -fx-border-radius: 20;
 }
 
 .grid-focused:hover {
