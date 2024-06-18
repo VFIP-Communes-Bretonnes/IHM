@@ -29,7 +29,7 @@
                </rowConstraints>
                <children>
                   <Button fx:id="ouiButton_popupyon" mnemonicParsing="false" onAction="#handleOuiButton" prefHeight="42.0" prefWidth="75.0" styleClass="popup-box-button" text="Oui" GridPane.halignment="CENTER" />
-                  <Button fx:id="ouiButton_popupyon1" mnemonicParsing="false" onAction="#handleOuiButton" prefHeight="42.0" prefWidth="75.0" text="Non" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button fx:id="ouiButton_popupyon1" mnemonicParsing="false" onAction="#handleNonButton" prefHeight="42.0" prefWidth="75.0" text="Non" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <styleClass>
                         <String fx:value="popup-box-button" />
                         <String fx:value="popup-box-button-no" />
