@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="popup_panel_infopopup" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="302.0" style="-fx-border-radius: 30; -fx-background-radius: 30;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.4" minWidth="0.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.2" minWidth="10.0" prefWidth="301.2" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.4" minWidth="0.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.19998779296876" minWidth="0.0" prefWidth="0.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="206.40001220703124" minHeight="10.0" prefHeight="139.99998779296874" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="178.39999618530274" minHeight="10.0" prefHeight="81.60001220703126" vgrow="SOMETIMES" />
-  </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="400.0" styleClass="anchorpane" stylesheets="@../CSS/popup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopupController">
    <children>
-      <Button fx:id="ouiButton_popupyon" mnemonicParsing="false" onAction="#handleOuiButton" prefHeight="48.0" prefWidth="85.0" style="-fx-background-color: #63FF61; -fx-border-radius: 30; -fx-background-radius: 30;" text="OK" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <TextArea fx:id="message_popup" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+      <VBox alignment="TOP_CENTER" prefHeight="229.0" prefWidth="400.0" styleClass="popup-box">
+         <children>
+            <Label fx:id="message_popup" alignment="TOP_CENTER" prefHeight="162.0" prefWidth="328.0" styleClass="popup-box-text" textAlignment="CENTER">
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </Label>
+            <Button fx:id="ouiButton_popupyon" mnemonicParsing="false" onAction="#handleOuiButton" prefHeight="42.0" prefWidth="75.0" styleClass="popup-box-button" text="OK">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
    </children>
-</GridPane>
+</AnchorPane>

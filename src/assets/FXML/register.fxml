@@ -14,50 +14,50 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1116.0" stylesheets="@../CSS/register.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" stylesheets="@../CSS/register.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
    <children>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" styleClass="register-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="682.0" prefWidth="1116.0" styleClass="register-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="button_back_register" mnemonicParsing="false" onAction="#openLoginPage" styleClass="register-back-button" text="&lt;">
                <FlowPane.margin>
                   <Insets right="10.0" />
                </FlowPane.margin>
             </Button>
-            <VBox alignment="TOP_CENTER" prefHeight="634.0" prefWidth="532.0" styleClass="register-box">
+            <VBox alignment="TOP_CENTER" prefHeight="578.0" prefWidth="532.0" styleClass="register-box">
                <children>
                   <Label styleClass="register-box-title" text="Inscription">
                      <VBox.margin>
-                        <Insets top="15.0" />
+                        <Insets top="3.0" />
                      </VBox.margin>
                   </Label>
                   <TextField fx:id="textfield_username_register" maxWidth="250.0" minHeight="36.0" promptText="Nom d'utilisateur" styleClass="register-inputs">
                      <VBox.margin>
-                        <Insets top="25.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="textfield_mail_register" maxWidth="250.0" minHeight="36.0" promptText="Mail" styleClass="register-inputs">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="textfield_phone_register" maxWidth="250.0" minHeight="36.0" promptText="Numéro de Téléphone" styleClass="register-inputs">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </TextField>
                   <PasswordField fx:id="textfield_psswrd_register" maxWidth="250.0" minHeight="36.0" promptText="Mot de passe" styleClass="register-inputs">
                      <VBox.margin>
-                        <Insets top="25.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </PasswordField>
                   <PasswordField fx:id="textfield_psswrd_confirm_register" maxWidth="250.0" minHeight="36.0" promptText="Confirmer le mot de passe" styleClass="register-inputs">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </PasswordField>
                   <CheckBox fx:id="checkbox_cgu_register" mnemonicParsing="false" styleClass="register-CGU" text="Accepter les CGU">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </CheckBox>
                   <Button fx:id="button_register_register" mnemonicParsing="false" onAction="#tryRegister" text="S'inscrire">
@@ -70,10 +70,13 @@
                      </VBox.margin>
                   </Button>
                </children>
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
             </VBox>
          </children>
       </FlowPane>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0">
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="40.0">
          <children>
             <ImageView fitHeight="43.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>

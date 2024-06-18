@@ -12,14 +12,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_user.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_user.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
-      <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="64.8" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefWidth="1114.0">
+            <HBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="698.0" prefWidth="260.0" styleClass="dashboard">
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="451.0" prefWidth="260.0" styleClass="dashboard">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" />
                      </HBox.margin>
@@ -36,7 +35,7 @@
                               <Insets left="20.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets top="35.0" />
+                              <Insets />
                            </VBox.margin>
                         </Button>
                         <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" styleClass="dashboard-button" text="    Base de Donnée">
@@ -48,7 +47,7 @@
                               </ImageView>
                            </graphic>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                            <padding>
                               <Insets left="20.0" />
@@ -66,7 +65,7 @@
                               <Insets left="20.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                            <styleClass>
                               <String fx:value="dashboard-button" />
@@ -85,7 +84,7 @@
                               <Insets left="20.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
                         <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" styleClass="dashboard-button" text="    Déconnexion">
@@ -105,12 +104,12 @@
                         </Button>
                      </children>
                   </VBox>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="698.0" prefWidth="615.0" styleClass="working" HBox.hgrow="ALWAYS">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="working" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets bottom="10.0" left="15.0" right="10.0" />
+                        <Insets bottom="10.0" left="20.0" />
                      </HBox.margin>
                      <children>
-                        <VBox prefHeight="674.0" prefWidth="794.0" styleClass="user-box">
+                        <VBox prefHeight="610.0" prefWidth="814.0" styleClass="user-box">
                            <children>
                               <HBox prefHeight="60.0" prefWidth="742.0" spacing="264.0">
                                  <children>
@@ -121,23 +120,26 @@
                                     <Insets left="20.0" top="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <TableView fx:id="tableView_user_adminpage" editable="true" prefHeight="606.0" prefWidth="794.0">
+                              <TableView fx:id="tableView_user_adminpage" editable="true" prefHeight="530.0" prefWidth="774.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
                                  </VBox.margin>
                               </TableView>
                            </children>
+                           <FlowPane.margin>
+                              <Insets />
+                           </FlowPane.margin>
                         </VBox>
                      </children>
                   </FlowPane>
                </children>
                <FlowPane.margin>
-                  <Insets top="10.0" />
+                  <Insets />
                </FlowPane.margin>
             </HBox>
          </children>
       </FlowPane>
-      <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="20.0">
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="40.0">
          <children>
             <ImageView fitHeight="43.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
