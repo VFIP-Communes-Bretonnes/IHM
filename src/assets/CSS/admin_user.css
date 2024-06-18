@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Krona One';
-    src: url(../assets/fonts/KronaOne-Regular.ttf);
+    src: url(../Fonts/Krona-One-Regular.ttf);
 }
 
 *{
@@ -151,7 +151,7 @@
     -fx-alignment: center-left;
     -fx-font-family: 'Krona One';
     -fx-text-fill: -white;
-    -fx-padding: 15 0 15 5;
+    -fx-padding: 10 5 10 5;
 }
 
 .table-row-cell {
@@ -242,11 +242,11 @@
 .inputs-add-user {
         -fx-font-family: 'Krona One';
         -fx-min-height: 60;
-        -fx-max-width: 170;
+        -fx-max-width: 250;
         -fx-background-color: -white-smoke;
         -fx-background-radius: 43;
         -fx-background-insets: 0, 0 0 1 0;
-        -fx-font-size: 14;
+        -fx-font-size: 10;
         -fx-text-fill: -text-fill;
         -fx-padding: 20;
 }
@@ -261,4 +261,24 @@
     -fx-border-color: -border-focus;
     -fx-border-radius: 43;
     -fx-background-color: -white;
+}
+
+.delete-button {
+    -fx-pref-width: 100;
+    -fx-min-height: 35;
+    -fx-background-color: -red-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 10;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.delete-button:hover {
+    -fx-background-color: -red-color-secondary;
+}
+
+.delete-button:armed {
+    -fx-background-color: -red-color;
 }

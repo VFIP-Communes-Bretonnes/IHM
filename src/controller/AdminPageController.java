@@ -276,7 +276,7 @@ public class AdminPageController {
         ObservableList<User> data = FXCollections.observableArrayList(usersList);
 
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
-        usernameColumn.setMinWidth(150);
+        usernameColumn.setMinWidth(200);
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
@@ -300,7 +300,7 @@ public class AdminPageController {
         });
 
         TableColumn<User, String> mailColumn = new TableColumn<>("Mail");
-        mailColumn.setMinWidth(200);
+        mailColumn.setMinWidth(250);
         mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
 
         TableColumn<User, String> phoneColumn = new TableColumn<>("Phone");
@@ -310,7 +310,7 @@ public class AdminPageController {
         tableView_user_adminpage.setEditable(true);
 
         TableColumn<User, Void> buttonCol = new TableColumn<>("Action");
-        buttonCol.setMinWidth(200);
+        buttonCol.setMinWidth(100);
 
         // Use a custom cell factory for the button column
         Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
@@ -326,7 +326,7 @@ public class AdminPageController {
                         } else {
                             // Create a button without a callback
                             Button button = new Button("Supprimer");
-                            //button.getStyleClass().add("toolbar-button");
+                            button.getStyleClass().add("delete-button");
                             button.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent event) {
                                     User user = getTableView().getItems().get(getIndex());
