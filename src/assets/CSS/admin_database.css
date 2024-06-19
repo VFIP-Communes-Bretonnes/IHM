@@ -293,10 +293,6 @@
     -fx-text-fill: -tertiary-color;
 }
 
-.combo-box .list-cell {
-    -fx-background-color: -white-smoke;
-    -fx-text-fill: -tertiary-color;
-}
 
 .combo-box-popup {
     -fx-background-color: -white-smoke;
