@@ -69,19 +69,25 @@ public class LoginController {
         else{
             if(user.checkLogin(username, password)){
                 try{
-                    System.out.println("openAdminPage");
-
                     Scene registerPage = null;
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/admin_user.fxml"));
-                    registerPage = new Scene(root, 1116, 682);
-        
-                    stage.setScene(registerPage);
-
+                    Parent root = null;
                     user.saveUserObject();
+                    if(user.getRole().equals("user")){
+                        root = FXMLLoader.load(getClass().getResource("/FXML/settings.fxml"));
+                        registerPage = new Scene(root, 1116, 682);
+            
+                        stage.setScene(registerPage);
+                    }
+                    else if(user.getRole().equals("admin")){
+                        root = FXMLLoader.load(getClass().getResource("/FXML/admin_dashboard.fxml"));
+                        registerPage = new Scene(root, 1116, 682);
+            
+                        stage.setScene(registerPage);
+                    }
+                    else{
+                        throw new RuntimeException("Role invalide !");
+                    }
 
-                    AdminPageController adminPageController = new AdminPageController();
-                    adminPageController.setTableView_user_adminpage((TableView) ((Node)root).lookup("#tableView_user_adminpage"));
-                    adminPageController.loadUserTableAdmin();
                 }
                 catch(IOException e){
                     e.printStackTrace();
