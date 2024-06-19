@@ -12,10 +12,10 @@ import geopandas
 import sys
 
 plt.rcParams["figure.figsize"] = (20,15)
-communes=pd.read_csv("./DonneesFourniesGraphes/voisinageCommunesBretonnes.csv", sep=';')
-geo=pd.read_csv("./DonneesFourniesGraphes/communes-geo.csv", sep=';')
-region = geopandas.read_file("./DonneesFourniesGraphes/communes-geo.geojson")
-gare=pd.read_csv("./DonneesFourniesGraphes/gare.csv", sep=';')
+communes=pd.read_csv("./rendering/DonneesFourniesGraphes/voisinageCommunesBretonnes.csv", sep=';')
+geo=pd.read_csv("./rendering/DonneesFourniesGraphes/communes-geo.csv", sep=';')
+region = geopandas.read_file("./rendering/DonneesFourniesGraphes/communes-geo.geojson")
+gare=pd.read_csv("./rendering/DonneesFourniesGraphes/gare.csv", sep=';')
 
 #Liste des communes possédant un aeroport
 aeroport =[22113,22373,29075,29151,29216,35228,35238,56162]

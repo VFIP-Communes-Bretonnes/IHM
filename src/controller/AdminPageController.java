@@ -1051,4 +1051,37 @@ public class AdminPageController {
             linechart_stats.setVisible(true);
     }
 
+    public void handleCreateGraph(ActionEvent event){
+        ComboBox clickedItem = (ComboBox) event.getSource();
+        Commune commune = (Commune) clickedItem.getSelectionModel().getSelectedItem();
+        int idCommune = commune.getIdCommune();
+        try{
+            generateGraph(idCommune);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            new PopupInfoController().showPopupInfo((Stage) linechart_stats.getScene().getWindow(), "Erreur lors de la génération du graphe !");
+        }
+    }
+
+    public static void generateGraph(int depNum) throws Exception{
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("linux")){
+            // Make linux.bin executable
+            ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "chmod +x rendering/linux.bin");
+            Process process = pb.start();
+            process.waitFor();
+
+            // Run linux.bin
+            pb = new ProcessBuilder("./rendering/linux.bin", String.valueOf(depNum));
+            process = pb.start();
+            process.waitFor();
+
+            System.out.println("test");
+        } else if (os.contains("windows")){
+            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "start", "../ws/windows.exe", String.valueOf(depNum));
+            Process process = pb.start();
+            process.waitFor();
+        }
+    }
 }
