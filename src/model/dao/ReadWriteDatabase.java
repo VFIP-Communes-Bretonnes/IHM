@@ -477,7 +477,7 @@ public class ReadWriteDatabase implements Serializable{
     }
 
     public void updateDonneesAnnuelles(DonneesAnnuelles donneesAnnuelles) throws SQLException {
-        String sql = "UPDATE DonneesAnnuelles SET nbMaison = ?, nbAppart = ?, prixMoyen = ?, prixM2Moyen = ?, SurfaceMoy = ?, depensesCulturellesTotales = ?, budgetTotal = ?, population = ? WHERE lAnnee = ? AND laCommune = ?";
+        String sql = "UPDATE donneesannuelles SET nbMaison = ?, nbAppart = ?, prixMoyen = ?, prixM2Moyen = ?, SurfaceMoy = ?, depensesCulturellesTotales = ?, budgetTotal = ?, population = ? WHERE lAnnee = ? AND laCommune = ?";
         try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
     
@@ -497,7 +497,7 @@ public class ReadWriteDatabase implements Serializable{
     }
 
     public void updateAeroport(Aeroport aeroport) throws SQLException {
-        String sql = "UPDATE Aeroport SET adresse = ?, leDepartement = ? WHERE nom = ?";
+        String sql = "UPDATE aeroport SET adresse = ?, leDepartement = ? WHERE nom = ?";
         try (Connection connection = DriverManager.getConnection(databaseUrl, defaultUserName, defaultUserPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
     
