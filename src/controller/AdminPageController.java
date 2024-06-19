@@ -31,6 +31,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -119,8 +120,8 @@ public class AdminPageController {
     @FXML private ComboBox combobox_filtredonnees;
     @FXML private LineChart<String, Number> linechart_stats;
     @FXML private PieChart piechart_stats;
-    @FXML private Label textarea_communeA;
-    @FXML private Label textarea_communeB;
+    @FXML private TextArea textarea_communeA;
+    @FXML private TextArea textarea_communeB;
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis;
 
