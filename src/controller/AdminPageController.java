@@ -935,60 +935,51 @@ public class AdminPageController {
     }
 
     public void selectDonneeAComp(ActionEvent event){
-        ComboBox clickedItem = combobox_communeB;
-        Commune communeB = (Commune) clickedItem.getSelectionModel().getSelectedItem();
-        String nomCommuneB = communeB.toString();
-        Commune communeA = (Commune) combobox_communeA.getSelectionModel().getSelectedItem();
+        ComboBox clickedItemB = combobox_communeB;
+        ComboBox clickedItemA = combobox_communeA;
+
+        Commune communeB = (Commune) clickedItemB.getSelectionModel().getSelectedItem();
+        Commune communeA = (Commune) clickedItemA.getSelectionModel().getSelectedItem();
+        
         ReadWriteDatabase database = new ReadWriteDatabase();
+
         try{
             database.loadAllData();
         }
         catch(SQLException e){
             e.printStackTrace();
         }
-        ArrayList<DonneesAnnuelles> listDonneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
-        ArrayList<DonneesAnnuelles> listDonneCommuneA = null;
-        DonneesAnnuelles DACommuneA = null;
 
-        DonneesAnnuelles DACommuneB = listDonneCommuneB.get(0);
-        for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneB) {
-            if(DACommuneB.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
-                DACommuneB = donneesAnnuelles;
+        if(communeB != null && communeA != null){
+            ArrayList<DonneesAnnuelles> listDonneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
+            ArrayList<DonneesAnnuelles> listDonneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
+
+            DonneesAnnuelles DACommuneB = listDonneCommuneB.get(0);
+            for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneB) {
+                if(DACommuneB.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                    DACommuneB = donneesAnnuelles;
+                }
             }
-        }
 
-        String infoCommuneB = nomCommuneB + " en " + DACommuneB.getlAnnee().getAnnee()
-        + "\n\n"
-        + "Budget total : " + DACommuneB.getBudgetTotal() + "\n"
-        + "Depenses Culturelles Totales : " + DACommuneB.getDepensesCulturellesTotales() + "\n"
-        + "Appartement vendu : " + DACommuneB.getNbAppart() + "\n"
-        + "Maison vendu : " + DACommuneB.getNbMaison() + "\n"
-        + "Population : " + DACommuneB.getPopulation() + "\n"
-        + "Prix du m² moyen : " + DACommuneB.getPrixM2Moyen() + "\n"
-        + "Prix moyen des logements : " + DACommuneB.getPrixMoyen() + "\n"
-        + "Surface moyen des logements : " + DACommuneB.getSurfaceMoy();
-
-        textarea_communeB.setText(infoCommuneB);
-        textarea_communeB.setWrapText(true);
-        textarea_communeB.setVisible(true);
-
-        if(communeA != null){
-            String nomCommuneA = communeA.toString();
-            
-            listDonneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
-
-            DACommuneA = listDonneCommuneA.get(0);
+            DonneesAnnuelles DACommuneA = listDonneCommuneA.get(0);
             for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneA) {
                 if(DACommuneA.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
                     DACommuneA = donneesAnnuelles;
                 }
             }
 
-            String donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
-            if(donneeChoisi == null){
-                combobox_filtredonnees.getSelectionModel().selectFirst();
-                donneeChoisi = donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
-            }
+            String nomCommuneA = communeA.toString();
+            String nomCommuneB = communeB.toString();
+
+            String donneeChoisi = (String) ( (ComboBox) event.getSource()).getSelectionModel().getSelectedItem();
+
+            System.out.println(donneeChoisi);
+            System.out.println(listDonneCommuneA);
+            System.out.println(listDonneCommuneB);
+            System.out.println(nomCommuneA);
+            System.out.println(DACommuneA);
+            System.out.println(nomCommuneB);
+            System.out.println(DACommuneB);
 
             showCharts(donneeChoisi, listDonneCommuneA, listDonneCommuneB, nomCommuneA, DACommuneA, nomCommuneB, DACommuneB);
         }
