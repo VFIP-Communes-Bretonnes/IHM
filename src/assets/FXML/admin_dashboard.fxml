@@ -28,7 +28,7 @@
                         <Insets bottom="10.0" left="10.0" />
                      </HBox.margin>
                      <children>
-                        <Button fx:id="button_home_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openHomePageAdmin" styleClass="dashboard-button" text="    Tableau de bord" VBox.vgrow="ALWAYS">
+                        <Button fx:id="button_home_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openHomePageAdmin" text="    Tableau de bord" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -42,8 +42,12 @@
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <styleClass>
+                              <String fx:value="dashboard-button" />
+                              <String fx:value="dashboard-button-main" />
+                           </styleClass>
                         </Button>
-                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" text="    Base de Donnée">
+                        <Button fx:id="button_bdd_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openBDDPageAdmin" styleClass="dashboard-button" text="    Base de Donnée">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -57,10 +61,6 @@
                            <padding>
                               <Insets left="20.0" />
                            </padding>
-                           <styleClass>
-                              <String fx:value="dashboard-button" />
-                              <String fx:value="dashboard-button-main" />
-                           </styleClass>
                         </Button>
                         <Button fx:id="button_user_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openUserPageAdmin" styleClass="dashboard-button" text="    Utilisateurs">
                            <graphic>
