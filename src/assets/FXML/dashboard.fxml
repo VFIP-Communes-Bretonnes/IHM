@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_dashboard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -74,7 +74,7 @@
                               <Insets left="20.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets top="130.0" />
+                              <Insets top="312.0" />
                            </VBox.margin>
                            <styleClass>
                               <String fx:value="dashboard-button" />
@@ -90,7 +90,7 @@
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="610.0" prefWidth="814.0">
                            <children>
-                              <HBox prefHeight="98.0" prefWidth="804.0" spacing="10.0">
+                              <HBox prefHeight="116.0" prefWidth="804.0" spacing="10.0">
                                  <children>
                                     <ComboBox fx:id="combobox_communeA" onAction="#selectionCommuneA" prefWidth="150.0" promptText="Commune1">
                                        <padding>
@@ -130,10 +130,13 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="814.0">
                                  <children>
-                                    <ComboBox fx:id="combobox_graph" onAction="#handleCreateGraph" prefWidth="150.0">
+                                    <ComboBox fx:id="combobox_graph" onAction="#handleCreateGraph" prefWidth="150.0" promptText="Excentricité">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                     </ComboBox>
                                  </children>
                                  <VBox.margin>
