@@ -91,7 +91,6 @@ public class AdminPageController {
     private VBox neighborListContainer; 
 
     ProgressIndicator progressIndicator = new ProgressIndicator();
-    Label loadingLabel = new Label("Loading...");
 
 
     // Settings :
@@ -519,6 +518,9 @@ public class AdminPageController {
             this.neighborContainer = new VBox();
     
             comboBox.setEditable(true);
+            comboBox.getStyleClass().add("table-view-combo-box");
+
+            neighborContainer.getStyleClass().add("neighbor-container");
     
             try {
                 Method getter = database.getAllObjectsData().getClass().getMethod(getterName);
@@ -613,7 +615,9 @@ public class AdminPageController {
             for (Commune neighbor : neighbors) {
                 HBox neighborBox = new HBox();
                 ComboBox<String> neighborComboBox = new ComboBox<>();
-                Button deleteButton = new Button("Delete");
+                Button deleteButton = new Button("Supprimer");
+
+                deleteButton.getStyleClass().add("delete-button");
     
                 for (Object obj : choice) {
                     if (obj instanceof Commune) {
@@ -639,12 +643,17 @@ public class AdminPageController {
                 neighborContainer.getChildren().add(neighborBox);
             }
     
-            Button addButton = new Button("Add Neighbor");
+            Button addButton = new Button("Ajouter");
+
+            addButton.getStyleClass().add("add-button");
+
             addButton.setOnAction(event -> {
                 HBox newNeighborBox = new HBox();
                 ComboBox<String> newNeighborComboBox = new ComboBox<>();
-                Button newDeleteButton = new Button("Delete");
-    
+                Button newDeleteButton = new Button("Supprimer");
+
+                newDeleteButton.getStyleClass().add("delete-button");
+
                 for (Object obj : choice) {
                     if (obj instanceof Commune) {
                         newNeighborComboBox.getItems().add(((Commune) obj).toString());
@@ -804,8 +813,8 @@ public class AdminPageController {
         ReadWriteDatabase database = new ReadWriteDatabase();
         ObservableList<Object> items = tableView_bdd_adminpage.getItems();
         ProgressIndicator progressIndicator = new ProgressIndicator();
-        Label loadingLabel = new Label("Loading...");
-        VBox loadingBox = new VBox(10, progressIndicator, loadingLabel);
+        progressIndicator.getStyleClass().add("loading");
+        VBox loadingBox = new VBox(10, progressIndicator);
         loadingBox.setAlignment(Pos.CENTER);
         // Show loading indicator
         loadingBox.setVisible(true);
@@ -814,8 +823,6 @@ public class AdminPageController {
         AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         root.getChildren().add(loadingBox);
 
-        loadingBox.getStyleClass().add("loading-panel");
-    
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -878,6 +885,7 @@ public class AdminPageController {
         Stage stage = (Stage) tableView_bdd_adminpage.getScene().getWindow();
         AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         root.getChildren().add(loadingBox);
+        loadingBox.getStyleClass().add("loading-panel");
 
         Task<Void> task = new Task<Void>() {
             @Override
