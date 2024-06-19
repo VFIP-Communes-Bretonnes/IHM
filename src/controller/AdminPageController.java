@@ -702,7 +702,7 @@ public class AdminPageController {
     public void openHomePageAdmin(ActionEvent event){
         try{
             Scene registerPage = null;
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/nvlkjzrbvkjsgbujygdv.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/AdminScene.fxml"));
             registerPage = new Scene(root, 1116, 682);
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
