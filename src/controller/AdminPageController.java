@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -108,6 +109,9 @@ public class AdminPageController {
     @FXML private TextField textfield_mail_adduser;
     @FXML private TextField textfield_phone_adduser;
     @FXML private TextField textfield_psswrd_adduser;
+
+    // stats :
+    @FXML private BorderPane borderpane_stats;
 
     public void addNewUserToDatabase(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -711,7 +715,7 @@ public class AdminPageController {
     public void openHomePageAdmin(ActionEvent event){
         try{
             Scene registerPage = null;
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/AdminScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/admin_dashboard.fxml"));
             registerPage = new Scene(root, 1116, 682);
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
