@@ -277,3 +277,7 @@
     -fx-font-size: 10;
     -fx-font-family: 'Krona One';
 }
+
+.image-graphe {
+    -fx-background-radius: 43;
+}
