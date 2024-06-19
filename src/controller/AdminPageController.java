@@ -20,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -120,7 +119,6 @@ public class AdminPageController {
     @FXML private ComboBox combobox_communeB;
     @FXML private ComboBox combobox_filtredonnees;
     @FXML private LineChart<String, Number> linechart_stats;
-    @FXML private PieChart piechart_stats;
     @FXML private TextArea textarea_communeA;
     @FXML private TextArea textarea_communeB;
     @FXML private CategoryAxis xAxis;
@@ -556,6 +554,7 @@ public class AdminPageController {
 
             combobox_communeA = (ComboBox) ((Node)root).lookup("#combobox_communeA");
             combobox_communeB = (ComboBox) ((Node)root).lookup("#combobox_communeB");
+            combobox_filtredonnees = (ComboBox) ((Node)root).lookup("#combobox_filtredonnees");
 
             User user = User.loadUserObject();
             user.saveUserObject();
@@ -566,6 +565,15 @@ public class AdminPageController {
                 combobox_communeA.getItems().add(commune);
                 combobox_communeB.getItems().add(commune);
             }
+
+            combobox_filtredonnees.getItems().add("Maison vendu");
+            combobox_filtredonnees.getItems().add("Budget total");
+            combobox_filtredonnees.getItems().add("Depenses Culturelles");
+            combobox_filtredonnees.getItems().add("Appartement vendu");
+            combobox_filtredonnees.getItems().add("Prix du m² moyen");
+            combobox_filtredonnees.getItems().add("Prix moyen des logements");
+            combobox_filtredonnees.getItems().add("Surface moyen des logements");
+            combobox_filtredonnees.getItems().add("Population");
         }
         catch(IOException e){
             e.printStackTrace();
@@ -816,17 +824,18 @@ public class AdminPageController {
         catch(SQLException e){
             e.printStackTrace();
         }
-        ArrayList<DonneesAnnuelles> donneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
-        ArrayList<DonneesAnnuelles> donneCommuneB = null;
+        ArrayList<DonneesAnnuelles> listDonneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
+        ArrayList<DonneesAnnuelles> listDdonneCommuneB = null;
+        DonneesAnnuelles DACommuneB = null;
 
-        DonneesAnnuelles DACommuneA = donneCommuneA.get(0);
-        for (DonneesAnnuelles donneesAnnuelles : donneCommuneA) {
+        DonneesAnnuelles DACommuneA = listDonneCommuneA.get(0);
+        for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneA) {
             if(DACommuneA.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
                 DACommuneA = donneesAnnuelles;
             }
         }
 
-        String infoCommuneA = nomCommuneA + "en " + DACommuneA.getlAnnee().getAnnee()
+        String infoCommuneA = nomCommuneA + " en " + DACommuneA.getlAnnee().getAnnee()
         + "\n\n"
         + "Budget total : " + DACommuneA.getBudgetTotal() + "\n"
         + "Depenses Culturelles Totales : " + DACommuneA.getDepensesCulturellesTotales() + "\n"
@@ -841,45 +850,28 @@ public class AdminPageController {
         textarea_communeA.setWrapText(true);
         textarea_communeA.setVisible(true);
 
-        piechart_stats.getData().clear();
-        piechart_stats.setTitle("Comparaison");
-        piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
-        piechart_stats.setVisible(true);
-
         if(communeB != null){
             String nomCommuneB = communeA.toString();
-            piechart_stats.getData().add(new PieChart.Data(nomCommuneB, communeB.getLeDepartement().getInvestissementCulturel2019()));
-            donneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
+            
+            listDdonneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
+
+            DACommuneB = listDdonneCommuneB.get(0);
+            for (DonneesAnnuelles donneesAnnuelles : listDdonneCommuneB) {
+                if(DACommuneB.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                    DACommuneB = donneesAnnuelles;
+                }
+            }
+            
+
+            String donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
+            if(donneeChoisi == null){
+                combobox_filtredonnees.getSelectionModel().selectFirst();
+                //donneeChoisi = donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
+            }
+
+            showCharts(donneeChoisi, listDonneCommuneA, listDdonneCommuneB, nomCommuneA, DACommuneA, nomCommuneB, DACommuneB);
+
         }
-        
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Year");
-        yAxis.setLabel("Data Value");
-
-        // Creating the line chart
-        linechart_stats.setTitle("Commune Data Over Years");
-
-        XYChart.Series<String, Number> nbMaisonSeries = new XYChart.Series<>();
-        nbMaisonSeries.setName("Number of Houses");
-
-        XYChart.Series<String, Number> nbAppartSeries = new XYChart.Series<>();
-        nbAppartSeries.setName("Number of Apartments");
-
-        XYChart.Series<String, Number> prixMoyenSeries = new XYChart.Series<>();
-        prixMoyenSeries.setName("Average Price");
-
-        // Populate the series with data
-        for (DonneesAnnuelles data : donneCommuneA) {
-            String year = String.valueOf(data.getlAnnee().getAnnee());
-            nbMaisonSeries.getData().add(new XYChart.Data<>(year, data.getNbMaison()));
-            nbAppartSeries.getData().add(new XYChart.Data<>(year, data.getNbAppart()));
-            prixMoyenSeries.getData().add(new XYChart.Data<>(year, data.getPrixMoyen()));
-        }
-
-        // Add the series to the line chart
-        linechart_stats.getData().addAll(nbMaisonSeries, nbAppartSeries, prixMoyenSeries);
-        linechart_stats.setVisible(true);
     }
 
     public void selectionCommuneB(ActionEvent event){
@@ -887,17 +879,221 @@ public class AdminPageController {
         Commune communeB = (Commune) clickedItem.getSelectionModel().getSelectedItem();
         String nomCommuneB = communeB.toString();
         Commune communeA = (Commune) combobox_communeA.getSelectionModel().getSelectedItem();
+        ReadWriteDatabase database = new ReadWriteDatabase();
+        try{
+            database.loadAllData();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        ArrayList<DonneesAnnuelles> listDonneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
+        ArrayList<DonneesAnnuelles> listDonneCommuneA = null;
+        DonneesAnnuelles DACommuneA = null;
 
-        piechart_stats.getData().clear();
+        DonneesAnnuelles DACommuneB = listDonneCommuneB.get(0);
+        for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneB) {
+            if(DACommuneB.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                DACommuneB = donneesAnnuelles;
+            }
+        }
 
-        textarea_communeB.setText(nomCommuneB);
+        String infoCommuneB = nomCommuneB + " en " + DACommuneB.getlAnnee().getAnnee()
+        + "\n\n"
+        + "Budget total : " + DACommuneB.getBudgetTotal() + "\n"
+        + "Depenses Culturelles Totales : " + DACommuneB.getDepensesCulturellesTotales() + "\n"
+        + "Appartement vendu : " + DACommuneB.getNbAppart() + "\n"
+        + "Maison vendu : " + DACommuneB.getNbMaison() + "\n"
+        + "Population : " + DACommuneB.getPopulation() + "\n"
+        + "Prix du m² moyen : " + DACommuneB.getPrixM2Moyen() + "\n"
+        + "Prix moyen des logements : " + DACommuneB.getPrixMoyen() + "\n"
+        + "Surface moyen des logements : " + DACommuneB.getSurfaceMoy();
+
+        textarea_communeB.setText(infoCommuneB);
+        textarea_communeB.setWrapText(true);
         textarea_communeB.setVisible(true);
-        piechart_stats.setTitle("Comparaison");
-        piechart_stats.getData().add(new PieChart.Data(nomCommuneB, communeB.getLeDepartement().getInvestissementCulturel2019()));
-        piechart_stats.setVisible(true);
+
         if(communeA != null){
             String nomCommuneA = communeA.toString();
-            piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
+            
+            listDonneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
+
+            DACommuneA = listDonneCommuneA.get(0);
+            for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneA) {
+                if(DACommuneA.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                    DACommuneA = donneesAnnuelles;
+                }
+            }
+
+            String donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
+            if(donneeChoisi == null){
+                combobox_filtredonnees.getSelectionModel().selectFirst();
+                donneeChoisi = donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
+            }
+
+            showCharts(donneeChoisi, listDonneCommuneA, listDonneCommuneB, nomCommuneA, DACommuneA, nomCommuneB, DACommuneB);
         }
     }
+
+    public void selectDonneeAComp(ActionEvent event){
+        ComboBox clickedItem = combobox_communeB;
+        Commune communeB = (Commune) clickedItem.getSelectionModel().getSelectedItem();
+        String nomCommuneB = communeB.toString();
+        Commune communeA = (Commune) combobox_communeA.getSelectionModel().getSelectedItem();
+        ReadWriteDatabase database = new ReadWriteDatabase();
+        try{
+            database.loadAllData();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        ArrayList<DonneesAnnuelles> listDonneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
+        ArrayList<DonneesAnnuelles> listDonneCommuneA = null;
+        DonneesAnnuelles DACommuneA = null;
+
+        DonneesAnnuelles DACommuneB = listDonneCommuneB.get(0);
+        for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneB) {
+            if(DACommuneB.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                DACommuneB = donneesAnnuelles;
+            }
+        }
+
+        String infoCommuneB = nomCommuneB + " en " + DACommuneB.getlAnnee().getAnnee()
+        + "\n\n"
+        + "Budget total : " + DACommuneB.getBudgetTotal() + "\n"
+        + "Depenses Culturelles Totales : " + DACommuneB.getDepensesCulturellesTotales() + "\n"
+        + "Appartement vendu : " + DACommuneB.getNbAppart() + "\n"
+        + "Maison vendu : " + DACommuneB.getNbMaison() + "\n"
+        + "Population : " + DACommuneB.getPopulation() + "\n"
+        + "Prix du m² moyen : " + DACommuneB.getPrixM2Moyen() + "\n"
+        + "Prix moyen des logements : " + DACommuneB.getPrixMoyen() + "\n"
+        + "Surface moyen des logements : " + DACommuneB.getSurfaceMoy();
+
+        textarea_communeB.setText(infoCommuneB);
+        textarea_communeB.setWrapText(true);
+        textarea_communeB.setVisible(true);
+
+        if(communeA != null){
+            String nomCommuneA = communeA.toString();
+            
+            listDonneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
+
+            DACommuneA = listDonneCommuneA.get(0);
+            for (DonneesAnnuelles donneesAnnuelles : listDonneCommuneA) {
+                if(DACommuneA.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                    DACommuneA = donneesAnnuelles;
+                }
+            }
+
+            String donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
+            if(donneeChoisi == null){
+                combobox_filtredonnees.getSelectionModel().selectFirst();
+                donneeChoisi = donneeChoisi = (String) combobox_filtredonnees.getSelectionModel().getSelectedItem();
+            }
+
+            showCharts(donneeChoisi, listDonneCommuneA, listDonneCommuneB, nomCommuneA, DACommuneA, nomCommuneB, DACommuneB);
+        }
+    }
+
+    public void showCharts(String donneeChoisi, ArrayList<DonneesAnnuelles> listDonneCommuneA, ArrayList<DonneesAnnuelles> listDonneCommuneB, String nomCommuneA, DonneesAnnuelles DACommuneA, String nomCommuneB, DonneesAnnuelles DACommuneB){
+        linechart_stats.getData().clear();
+            
+            CategoryAxis xAxis = new CategoryAxis();
+            NumberAxis yAxis = new NumberAxis();
+            xAxis.setLabel("Year");
+            yAxis.setLabel("Data Value");
+
+            // Creating the line chart
+            linechart_stats.setTitle("Comparaison et évolution : " + donneeChoisi);
+
+            XYChart.Series<String, Number> donneeChoisiCommuneA = new XYChart.Series<>();
+            donneeChoisiCommuneA.setName("Commune A");
+
+            XYChart.Series<String, Number> donneeChoisiCommuneB = new XYChart.Series<>();
+            donneeChoisiCommuneB.setName("Commune B");
+
+            if(donneeChoisi.equals("Maison vendu")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getNbMaison()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getNbMaison()));
+                }
+            }
+            else if(donneeChoisi.equals("Budget total")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getBudgetTotal()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getBudgetTotal()));
+                }
+            }
+            else if(donneeChoisi.equals("Depenses Culturelles")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getDepensesCulturellesTotales()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getDepensesCulturellesTotales()));
+                }
+            }
+            else if(donneeChoisi.equals("Appartement vendu")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getNbAppart()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getNbAppart()));
+                }
+            }
+            else if(donneeChoisi.equals("Prix du m² moyen")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getPrixM2Moyen()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getPrixM2Moyen()));
+                }
+            }
+            else if(donneeChoisi.equals("Prix moyen des logements")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getPrixMoyen()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getPrixMoyen()));
+                }
+            }
+            else if(donneeChoisi.equals("Surface moyen des logements")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getSurfaceMoy()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getSurfaceMoy()));
+                }
+            }
+            else if(donneeChoisi.equals("Population")){
+                for (DonneesAnnuelles data : listDonneCommuneA) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneA.getData().add(new XYChart.Data<>(year, data.getPopulation()));
+                }
+                for (DonneesAnnuelles data : listDonneCommuneB) {
+                    String year = String.valueOf(data.getlAnnee().getAnnee());
+                    donneeChoisiCommuneB.getData().add(new XYChart.Data<>(year, data.getPopulation()));
+                }
+            }
+
+            linechart_stats.getData().addAll(donneeChoisiCommuneA, donneeChoisiCommuneB);
+            linechart_stats.setVisible(true);
+    }
+
 }
