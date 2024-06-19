@@ -35,6 +35,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -123,6 +125,8 @@ public class AdminPageController {
     @FXML private TextArea textarea_communeB;
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis;
+    @FXML private ImageView graphmap;
+    @FXML private ComboBox combobox_graph;
 
     public void addNewUserToDatabase(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -555,6 +559,7 @@ public class AdminPageController {
             combobox_communeA = (ComboBox) ((Node)root).lookup("#combobox_communeA");
             combobox_communeB = (ComboBox) ((Node)root).lookup("#combobox_communeB");
             combobox_filtredonnees = (ComboBox) ((Node)root).lookup("#combobox_filtredonnees");
+            combobox_graph = (ComboBox) ((Node)root).lookup("#combobox_graph");
 
             User user = User.loadUserObject();
             user.saveUserObject();
@@ -564,6 +569,7 @@ public class AdminPageController {
             for (Commune commune : communesList) {
                 combobox_communeA.getItems().add(commune);
                 combobox_communeB.getItems().add(commune);
+                combobox_graph.getItems().add(commune);
             }
 
             combobox_filtredonnees.getItems().add("Maison vendu");
@@ -1054,17 +1060,22 @@ public class AdminPageController {
     public void handleCreateGraph(ActionEvent event){
         ComboBox clickedItem = (ComboBox) event.getSource();
         Commune commune = (Commune) clickedItem.getSelectionModel().getSelectedItem();
-        int idCommune = commune.getIdCommune();
-        try{
-            generateGraph(idCommune);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            new PopupInfoController().showPopupInfo((Stage) linechart_stats.getScene().getWindow(), "Erreur lors de la génération du graphe !");
+        if(commune != null){
+            int idCommune = commune.getIdCommune();
+            try{
+                generateGraph(idCommune);
+                Image image = new Image("graphe.png");
+                graphmap.setImage(image);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                new PopupInfoController().showPopupInfo((Stage) linechart_stats.getScene().getWindow(), "Erreur lors de la génération du graphe !");
+            }
         }
     }
 
     public static void generateGraph(int depNum) throws Exception{
+        System.out.println(depNum);
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("linux")){
             // Make linux.bin executable
@@ -1079,7 +1090,7 @@ public class AdminPageController {
 
             System.out.println("test");
         } else if (os.contains("windows")){
-            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "start", "../ws/windows.exe", String.valueOf(depNum));
+            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "start", "../ws/rendering/windows.exe", String.valueOf(depNum));
             Process process = pb.start();
             process.waitFor();
         }
