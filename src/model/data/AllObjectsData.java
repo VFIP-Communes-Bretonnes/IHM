@@ -507,4 +507,14 @@ public class AllObjectsData implements Serializable {
 
         return retO;
     }
+
+    public ArrayList<DonneesAnnuelles> getDonneeAnnuelleByCommune(Commune commune){
+        ArrayList<DonneesAnnuelles> toRet = new ArrayList<DonneesAnnuelles>();
+        for (DonneesAnnuelles donneesAnnuelles : this.donneesAnnuellesList) {
+            if (donneesAnnuelles.getLaCommune().getIdCommune() == commune.getIdCommune()){
+                toRet.add(donneesAnnuelles);
+            }
+        }
+        return toRet;
+    }
 }

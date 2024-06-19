@@ -737,8 +737,8 @@ public class AdminPageController {
             ArrayList<Commune> communesList = user.getReadWriteDatabase().getAllObjectsData().getCommunesList();
 
             for (Commune commune : communesList) {
-                combobox_communeA.getItems().add(commune.toString());
-                combobox_communeB.getItems().add(commune.toString());
+                combobox_communeA.getItems().add(commune);
+                combobox_communeB.getItems().add(commune);
             }
         }
         catch(IOException e){
@@ -979,21 +979,49 @@ public class AdminPageController {
     }
     
     public void selectionCommuneA(ActionEvent event){
-        MenuItem clickedItem = (MenuItem) event.getSource();
-        String nomCommuneA = clickedItem.getText();
+        ComboBox clickedItem = (ComboBox) event.getSource();
+        Commune communeA = (Commune) clickedItem.getSelectionModel().getSelectedItem();
+        String nomCommuneA = communeA.toString();
+        Commune communeB = (Commune) combobox_communeB.getSelectionModel().getSelectedItem();
+        ReadWriteDatabase database = new ReadWriteDatabase();
+        try{
+            database.loadAllData();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        ArrayList<DonneesAnnuelles> donneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
+        ArrayList<DonneesAnnuelles> donneCommuneB = null;
 
 
+        piechart_stats.getData().clear();
 
         textarea_communeA.setText(nomCommuneA);
         piechart_stats.setTitle("Comparaison de 2 communes");
-        piechart_stats.getData().add(new PieChart.Data(nomCommuneA, 2));
-        piechart_stats.getData().add(new PieChart.Data("nom donnee cb", 30));
+        piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
+        if(communeB != null){
+            String nomCommuneB = communeA.toString();
+            piechart_stats.getData().add(new PieChart.Data(nomCommuneB, communeB.getLeDepartement().getInvestissementCulturel2019()));
+            donneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
+        }
+        
+        
     }
 
     public void selectionCommuneB(ActionEvent event){
-        MenuItem clickedItem = (MenuItem) event.getSource();
+        ComboBox clickedItem = (ComboBox) event.getSource();
+        Commune communeB = (Commune) clickedItem.getSelectionModel().getSelectedItem();
+        String nomCommuneB = communeB.toString();
+        Commune communeA = (Commune) combobox_communeA.getSelectionModel().getSelectedItem();
 
-        textarea_communeB.setText(clickedItem.getText());
+        piechart_stats.getData().clear();
+
+        textarea_communeB.setText(nomCommuneB);
         piechart_stats.setTitle("Comparaison de 2 communes");
+        piechart_stats.getData().add(new PieChart.Data(nomCommuneB, communeB.getLeDepartement().getInvestissementCulturel2019()));
+        if(communeA != null){
+            String nomCommuneA = communeA.toString();
+            piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
+        }
     }
 }
