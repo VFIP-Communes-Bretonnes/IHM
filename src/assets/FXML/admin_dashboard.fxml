@@ -120,7 +120,7 @@
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="610.0" prefWidth="814.0">
                            <children>
-                              <HBox prefHeight="98.0" prefWidth="804.0" spacing="10.0">
+                              <HBox prefHeight="116.0" prefWidth="804.0" spacing="10.0">
                                  <children>
                                     <ComboBox fx:id="combobox_communeA" onAction="#selectionCommuneA" prefWidth="150.0" promptText="Commune1">
                                        <padding>
@@ -160,10 +160,13 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="814.0">
                                  <children>
-                                    <ComboBox fx:id="combobox_graph" onAction="#handleCreateGraph" prefWidth="150.0">
+                                    <ComboBox fx:id="combobox_graph" onAction="#handleCreateGraph" prefWidth="150.0" promptText="Excentricité">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                     </ComboBox>
                                  </children>
                                  <VBox.margin>
@@ -187,9 +190,6 @@
                                        </HBox.margin>
                                     </LineChart>
                                     <ImageView fx:id="graphmap" fitHeight="240.0" fitWidth="315.0" onMouseDragged="#imageDragged" onMousePressed="#imagePressed" onScroll="#imageScrolled" pickOnBounds="true" preserveRatio="true" styleClass="image-graphe">
-                                       <image>
-                                          <Image url="@../../../ws/graphe.png" />
-                                       </image>
                                        <viewport>
                                           <Rectangle2D height="900.0" minX="300.0" minY="300.0" width="1500.0" />
                                        </viewport>
