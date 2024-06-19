@@ -17,8 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,12 +31,10 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -115,10 +116,12 @@ public class AdminPageController {
     // stats :
     @FXML private ComboBox combobox_communeA;
     @FXML private ComboBox combobox_communeB;
-    @FXML private LineChart linechart_stats;
+    @FXML private LineChart<String, Number> linechart_stats;
     @FXML private PieChart piechart_stats;
     @FXML private Label textarea_communeA;
     @FXML private Label textarea_communeB;
+    @FXML private CategoryAxis xAxis;
+    @FXML private NumberAxis yAxis;
 
     public void addNewUserToDatabase(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -510,188 +513,6 @@ public class AdminPageController {
         }
     }
 
-    public class ComboBoxTableCell extends TableCell<Object, String> {
-        private final ComboBox<String> comboBox;
-        private final Field field;
-        private final ReadWriteDatabase database;
-        private final String getterName;
-        private ArrayList<Object> choice;
-        private ArrayList<Object> choiceVoisin;
-        private VBox neighborContainer;
-    
-        public ComboBoxTableCell(Field field, ReadWriteDatabase database, String getterName) {
-            this.field = field;
-            this.database = database;
-            this.getterName = getterName;
-            this.comboBox = new ComboBox<>();
-            this.choice = new ArrayList<>();
-            this.choiceVoisin = new ArrayList<>();
-            this.neighborContainer = new VBox();
-    
-            comboBox.setEditable(true);
-            comboBox.getStyleClass().add("table-view-combo-box");
-
-            neighborContainer.getStyleClass().add("neighbor-container");
-    
-            try {
-                Method getter = database.getAllObjectsData().getClass().getMethod(getterName);
-                Object listResult = getter.invoke(database.getAllObjectsData());
-                for (Object obj : (ArrayList<?>) listResult) {
-                    comboBox.getItems().add(obj.toString());
-                    this.choice.add(obj);
-                }
-            } catch (Exception e) {
-                try{
-                    Object listResult = database.getAllObjectsData().getCommunesList();
-                    for (Object obj : (ArrayList<?>) listResult) {
-                        comboBox.getItems().add(obj.toString());
-                        this.choice.add(obj);
-                    }
-                }
-                catch (Exception e2) {
-                    //e2.printStackTrace();
-                }
-            }
-    
-            comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null) {
-                    Object rowObject = getTableRow().getItem();
-                    if (rowObject != null) {
-                        try {
-                            field.setAccessible(true);
-                            updateMainObject(rowObject, newValue);
-                        } catch (Exception e) {
-                            //e.printStackTrace();
-                        }
-                    }
-                }
-            });
-        }
-    
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                comboBox.setValue(item);
-                if (getTableRow().getItem() instanceof Commune && isNeighborField()) {
-                    updateNeighborContainer((Commune) getTableRow().getItem());
-                    setGraphic(neighborContainer);
-                } else {
-                    setGraphic(comboBox);
-                }
-            }
-        }
-    
-        private boolean isNeighborField() {
-            return field.getName().equalsIgnoreCase("listeVoisins");
-        }
-    
-        private void updateMainObject(Object rowObject, String newValue) throws Exception {
-            if (rowObject instanceof Departement) {
-                ((Departement) rowObject).setNomDep(Departement.NomDepartement.valueOf(newValue));
-            } else if (rowObject instanceof Aeroport) {
-                Object dep = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
-                ((Aeroport) rowObject).setLeDepartement((Departement) dep);
-            } else if (rowObject instanceof Commune) {
-                // No need to update here, handled by UI changes
-                try{
-                    Object dep = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
-                    if(dep instanceof Departement){
-                        ((Commune) rowObject).setLeDepartement((Departement) dep);
-                    }
-                }
-                catch (Exception e){
-                    // mdr
-                }
-            } else if (rowObject instanceof DonneesAnnuelles) {
-                Object newO = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
-                if (newO instanceof Annee) {
-                    ((DonneesAnnuelles) rowObject).setAnnee((Annee) newO);
-                } else if (newO instanceof Commune) {
-                    ((DonneesAnnuelles) rowObject).setLaCommune((Commune) newO);
-                }
-            } else if (rowObject instanceof Gare) {
-                Object newO = choice.get(comboBox.getItems().indexOf(comboBox.getSelectionModel().getSelectedItem()));
-                ((Gare) rowObject).setLaCommune((Commune) newO);
-            }
-        }
-    
-        private void updateNeighborContainer(Commune commune) {
-            neighborContainer.getChildren().clear();
-            ArrayList<Commune> neighbors = commune.getListeVoisins();
-    
-            for (Commune neighbor : neighbors) {
-                HBox neighborBox = new HBox();
-                ComboBox<String> neighborComboBox = new ComboBox<>();
-                Button deleteButton = new Button("Supprimer");
-
-                deleteButton.getStyleClass().add("delete-button");
-    
-                for (Object obj : choice) {
-                    if (obj instanceof Commune) {
-                        neighborComboBox.getItems().add(((Commune) obj).toString());
-                    }
-                }
-    
-                neighborComboBox.setValue(neighbor.toString());
-                neighborComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                    Commune newNeighbor = (Commune) choice.get(neighborComboBox.getItems().indexOf(newValue));
-                    int index = neighbors.indexOf(neighbor);
-                    if (index >= 0) {
-                        neighbors.set(index, newNeighbor);
-                    }
-                });
-    
-                deleteButton.setOnAction(event -> {
-                    neighbors.remove(neighbor);
-                    neighborContainer.getChildren().remove(neighborBox);
-                });
-    
-                neighborBox.getChildren().addAll(neighborComboBox, deleteButton);
-                neighborContainer.getChildren().add(neighborBox);
-            }
-    
-            Button addButton = new Button("Ajouter");
-
-            addButton.getStyleClass().add("add-button");
-
-            addButton.setOnAction(event -> {
-                HBox newNeighborBox = new HBox();
-                ComboBox<String> newNeighborComboBox = new ComboBox<>();
-                Button newDeleteButton = new Button("Supprimer");
-
-                newDeleteButton.getStyleClass().add("delete-button");
-
-                for (Object obj : choice) {
-                    if (obj instanceof Commune) {
-                        newNeighborComboBox.getItems().add(((Commune) obj).toString());
-                    }
-                }
-    
-                newNeighborComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                    Commune newNeighbor = (Commune) choice.get(newNeighborComboBox.getItems().indexOf(newValue));
-                    if (!neighbors.contains(newNeighbor)) {
-                        neighbors.add(newNeighbor);
-                    }
-                });
-    
-                newDeleteButton.setOnAction(e -> {
-                    neighbors.removeIf(c -> c.toString().equals(newNeighborComboBox.getValue()));
-                    neighborContainer.getChildren().remove(newNeighborBox);
-                });
-    
-                newNeighborBox.getChildren().addAll(newNeighborComboBox, newDeleteButton);
-                neighborContainer.getChildren().add(newNeighborBox);
-            });
-    
-            neighborContainer.getChildren().add(addButton);
-        }
-    }
-
-
     /**
      * Public method that opens the login page.
      *
@@ -993,19 +814,64 @@ public class AdminPageController {
         ArrayList<DonneesAnnuelles> donneCommuneA = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeA);
         ArrayList<DonneesAnnuelles> donneCommuneB = null;
 
+        DonneesAnnuelles DACommuneA = donneCommuneA.get(0);
+        for (DonneesAnnuelles donneesAnnuelles : donneCommuneA) {
+            if(DACommuneA.getlAnnee().getAnnee() < donneesAnnuelles.getlAnnee().getAnnee()){
+                DACommuneA = donneesAnnuelles;
+            }
+        }
+
+        String infoCommuneA = nomCommuneA + "en " + DACommuneA.getlAnnee().getAnnee()
+        + "\n\n"
+        + "Budget total : " + DACommuneA.getBudgetTotal() + "\n"
+        + "Depenses Culturelles Totales : " + DACommuneA.getDepensesCulturellesTotales() + "\n"
+        + "Appartement vendu : " + DACommuneA.getNbAppart() + "\n"
+        + "Maison vendu : " + DACommuneA.getNbMaison() + "\n"
+        + "Population : " + DACommuneA.getPopulation() + "\n"
+        + "Prix du m² moyen : " + DACommuneA.getPrixM2Moyen() + "\n"
+        + "Prix moyen des logements : " + DACommuneA.getPrixMoyen() + "\n"
+        + "Surface moyen des logements : " + DACommuneA.getSurfaceMoy();
+
+        textarea_communeA.setText(infoCommuneA);
+        textarea_communeA.setWrapText(true);
 
         piechart_stats.getData().clear();
-
-        textarea_communeA.setText(nomCommuneA);
         piechart_stats.setTitle("Comparaison de 2 communes");
         piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
+
         if(communeB != null){
             String nomCommuneB = communeA.toString();
             piechart_stats.getData().add(new PieChart.Data(nomCommuneB, communeB.getLeDepartement().getInvestissementCulturel2019()));
             donneCommuneB = database.getAllObjectsData().getDonneeAnnuelleByCommune(communeB);
         }
         
-        
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Year");
+        yAxis.setLabel("Data Value");
+
+        // Creating the line chart
+        linechart_stats.setTitle("Commune Data Over Years");
+
+        XYChart.Series<String, Number> nbMaisonSeries = new XYChart.Series<>();
+        nbMaisonSeries.setName("Number of Houses");
+
+        XYChart.Series<String, Number> nbAppartSeries = new XYChart.Series<>();
+        nbAppartSeries.setName("Number of Apartments");
+
+        XYChart.Series<String, Number> prixMoyenSeries = new XYChart.Series<>();
+        prixMoyenSeries.setName("Average Price");
+
+        // Populate the series with data
+        for (DonneesAnnuelles data : donneCommuneA) {
+            String year = String.valueOf(data.getlAnnee().getAnnee());
+            nbMaisonSeries.getData().add(new XYChart.Data<>(year, data.getNbMaison()));
+            nbAppartSeries.getData().add(new XYChart.Data<>(year, data.getNbAppart()));
+            prixMoyenSeries.getData().add(new XYChart.Data<>(year, data.getPrixMoyen()));
+        }
+
+        // Add the series to the line chart
+        linechart_stats.getData().addAll(nbMaisonSeries, nbAppartSeries, prixMoyenSeries);
     }
 
     public void selectionCommuneB(ActionEvent event){
