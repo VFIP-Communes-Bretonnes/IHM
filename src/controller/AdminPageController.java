@@ -698,6 +698,37 @@ public class AdminPageController {
     public void setTableView_user_adminpage(TableView tableView){
         this.tableView_user_adminpage = tableView;
     }
+    public void setupDashboard(Node root){
+        try{
+            combobox_communeA = (ComboBox) ((Node)root).lookup("#combobox_communeA");
+            combobox_communeB = (ComboBox) ((Node)root).lookup("#combobox_communeB");
+            combobox_filtredonnees = (ComboBox) ((Node)root).lookup("#combobox_filtredonnees");
+            combobox_graph = (ComboBox) ((Node)root).lookup("#combobox_graph");
+
+            User user = User.loadUserObject();
+            user.saveUserObject();
+            user.getReadWriteDatabase().loadAllData();
+            ArrayList<Commune> communesList = user.getReadWriteDatabase().getAllObjectsData().getCommunesList();
+
+            for (Commune commune : communesList) {
+                combobox_communeA.getItems().add(commune);
+                combobox_communeB.getItems().add(commune);
+                combobox_graph.getItems().add(commune);
+            }
+
+            combobox_filtredonnees.getItems().add("Maison vendu");
+            combobox_filtredonnees.getItems().add("Budget total");
+            combobox_filtredonnees.getItems().add("Depenses Culturelles");
+            combobox_filtredonnees.getItems().add("Appartement vendu");
+            combobox_filtredonnees.getItems().add("Prix du m² moyen");
+            combobox_filtredonnees.getItems().add("Prix moyen des logements");
+            combobox_filtredonnees.getItems().add("Surface moyen des logements");
+            combobox_filtredonnees.getItems().add("Population");
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Public method that opens the settings page on the admin page.
@@ -1021,27 +1052,22 @@ public class AdminPageController {
     }
 
     public void reloadChart(){
-        linechart_stats.getData().clear();
-        linechart_stats.getData().removeAll(linechart_stats.getData());
-        XYChart.Series<String, Number> series3 = new XYChart.Series<>();
-        XYChart.Series<String, Number> series4 = new XYChart.Series<>();
-        linechart_stats.getData().addAll(series3, series4);
+        try{
+            linechart_stats.getData().clear();
+            linechart_stats.getData().removeAll(linechart_stats.getData());
+            XYChart.Series<String, Number> series3 = new XYChart.Series<>();
+            XYChart.Series<String, Number> series4 = new XYChart.Series<>();
+            linechart_stats.getData().addAll(series3, series4);
+    
+            ActionEvent custom2 = new ActionEvent(combobox_communeB, combobox_communeB);
+            combobox_communeB.fireEvent(custom2);
+        }
+        catch(Exception e){
 
-        ActionEvent custom2 = new ActionEvent(combobox_communeB, combobox_communeB);
-        combobox_communeB.fireEvent(custom2);
+        }
     }
 
     public void showCharts(String donneeChoisi, ArrayList<DonneesAnnuelles> listDonneCommuneA, ArrayList<DonneesAnnuelles> listDonneCommuneB, String nomCommuneA, DonneesAnnuelles DACommuneA, String nomCommuneB, DonneesAnnuelles DACommuneB){
-        
-        System.out.println("################### chaert");
-        System.out.println(donneeChoisi);
-        System.out.println(listDonneCommuneA);
-        System.out.println(listDonneCommuneB);
-        System.out.println(nomCommuneA);
-        System.out.println(DACommuneA);
-        System.out.println(nomCommuneB);
-        System.out.println(DACommuneB);
-        System.out.println("################### chaert");
         
         linechart_stats.getData().clear();
             

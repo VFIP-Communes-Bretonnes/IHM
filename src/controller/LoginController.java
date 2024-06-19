@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.data.Commune;
 import model.data.User;
 
 public class LoginController {
@@ -77,12 +80,14 @@ public class LoginController {
                         registerPage = new Scene(root, 1116, 682);
             
                         stage.setScene(registerPage);
+                        new AdminPageController().setupDashboard(root);
                     }
                     else if(user.getRole().equals("admin")){
                         root = FXMLLoader.load(getClass().getResource("/FXML/admin_dashboard.fxml"));
                         registerPage = new Scene(root, 1116, 682);
             
                         stage.setScene(registerPage);
+                        new AdminPageController().setupDashboard(root);
                     }
                     else{
                         throw new RuntimeException("Role invalide !");
