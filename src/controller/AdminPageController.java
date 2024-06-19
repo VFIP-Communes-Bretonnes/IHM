@@ -400,7 +400,7 @@ public class AdminPageController {
                 field.setAccessible(true);
                 return new SimpleStringProperty(field.get(cellData.getValue()).toString());
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return new SimpleStringProperty("");
             }
         });
@@ -437,7 +437,7 @@ public class AdminPageController {
                 Object value = fieldRef.get(param.getValue());
                 return new SimpleStringProperty(value == null ? null : value.toString());
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return new SimpleStringProperty("");
             }
         });
@@ -454,7 +454,7 @@ public class AdminPageController {
                 field.setAccessible(true);
                 return new SimpleStringProperty(field.get(cellData.getValue()).toString());
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return new SimpleStringProperty("");
             }
         });
@@ -473,7 +473,7 @@ public class AdminPageController {
                 Object newValueParsed = parseValue(newValue, field.getType());
                 setter.invoke(rowObject, newValueParsed);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
     
             event.getTableView().refresh();
@@ -494,7 +494,8 @@ public class AdminPageController {
                 return value;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            new PopupInfoController().showPopupInfo((Stage) tableView_bdd_adminpage.getScene().getWindow(), "La valeur entrée est invalide !");
             return null;
         }
     }
@@ -535,7 +536,7 @@ public class AdminPageController {
                     }
                 }
                 catch (Exception e2) {
-                    e2.printStackTrace();
+                    //e2.printStackTrace();
                 }
             }
     
@@ -547,7 +548,7 @@ public class AdminPageController {
                             field.setAccessible(true);
                             updateMainObject(rowObject, newValue);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
                         }
                     }
                 }
@@ -857,7 +858,7 @@ public class AdminPageController {
                 loadingBox.setVisible(false);
                 // Optionally, show an error message
                 Throwable e = getException();
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         };
     
@@ -886,15 +887,19 @@ public class AdminPageController {
                     loadingBox.setVisible(true);
                 });
         
-                // Long-running task
-                MenuItem clickedItem = (MenuItem) event.getSource();
-                choix_table_bdd_adminpage.setText(clickedItem.getText());
-                tableView_bdd_adminpage.setEditable(true);
-                ReadWriteDatabase database = new ReadWriteDatabase();
-                database.loadAllData();
         
                 // Update UI with results
                 Platform.runLater(() -> {
+                    MenuItem clickedItem = (MenuItem) event.getSource();
+                    choix_table_bdd_adminpage.setText(clickedItem.getText());
+                    tableView_bdd_adminpage.setEditable(true);
+                    ReadWriteDatabase database = new ReadWriteDatabase();
+                    try{
+                        database.loadAllData();
+                    }
+                    catch(SQLException e){
+                        e.printStackTrace();
+                    }
                     if (clickedItem == itemchoice_dep_bdd_adminpage) {
                         loadDataIntoTable(database.getAllObjectsData().getDepartementsList(), tableView_bdd_adminpage, database);
                     } else if (clickedItem == itemchoice_aero_bdd_adminpage) {
@@ -930,7 +935,7 @@ public class AdminPageController {
                 // Optionally, show an error message
                 Throwable e = getException();
                 loadingBox.setVisible(false);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         };
         
