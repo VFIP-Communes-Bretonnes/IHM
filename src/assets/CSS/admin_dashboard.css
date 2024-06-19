@@ -1,0 +1,175 @@
+/** TABLE VIEW **/
+@font-face {
+    font-family: 'Krona One';
+    src: url(../Fonts/KronaOne-Regular.ttf);
+}
+
+*{
+    -krona-one: 'Krona One';
+    -primary-color: #B8ACFF;
+    -secondary-color: #D0C9FF;
+    -tertiary-color: #000119;
+    -light-grey-color: #C8C8C8;
+    -light-grey-secondary:#dbdbdb;
+    -focus-color: -secondary-color;
+    -red-color: #f27979;
+    -red-color-secondary: #ff9c9c;
+
+
+    -white-smoke :  #F4F4F4;
+    -modifier-smoke: #b8b8b8;
+    -white : #ffffff;
+    -text-fill: -tertiary-color;
+    -text-fill-smoke: #8f8d8d;
+    -border: #7A7A7A;
+    -border-focus: -primary-color;
+}
+
+/**
+==================================== ADMINDATABASE ==============================================================================
+ */
+
+.anchorpane {
+    -fx-background-color: -tertiary-color;
+}
+
+.adminpage-base {
+    -fx-background-color: -tertiary-color;
+}
+
+.statumun-title{
+    -fx-font-family: 'Krona One';
+    -fx-text-fill: -white-smoke;
+    -fx-font-size: 16;
+}
+
+.dashboard {
+    -fx-background-color: -tertiary-color;
+}
+
+.working {
+    -fx-background-color: -white-smoke;
+    -fx-background-radius: 43;
+}
+
+.dashboard-button {
+    -fx-background-color: -tertiary-color;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-text-fill: -white;
+    -fx-min-height: 71;
+    -fx-max-width: 255;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.dashboard-button:hover {
+    -fx-background-color: -secondary-color;
+}
+
+.dashboard-button:armed {
+    -fx-background-color: -primary-color;
+}
+
+.dashboard-button-main {
+    -fx-background-color: -primary-color;
+}
+
+.dashboard-button-deconnexion:hover {
+    -fx-background-color: -red-color-secondary;
+}
+
+.dashboard-button-deconnexion:armed {
+    -fx-background-color: -red-color;
+}
+
+.user-box {
+    -fx-background-radius: 43;
+    -fx-background-color: -white;
+}
+
+
+/** COMBO BOX **/
+
+.combo-box {
+    -fx-pref-width: 160;
+    -fx-min-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.combo-box:hover {
+    -fx-background-color: -secondary-color;
+}
+
+
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -tertiary-color;
+    -fx-background-radius: 43;
+}
+
+
+.combo-box-popup {
+    -fx-background-color: -white-smoke;
+    -fx-border-color: transparency;
+    -fx-padding: 10;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: -white-smoke;
+    -fx-text-fill: -tertiary-color;
+    -fx-font-size: 11;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: -secondary-color;
+    -fx-text-fill: -tertiary-color;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -white;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 43;
+}
+
+
+
+/** TEXT **/
+
+.show-text {
+    -fx-background-color: -white;
+    -fx-text-fill: -tertiary-color;
+    -fx-font-size: 11;
+    -fx-padding: 5;
+    -fx-background-radius: 20;
+}
+
+
+/** CHARTS */
+
+.chart {
+    -fx-padding: 0px;
+}
+.chart-content {
+    -fx-padding: 10px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: -tertiary-color;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: -tertiary-color;
+}
