@@ -111,25 +111,24 @@
 .combo-box .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: -white;
-    -fx-background-radius: 43;
 }
 
 
 .combo-box-popup {
-    -fx-background-color: -white-smoke;
-    -fx-border-color: transparency;
+    -fx-background-color: -primary-color;
+    -fx-border-color: transparent;
     -fx-padding: 10;
 }
 
 .combo-box-popup .list-cell {
-    -fx-background-color: -white-smoke;
-    -fx-text-fill: -tertiary-color;
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -white;
     -fx-font-size: 11;
 }
 
 .combo-box-popup .list-cell:hover {
     -fx-background-color: -secondary-color;
-    -fx-text-fill: -tertiary-color;
+    -fx-text-fill: -white;
 }
 
 .combo-box-popup .list-cell:selected {
@@ -140,6 +139,15 @@
 .combo-box .arrow-button {
     -fx-background-color: transparent;
     -fx-background-radius: 43;
+}
+
+.combo-box > .virtual-flow > .scroll-bar:vertical,
+.combo-box > .virtual-flow > .scroll-bar:vertical > .track,
+.combo-box > .virtual-flow > .scroll-bar:vertical > .track-background,
+.combo-box > .virtual-flow > .scroll-bar:horizontal,
+.combo-box > .virtual-flow > .scroll-bar:horizontal > .track,
+.combo-box > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
 }
 
 
