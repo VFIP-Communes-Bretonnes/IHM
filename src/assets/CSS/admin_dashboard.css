@@ -281,3 +281,24 @@
 .image-graphe {
     -fx-background-radius: 43;
 }
+
+
+.actualisation-button{
+    -fx-pref-width: 160;
+    -fx-min-height: 60;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+    -fx-font-family: 'Krona One';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-text-fill: -white;
+}
+
+.actualisation-button:hover{
+    -fx-background-color: -secondary-color;
+}
+
+.actualisation-button:armed{
+    -fx-background-color: -primary-color;
+}

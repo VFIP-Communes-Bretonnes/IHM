@@ -149,7 +149,10 @@
                                        </padding>
                                     </ComboBox>
                                     <TextArea fx:id="textarea_communeB" editable="false" prefHeight="200.0" prefWidth="446.0" styleClass="show-text" visible="false" wrapText="true" />
-                                    <Button mnemonicParsing="false" onAction="#reloadChart" text="Actualiser" />
+                                    <Button mnemonicParsing="false" onAction="#reloadChart" styleClass="actualisation-button" text="Actualiser">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin></Button>
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" top="5.0" />
@@ -172,15 +175,12 @@
                                           <Insets top="5.0" />
                                        </HBox.margin>
                                     </LineChart>
-                                    <ImageView fx:id="graphmap" fitHeight="343.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" styleClass="image-graphe">
-                                       <HBox.margin>
-                                          <Insets top="5.0" />
-                                       </HBox.margin>
+                                    <ImageView fx:id="graphmap" fitHeight="240.0" fitWidth="315.0" onMouseDragged="#imageDragged" onMousePressed="#imagePressed" onScroll="#imageScrolled" pickOnBounds="true" preserveRatio="true" styleClass="image-graphe">
                                        <image>
                                           <Image url="@../../../ws/graphe.png" />
                                        </image>
                                        <viewport>
-                                          <Rectangle2D height="1000.0" minX="1000.0" width="1000.0" />
+                                          <Rectangle2D height="900.0" minX="300.0" minY="300.0" width="1500.0" />
                                        </viewport>
                                     </ImageView>
                                  </children>

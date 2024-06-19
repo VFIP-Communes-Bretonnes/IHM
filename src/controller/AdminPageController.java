@@ -35,8 +35,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -52,6 +50,19 @@ import model.data.Departement;
 import model.data.DonneesAnnuelles;
 import model.data.Gare;
 import model.data.User;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.converter.DefaultStringConverter;
+import javafx.scene.image.Image;
+import javafx.geometry.Rectangle2D;
+
 
 public class AdminPageController {
     
@@ -127,6 +138,16 @@ public class AdminPageController {
     @FXML private NumberAxis yAxis;
     @FXML private ImageView graphmap;
     @FXML private ComboBox combobox_graph;
+
+    @FXML private ImageView image_charts;
+
+    private double startX, startY;
+    private double startTranslateX, startTranslateY;
+    private double zoomFactor = 1.1;
+    private double minScale = 0.1;
+    private double maxScale = 10.0;
+    private double startViewportX;
+    private double startViewportY;
 
     public void addNewUserToDatabase(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -1095,4 +1116,68 @@ public class AdminPageController {
             process.waitFor();
         }
     }
+
+    public void setImageChart() {
+        Image image = new Image("path");
+        this.image_charts.setImage(image);
+        this.image_charts.setPreserveRatio(true);
+        this.image_charts.setSmooth(true);
+        this.image_charts.setCache(true);
+    }
+
+    public void imagePressed(MouseEvent event) {
+        Rectangle2D viewport = image_charts.getViewport();
+        startX = event.getSceneX();
+        startY = event.getSceneY();
+        startViewportX = viewport.getMinX();
+        startViewportY = viewport.getMinY();
+    }
+
+    public void imageDragged(MouseEvent event) {
+        double deltaX = event.getSceneX() - startX;
+        double deltaY = event.getSceneY() - startY;
+        Rectangle2D viewport = image_charts.getViewport();
+
+        double newViewportX = startViewportX - deltaX;
+        double newViewportY = startViewportY - deltaY;
+
+        double imageWidth = image_charts.getImage().getWidth();
+        double imageHeight = image_charts.getImage().getHeight();
+
+        double maxViewportX = imageWidth - viewport.getWidth();
+        double maxViewportY = imageHeight - viewport.getHeight();
+
+        newViewportX = Math.max(0, Math.min(newViewportX, maxViewportX));
+        newViewportY = Math.max(0, Math.min(newViewportY, maxViewportY));
+
+        image_charts.setViewport(new Rectangle2D(newViewportX, newViewportY, viewport.getWidth(), viewport.getHeight()));
+    }
+
+    public void imageScrolled(ScrollEvent event) {
+        if (event.getDeltaY() > 0) {
+            zoomIn(this.image_charts);
+        } else if (event.getDeltaY() < 0) {
+            zoomOut(this.image_charts);
+        }
+        event.consume();
+    }
+
+    private void zoomIn(ImageView imageView) {
+        Rectangle2D viewport = imageView.getViewport();
+        double currentWidth = viewport.getWidth();
+        double currentHeight = viewport.getHeight();
+        if (currentWidth * zoomFactor <= imageView.getImage().getWidth() && currentHeight * zoomFactor <= imageView.getImage().getHeight()) {
+            imageView.setViewport(new Rectangle2D(viewport.getMinX(), viewport.getMinY(), currentWidth * zoomFactor, currentHeight * zoomFactor));
+        }
+    }
+
+    private void zoomOut(ImageView imageView) {
+        Rectangle2D viewport = imageView.getViewport();
+        double currentWidth = viewport.getWidth();
+        double currentHeight = viewport.getHeight();
+        if (currentWidth / zoomFactor >= minScale && currentHeight / zoomFactor >= minScale) {
+            imageView.setViewport(new Rectangle2D(viewport.getMinX(), viewport.getMinY(), currentWidth / zoomFactor, currentHeight / zoomFactor));
+        }
+    }
 }
+
