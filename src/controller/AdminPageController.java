@@ -868,8 +868,8 @@ public class AdminPageController {
     public void changementChoixBddAdmin(ActionEvent event){
 
         ProgressIndicator progressIndicator = new ProgressIndicator();
-        Label loadingLabel = new Label("Loading...");
-        VBox loadingBox = new VBox(10, progressIndicator, loadingLabel);
+        progressIndicator.getStyleClass().add("loading");
+        VBox loadingBox = new VBox(10, progressIndicator);
         loadingBox.setAlignment(Pos.CENTER);
         loadingBox.setVisible(true);
         loadingBox.toFront();
