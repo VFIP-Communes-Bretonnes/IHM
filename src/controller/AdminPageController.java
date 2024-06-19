@@ -1084,8 +1084,14 @@ public class AdminPageController {
             int idCommune = commune.getIdCommune();
             try{
                 generateGraph(idCommune);
-                Image image = new Image("graphe.png");
+                String currentDirectory = System.getProperty("user.dir");
+                Image image = new Image("file:" + currentDirectory + "/graphe.png");
+
+                //applique l'image au graphmap
                 graphmap.setImage(image);
+                this.graphmap.setPreserveRatio(true);
+                this.graphmap.setSmooth(true);
+                this.graphmap.setCache(true);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -1094,35 +1100,29 @@ public class AdminPageController {
         }
     }
 
-    public static void generateGraph(int depNum) throws Exception{
-        System.out.println(depNum);
+    public static void generateGraph(int depNum) throws Exception {
         String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("linux")){
+        if (os.contains("linux")) {
             // Make linux.bin executable
             ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "chmod +x rendering/linux.bin");
             Process process = pb.start();
             process.waitFor();
 
-            // Run linux.bin
-            pb = new ProcessBuilder("./rendering/linux.bin", String.valueOf(depNum));
+            pb = new ProcessBuilder("/bin/bash", "-c", "chmod +x rendering/depend.sh");
             process = pb.start();
             process.waitFor();
 
-            System.out.println("test");
-        } else if (os.contains("windows")){
-            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "start", "../ws/rendering/windows.exe", String.valueOf(depNum));
-            Process process = pb.start();
+            pb = new ProcessBuilder("/bin/bash", "-c", "./rendering/depend.sh");
+            process = pb.start();
+            process.waitFor();
+
+            // Run linux.bin
+            pb = new ProcessBuilder("python3", "rendering/main.py", String.valueOf(depNum));
+            process = pb.start();
             process.waitFor();
         }
     }
 
-    public void setImageChart() {
-        Image image = new Image("path");
-        this.graphmap.setImage(image);
-        this.graphmap.setPreserveRatio(true);
-        this.graphmap.setSmooth(true);
-        this.graphmap.setCache(true);
-    }
 
     public void imagePressed(MouseEvent event) {
         Rectangle2D viewport = graphmap.getViewport();

@@ -27,7 +27,7 @@
  */
 
  .anchorpane {
-    -fx-background-color: transparency;
+    -fx-background-color: transparent;
     -fx-background-radius: 43;
  }
 
