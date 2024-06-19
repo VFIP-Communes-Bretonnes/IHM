@@ -32,6 +32,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
@@ -119,8 +120,8 @@ public class AdminPageController {
     @FXML private ComboBox combobox_filtredonnees;
     @FXML private LineChart<String, Number> linechart_stats;
     @FXML private PieChart piechart_stats;
-    @FXML private Label textarea_communeA;
-    @FXML private Label textarea_communeB;
+    @FXML private TextArea textarea_communeA;
+    @FXML private TextArea textarea_communeB;
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis;
 
@@ -837,10 +838,12 @@ public class AdminPageController {
 
         textarea_communeA.setText(infoCommuneA);
         textarea_communeA.setWrapText(true);
+        textarea_communeA.setVisible(true);
 
         piechart_stats.getData().clear();
-        piechart_stats.setTitle("Comparaison de 2 communes");
+        piechart_stats.setTitle("Comparaison");
         piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
+        piechart_stats.setVisible(true);
 
         if(communeB != null){
             String nomCommuneB = communeA.toString();
@@ -875,6 +878,7 @@ public class AdminPageController {
 
         // Add the series to the line chart
         linechart_stats.getData().addAll(nbMaisonSeries, nbAppartSeries, prixMoyenSeries);
+        linechart_stats.setVisible(true);
     }
 
     public void selectionCommuneB(ActionEvent event){
@@ -886,8 +890,10 @@ public class AdminPageController {
         piechart_stats.getData().clear();
 
         textarea_communeB.setText(nomCommuneB);
-        piechart_stats.setTitle("Comparaison de 2 communes");
+        textarea_communeB.setVisible(true);
+        piechart_stats.setTitle("Comparaison");
         piechart_stats.getData().add(new PieChart.Data(nomCommuneB, communeB.getLeDepartement().getInvestissementCulturel2019()));
+        piechart_stats.setVisible(true);
         if(communeA != null){
             String nomCommuneA = communeA.toString();
             piechart_stats.getData().add(new PieChart.Data(nomCommuneA, communeA.getLeDepartement().getInvestissementCulturel2019()));
