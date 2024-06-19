@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+   <children>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0">
+               <children>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="451.0" prefWidth="260.0" styleClass="dashboard">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button fx:id="button_home_adminpage" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openHomePage" text="    Tableau de bord" VBox.vgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/dashboard_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="dashboard-button" />
+                              <String fx:value="dashboard-button-main" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="button_settings_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#openSettingsPage" styleClass="dashboard-button" text="    Paramètres">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/setting_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="button_deco_register" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" text="    Déconnexion">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/logout_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="130.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="dashboard-button" />
+                              <String fx:value="dashboard-button-deconnexion" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="working" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                     </HBox.margin>
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="610.0" prefWidth="814.0">
+                           <children>
+                              <HBox prefHeight="98.0" prefWidth="804.0" spacing="10.0">
+                                 <children>
+                                    <ComboBox fx:id="combobox_communeA" onAction="#selectionCommuneA" prefWidth="150.0" promptText="Commune1">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </ComboBox>
+                                    <TextArea fx:id="textarea_communeA" editable="false" prefHeight="200.0" prefWidth="446.0" styleClass="show-text" visible="false" wrapText="true" />
+                                    <ComboBox fx:id="combobox_filtredonnees" prefWidth="150.0" promptText="Filtres">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </ComboBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="116.0" prefWidth="804.0" spacing="10.0">
+                                 <children>
+                                    <ComboBox fx:id="combobox_communeB" onAction="#selectionCommuneB" prefWidth="150.0" promptText="Commune2">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </ComboBox>
+                                    <TextArea fx:id="textarea_communeB" editable="false" prefHeight="200.0" prefWidth="446.0" styleClass="show-text" visible="false" wrapText="true" />
+                                    <Button mnemonicParsing="false" onAction="#reloadChart" styleClass="actualisation-button" text="Actualiser">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin></Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="814.0">
+                                 <children>
+                                    <ComboBox fx:id="combobox_graph" onAction="#handleCreateGraph" prefWidth="150.0">
+                                       <HBox.margin>
+                                          <Insets right="15.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="394.0" prefWidth="794.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <LineChart fx:id="linechart_stats" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="404.0" prefWidth="490.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </LineChart>
+                                    <ImageView fx:id="graphmap" fitHeight="240.0" fitWidth="315.0" onMouseDragged="#imageDragged" onMousePressed="#imagePressed" onScroll="#imageScrolled" pickOnBounds="true" preserveRatio="true" styleClass="image-graphe">
+                                       <image>
+                                          <Image url="@../../../ws/graphe.png" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D height="900.0" minX="300.0" minY="300.0" width="1500.0" />
+                                       </viewport>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </FlowPane>
+               </children>
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </HBox>
+         </children>
+      </FlowPane>
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="40.0">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/logo.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label styleClass="statumun-title" text="Statumun">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

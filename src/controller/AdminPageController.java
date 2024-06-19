@@ -609,6 +609,48 @@ public class AdminPageController {
         }
     }
 
+    public void openHomePage(ActionEvent event){
+        try{
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/dashboard.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(registerPage);
+
+            combobox_communeA = (ComboBox) ((Node)root).lookup("#combobox_communeA");
+            combobox_communeB = (ComboBox) ((Node)root).lookup("#combobox_communeB");
+            combobox_filtredonnees = (ComboBox) ((Node)root).lookup("#combobox_filtredonnees");
+            combobox_graph = (ComboBox) ((Node)root).lookup("#combobox_graph");
+
+            User user = User.loadUserObject();
+            user.saveUserObject();
+            user.getReadWriteDatabase().loadAllData();
+            ArrayList<Commune> communesList = user.getReadWriteDatabase().getAllObjectsData().getCommunesList();
+
+            for (Commune commune : communesList) {
+                combobox_communeA.getItems().add(commune);
+                combobox_communeB.getItems().add(commune);
+                combobox_graph.getItems().add(commune);
+            }
+
+            combobox_filtredonnees.getItems().add("Maison vendu");
+            combobox_filtredonnees.getItems().add("Budget total");
+            combobox_filtredonnees.getItems().add("Depenses Culturelles");
+            combobox_filtredonnees.getItems().add("Appartement vendu");
+            combobox_filtredonnees.getItems().add("Prix du m² moyen");
+            combobox_filtredonnees.getItems().add("Prix moyen des logements");
+            combobox_filtredonnees.getItems().add("Surface moyen des logements");
+            combobox_filtredonnees.getItems().add("Population");
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Public method that opens the bdd page on the admin page.
      *
@@ -667,6 +709,31 @@ public class AdminPageController {
         try{
             Scene registerPage = null;
             Parent root = FXMLLoader.load(getClass().getResource("/FXML/admin_settings.fxml"));
+            registerPage = new Scene(root, 1116, 682);
+
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(registerPage);
+
+            User currentUser = User.loadUserObject();
+            currentUser.saveUserObject();
+
+            textfield_mail_settings = (TextField) ((Node)root).lookup("#textfield_mail_settings");
+            textfield_phone_settings = (TextField) ((Node)root).lookup("#textfield_phone_settings");
+            textfield_username_settings = (TextField) ((Node)root).lookup("#textfield_username_settings");
+
+            textfield_mail_settings.setPromptText(currentUser.getMail());
+            textfield_phone_settings.setPromptText(currentUser.getPhone());
+            textfield_username_settings.setPromptText(currentUser.getUsername());
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void openSettingsPage(ActionEvent event){
+        try{
+            Scene registerPage = null;
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/settings.fxml"));
             registerPage = new Scene(root, 1116, 682);
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

@@ -73,7 +73,7 @@ public class LoginController {
                     Parent root = null;
                     user.saveUserObject();
                     if(user.getRole().equals("user")){
-                        root = FXMLLoader.load(getClass().getResource("/FXML/settings.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("/FXML/dashboard.fxml"));
                         registerPage = new Scene(root, 1116, 682);
             
                         stage.setScene(registerPage);
