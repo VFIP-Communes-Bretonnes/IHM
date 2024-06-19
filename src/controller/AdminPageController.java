@@ -117,8 +117,8 @@ public class AdminPageController {
     @FXML private ComboBox combobox_communeB;
     @FXML private LineChart linechart_stats;
     @FXML private PieChart piechart_stats;
-    @FXML private TextArea textarea_communeA;
-    @FXML private TextArea textarea_communeB;
+    @FXML private Label textarea_communeA;
+    @FXML private Label textarea_communeB;
 
     public void addNewUserToDatabase(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -979,10 +979,21 @@ public class AdminPageController {
     }
     
     public void selectionCommuneA(ActionEvent event){
-        textarea_communeA.setText(null);
+        MenuItem clickedItem = (MenuItem) event.getSource();
+        String nomCommuneA = clickedItem.getText();
+
+
+
+        textarea_communeA.setText(nomCommuneA);
+        piechart_stats.setTitle("Comparaison de 2 communes");
+        piechart_stats.getData().add(new PieChart.Data(nomCommuneA, 2));
+        piechart_stats.getData().add(new PieChart.Data("nom donnee cb", 30));
     }
 
     public void selectionCommuneB(ActionEvent event){
-        textarea_communeB.setText(null);
+        MenuItem clickedItem = (MenuItem) event.getSource();
+
+        textarea_communeB.setText(clickedItem.getText());
+        piechart_stats.setTitle("Comparaison de 2 communes");
     }
 }

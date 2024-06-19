@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_dashboard.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="682.0" prefWidth="1116.0" styleClass="anchorpane" stylesheets="@../CSS/admin_dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminPageController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="63.2" prefHeight="682.0" prefWidth="1116.0" styleClass="adminpage-base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -130,7 +130,7 @@
                             <RowConstraints maxHeight="491.19997711181634" minHeight="10.0" prefHeight="263.19999999999993" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <LineChart prefHeight="367.0" prefWidth="465.0" GridPane.columnIndex="1">
+                              <LineChart fx:id="linechart_stats" prefHeight="367.0" prefWidth="465.0" GridPane.columnIndex="1">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -151,27 +151,27 @@
                                   <RowConstraints maxHeight="299.99999389648434" minHeight="10.0" prefHeight="270.3999877929687" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <ComboBox prefWidth="150.0" promptText="Commune1" GridPane.halignment="CENTER">
+                                    <ComboBox fx:id="combobox_communeA" onAction="#selectionCommuneA" prefWidth="150.0" promptText="Commune1" GridPane.halignment="CENTER">
                                        <GridPane.margin>
                                           <Insets left="10.0" top="10.0" />
                                        </GridPane.margin></ComboBox>
-                                    <ComboBox prefWidth="150.0" promptText="Commune2" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                    <ComboBox fx:id="combobox_communeB" onAction="#selectionCommuneB" prefWidth="150.0" promptText="Commune2" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                        <GridPane.margin>
                                           <Insets left="10.0" top="10.0" />
                                        </GridPane.margin></ComboBox>
-                                    <Label alignment="TOP_LEFT" prefHeight="398.0" prefWidth="170.0" styleClass="show-text" text="Label" GridPane.rowIndex="1">
+                                    <Label fx:id="textarea_communeA" alignment="TOP_LEFT" prefHeight="398.0" prefWidth="170.0" styleClass="show-text" text="Label" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="10.0" top="7.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label alignment="TOP_LEFT" prefHeight="278.0" prefWidth="170.0" styleClass="show-text" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Label fx:id="textarea_communeB" alignment="TOP_LEFT" prefHeight="278.0" prefWidth="170.0" styleClass="show-text" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="10.0" top="7.0" />
                                        </GridPane.margin>
                                     </Label>
                                  </children>
                               </GridPane>
-                              <PieChart prefHeight="294.0" prefWidth="340.0" GridPane.rowIndex="1" />
+                              <PieChart fx:id="piechart_stats" prefHeight="294.0" prefWidth="340.0" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>
