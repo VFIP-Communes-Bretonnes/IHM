@@ -125,9 +125,9 @@
                            <children>
                               <FlowPane prefHeight="675.0" prefWidth="814.0">
                                  <children>
-                                    <ComboBox prefWidth="150.0" />
-                                    <ComboBox prefWidth="150.0" />
-                                    <LineChart>
+                                    <ComboBox fx:id="combobox_communeA" onAction="#selectionCommuneA" prefWidth="150.0" />
+                                    <ComboBox fx:id="combobox_communeB" onAction="#selectionCommuneB" prefWidth="150.0" />
+                                    <LineChart fx:id="linechart_stats">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
@@ -135,9 +135,9 @@
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
                                     </LineChart>
-                                    <PieChart />
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" />
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" />
+                                    <PieChart fx:id="piechart_stats" />
+                                    <TextArea fx:id="textarea_communeB" prefHeight="200.0" prefWidth="200.0" />
+                                    <TextArea fx:id="textarea_communeA" prefHeight="200.0" prefWidth="200.0" />
                                  </children>
                               </FlowPane>
                            </children>

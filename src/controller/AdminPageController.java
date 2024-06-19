@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -26,11 +28,11 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -111,7 +113,12 @@ public class AdminPageController {
     @FXML private TextField textfield_psswrd_adduser;
 
     // stats :
-    @FXML private BorderPane borderpane_stats;
+    @FXML private ComboBox combobox_communeA;
+    @FXML private ComboBox combobox_communeB;
+    @FXML private LineChart linechart_stats;
+    @FXML private PieChart piechart_stats;
+    @FXML private TextArea textarea_communeA;
+    @FXML private TextArea textarea_communeB;
 
     public void addNewUserToDatabase(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -720,8 +727,24 @@ public class AdminPageController {
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(registerPage);
+
+            combobox_communeA = (ComboBox) ((Node)root).lookup("#combobox_communeA");
+            combobox_communeB = (ComboBox) ((Node)root).lookup("#combobox_communeB");
+
+            User user = User.loadUserObject();
+            user.saveUserObject();
+            user.getReadWriteDatabase().loadAllData();
+            ArrayList<Commune> communesList = user.getReadWriteDatabase().getAllObjectsData().getCommunesList();
+
+            for (Commune commune : communesList) {
+                combobox_communeA.getItems().add(commune.toString());
+                combobox_communeB.getItems().add(commune.toString());
+            }
         }
         catch(IOException e){
+            e.printStackTrace();
+        }
+        catch(SQLException e){
             e.printStackTrace();
         }
     }
@@ -955,4 +978,11 @@ public class AdminPageController {
         new Thread(task).start();
     }
     
+    public void selectionCommuneA(ActionEvent event){
+        textarea_communeA.setText(null);
+    }
+
+    public void selectionCommuneB(ActionEvent event){
+        textarea_communeB.setText(null);
+    }
 }
