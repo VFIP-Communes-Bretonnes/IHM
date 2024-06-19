@@ -141,16 +141,48 @@
     -fx-background-radius: 43;
 }
 
-.combo-box > .virtual-flow > .scroll-bar:vertical,
-.combo-box > .virtual-flow > .scroll-bar:vertical > .track,
-.combo-box > .virtual-flow > .scroll-bar:vertical > .track-background,
-.combo-box > .virtual-flow > .scroll-bar:horizontal,
-.combo-box > .virtual-flow > .scroll-bar:horizontal > .track,
-.combo-box > .virtual-flow > .scroll-bar:horizontal > .track-background {
-    -fx-background-color: transparent;
+.combo-box .arrow-button .arrow {
+    -fx-shape: "M 0 0 L 6 0 L 3 6 z";
+    -fx-fill: -white;
+    -fx-background-color: -white;
+    -fx-border-color: -white;
 }
 
+.list-view .scroll-bar:vertical {
+    -fx-padding: 3;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: -primary-color;
+}
 
+.list-view .increment-button, .list-view .decrement-button {
+    -fx-padding: 0;
+    -fx-fill: -white;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: -white;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+}
+
+.list-view .increment-arrow {
+    -fx-shape: "M 0 0 L 6 0 L 3 6 z";
+    -fx-fill: -white;
+    -fx-border-color: -white;
+    -fx-background-color: -white;
+}
+
+.list-view .decrement-arrow {
+    -fx-shape: "M 0 6 L 6 6 L 3 0 z";
+    -fx-fill: -white;
+    -fx-border-color: -white;
+    -fx-background-color: -white;
+}
+
+.list-view .scroll-bar:horizontal {
+    -fx-scale-x: 0;
+}
 
 /** TEXT **/
 
@@ -161,8 +193,44 @@
     -fx-padding: 5;
     -fx-background-radius: 20;
     -fx-font-family: 'Krona One';
+    -fx-display-caret: false;
+    -fx-highlight-fill: -secondary-color;
+    -fx-highlight-text-fill: -fx-text-inner-color;
+    -fx-focus-color: transparent;
+    -fx-caret-visible: false;
 }
 
+.show-text .content {
+    -fx-background-color: -white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+.show-text:focused .content {
+    -fx-background-color: -white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+.show-text .scroll-bar:vertical {
+    -fx-padding: 3;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.show-text .scroll-bar:vertical .thumb {
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 43;
+    -fx-background-insets: 0;
+}
+
+.show-text .scroll-bar:vertical .increment-button,
+.show-text .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+}
 
 /** CHARTS */
 

@@ -34,7 +34,7 @@ public class ComboBoxTableCell extends TableCell<Object, String> {
         this.choiceVoisin = new ArrayList<>();
         this.neighborContainer = new VBox();
 
-        comboBox.setEditable(true);
+        comboBox.setEditable(false);
         comboBox.getStyleClass().add("table-view-combo-box");
 
         neighborContainer.getStyleClass().add("neighbor-container");
