@@ -139,7 +139,6 @@ public class AdminPageController {
     @FXML private ImageView graphmap;
     @FXML private ComboBox combobox_graph;
 
-    @FXML private ImageView graphmap;
 
     private double startX, startY;
     private double startTranslateX, startTranslateY;
@@ -1141,8 +1140,8 @@ public class AdminPageController {
         double newViewportX = startViewportX - deltaX;
         double newViewportY = startViewportY - deltaY;
 
-        double imageWidth = image_charts.getImage().getWidth();
-        double imageHeight = image_charts.getImage().getHeight();
+        double imageWidth = graphmap.getImage().getWidth();
+        double imageHeight = graphmap.getImage().getHeight();
 
         double maxViewportX = imageWidth - viewport.getWidth();
         double maxViewportY = imageHeight - viewport.getHeight();
