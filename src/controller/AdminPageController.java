@@ -116,6 +116,7 @@ public class AdminPageController {
     // stats :
     @FXML private ComboBox combobox_communeA;
     @FXML private ComboBox combobox_communeB;
+    @FXML private ComboBox combobox_filtredonnees;
     @FXML private LineChart<String, Number> linechart_stats;
     @FXML private PieChart piechart_stats;
     @FXML private Label textarea_communeA;
@@ -267,10 +268,11 @@ public class AdminPageController {
     public void exportDataToCSV(ActionEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         ReadWriteDatabase database = new ReadWriteDatabase();
+        String currentDirectory = System.getProperty("user.dir");
         try{
             database.loadAllData();
             database.getAllObjectsData().exportationEnCSV();
-            new PopupInfoController().showPopupInfo(stage, "données exporter !");
+            new PopupInfoController().showPopupInfo(stage, "Données exporter dans \n'" + currentDirectory + " dans les 'nomTable.csv'");
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -288,6 +290,7 @@ public class AdminPageController {
             new PopupInfoController().showPopupInfo(stage, "Données exporter dans \n'" + currentDirectory + "\\Users.csv'");
         }
         catch(SQLException e){
+            new PopupInfoController().showPopupInfo(stage, "Erreur lors de l'exportation !");
             e.printStackTrace();
         }
     }
