@@ -139,7 +139,7 @@ public class AdminPageController {
     @FXML private ImageView graphmap;
     @FXML private ComboBox combobox_graph;
 
-    @FXML private ImageView image_charts;
+    @FXML private ImageView graphmap;
 
     private double startX, startY;
     private double startTranslateX, startTranslateY;
@@ -1119,14 +1119,14 @@ public class AdminPageController {
 
     public void setImageChart() {
         Image image = new Image("path");
-        this.image_charts.setImage(image);
-        this.image_charts.setPreserveRatio(true);
-        this.image_charts.setSmooth(true);
-        this.image_charts.setCache(true);
+        this.graphmap.setImage(image);
+        this.graphmap.setPreserveRatio(true);
+        this.graphmap.setSmooth(true);
+        this.graphmap.setCache(true);
     }
 
     public void imagePressed(MouseEvent event) {
-        Rectangle2D viewport = image_charts.getViewport();
+        Rectangle2D viewport = graphmap.getViewport();
         startX = event.getSceneX();
         startY = event.getSceneY();
         startViewportX = viewport.getMinX();
@@ -1136,7 +1136,7 @@ public class AdminPageController {
     public void imageDragged(MouseEvent event) {
         double deltaX = event.getSceneX() - startX;
         double deltaY = event.getSceneY() - startY;
-        Rectangle2D viewport = image_charts.getViewport();
+        Rectangle2D viewport = graphmap.getViewport();
 
         double newViewportX = startViewportX - deltaX;
         double newViewportY = startViewportY - deltaY;
@@ -1150,14 +1150,14 @@ public class AdminPageController {
         newViewportX = Math.max(0, Math.min(newViewportX, maxViewportX));
         newViewportY = Math.max(0, Math.min(newViewportY, maxViewportY));
 
-        image_charts.setViewport(new Rectangle2D(newViewportX, newViewportY, viewport.getWidth(), viewport.getHeight()));
+        graphmap.setViewport(new Rectangle2D(newViewportX, newViewportY, viewport.getWidth(), viewport.getHeight()));
     }
 
     public void imageScrolled(ScrollEvent event) {
         if (event.getDeltaY() > 0) {
-            zoomIn(this.image_charts);
+            zoomIn(this.graphmap);
         } else if (event.getDeltaY() < 0) {
-            zoomOut(this.image_charts);
+            zoomOut(this.graphmap);
         }
         event.consume();
     }
